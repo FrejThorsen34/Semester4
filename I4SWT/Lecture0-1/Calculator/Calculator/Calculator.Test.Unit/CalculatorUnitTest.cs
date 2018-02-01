@@ -55,7 +55,7 @@ namespace Calculator.Test.Unit
         [TestCase(0, 5, 0)]
         [TestCase(5, -1, 0.2)]
         [TestCase(-2, 3, -8)]
-        public void Power_Test(int a, int b, double c)
+        public void Power_Test(double a, double b, double c)
         {
             var uut = new Calculator();
 
