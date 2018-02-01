@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DieselEngine.cs" />
     <Compile Include="GasEngine.cs" />
     <Compile Include="IEngine.cs" />
     <Compile Include="MotorBike.cs" />
