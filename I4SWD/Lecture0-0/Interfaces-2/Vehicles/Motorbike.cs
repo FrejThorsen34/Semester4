@@ -17,7 +17,7 @@ namespace Vehicles
 
         public void RunAtHalfSpeed()
         {
-            _engine.SetThrottle(_engine.MaxThrottle / 2);
+            _engine.Throttle = _engine.MaxThrottle / 2;
         }
     }
 }

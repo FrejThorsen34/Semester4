@@ -21,14 +21,10 @@ namespace Vehicles
             get { return _maxThrottle; }
         }
 
-        public void SetThrottle(uint thr)
+        public uint Throttle
         {
-            _curThrottle = thr;
-        }
-
-        public uint GetThrottle()
-        {
-            return _curThrottle;
+            get { return _curThrottle; }
+            set { _curThrottle = value; }
         }
     }
 }

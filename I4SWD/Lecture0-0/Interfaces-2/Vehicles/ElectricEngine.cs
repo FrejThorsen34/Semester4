@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Vehicles
 {
-    public class DieselEngine : IEngine
+    public class ElectricEngine : IEngine
     {
         private uint _curThrottle = 0;
         private uint _maxThrottle = 0;
 
-        public DieselEngine(uint maxThrottle)
+        public ElectricEngine(uint maxThrottle)
         {
             _maxThrottle = maxThrottle;
         }

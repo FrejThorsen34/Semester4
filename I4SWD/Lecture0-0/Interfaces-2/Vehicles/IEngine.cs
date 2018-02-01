@@ -11,6 +11,6 @@ namespace Vehicles
     {
         uint MaxThrottle { get; }
 
-        void SetThrottle(uint thr);
+        uint Throttle { get; set; }
     }
 }
