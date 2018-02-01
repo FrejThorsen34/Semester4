@@ -7,22 +7,17 @@ using System.Threading.Tasks;
 
 namespace Vehicles
 {
-    public class MotorBike : IEngine
+    public class MotorBike
     {
-        public uint MaxThrottle { get; }
-
-        public uint Throttle { get; set; }
-        private GasEngine _engine = null;
-        // private DieselEngine _engine = null;
-
-        MotorBike(GasEngine engine)
+        private IEngine _engine = null;
+        public MotorBike(IEngine engine)
         {
             _engine = engine;
         }
 
-        void RunAtHalfSpeed()
+        public void RunAtHalfSpeed()
         {
-            _engine.Throttle(_engine.MaxThrottle / 2);
+            _engine.SetThrottle(_engine.MaxThrottle / 2);
         }
     }
 }
