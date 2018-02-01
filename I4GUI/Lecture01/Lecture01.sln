@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise3", "Exercise3\Exercise3.csproj", "{EA590B35-D270-49A2-BC53-43630066DC54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise4", "Exercise4\Exercise4.csproj", "{050B70BF-4C71-4493-9BAB-5C11109C5D51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise5", "Exercise5\Exercise5.csproj", "{906F9B27-5661-48C3-9B6D-8E6553532459}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA590B35-D270-49A2-BC53-43630066DC54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA590B35-D270-49A2-BC53-43630066DC54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA590B35-D270-49A2-BC53-43630066DC54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA590B35-D270-49A2-BC53-43630066DC54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{050B70BF-4C71-4493-9BAB-5C11109C5D51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{050B70BF-4C71-4493-9BAB-5C11109C5D51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{050B70BF-4C71-4493-9BAB-5C11109C5D51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{050B70BF-4C71-4493-9BAB-5C11109C5D51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{906F9B27-5661-48C3-9B6D-8E6553532459}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{906F9B27-5661-48C3-9B6D-8E6553532459}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{906F9B27-5661-48C3-9B6D-8E6553532459}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{906F9B27-5661-48C3-9B6D-8E6553532459}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86E577E9-06C9-4CEF-9B0E-BA51F38036F0}
+	EndGlobalSection
+EndGlobal

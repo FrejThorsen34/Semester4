@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Vehicles
+{
+    public class GasEngine : IEngine
+    {
+        private uint _curThrottle = 0;
+        private uint _maxThrottle = 0;
+
+        public GasEngine(uint maxThrottle)
+        {
+            _maxThrottle = maxThrottle;
+        }
+
+        public uint MaxThrottle
+        {
+            get { return _maxThrottle; }
+        }
+
+        public uint Throttle
+        {
+            get { return _curThrottle; }
+            set { _curThrottle = value; }
+        }
+    }
+}
