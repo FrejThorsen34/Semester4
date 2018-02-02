@@ -9,5 +9,11 @@ namespace CardGame
         string Name { get; }
 
         int Value { get; }
+
+        void ShowHand();
+
+        void TotalValue();
+
+        void DealCard(ICard card);
     }
 }

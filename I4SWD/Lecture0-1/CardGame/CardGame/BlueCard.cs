@@ -6,13 +6,12 @@ namespace CardGame
 {
     public class BlueCard : ICard
     {
-        private string _suit;
+        private string _suit = "Blue";
         private int _number;
         private int _multiplier = 2;
 
-        public BlueCard(string suit, int number)
+        public BlueCard(int number)
         {
-            _suit = suit;
             _number = number;
         }
 
