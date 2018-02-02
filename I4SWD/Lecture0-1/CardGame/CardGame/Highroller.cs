@@ -27,7 +27,7 @@ namespace CardGame
             }
         }
 
-        public void TotalValue()
+        public int TotalValue()
         {
             var totalValue = 0;
             for (int i = 0; i <= _hand.Count; i++)
@@ -35,7 +35,8 @@ namespace CardGame
                 var temp = _hand[i];
                 totalValue = temp.Value;
             }
-            Console.WriteLine($"The total value of my hand is {totalValue}.");
+            // Console.WriteLine($"The total value of my hand is {totalValue}.");
+            return totalValue;
         }
 
         public void DealCard(ICard card)

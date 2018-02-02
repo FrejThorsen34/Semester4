@@ -12,7 +12,7 @@ namespace CardGame
 
         void ShowHand();
 
-        void TotalValue();
+        int TotalValue();
 
         void DealCard(ICard card);
     }
