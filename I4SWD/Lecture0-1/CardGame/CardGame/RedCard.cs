@@ -4,7 +4,11 @@ using System.Text;
 
 namespace CardGame
 {
-    class RedCard : ICard
+    public class RedCard : ICard
     {
+	    public RedCard(string suit, int number)
+	    {
+
+	    }
     }
 }

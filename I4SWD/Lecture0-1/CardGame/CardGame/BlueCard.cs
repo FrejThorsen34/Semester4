@@ -6,5 +6,6 @@ namespace CardGame
 {
     class BlueCard : ICard
     {
+	
     }
 }
