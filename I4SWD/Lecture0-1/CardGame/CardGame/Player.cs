@@ -4,18 +4,14 @@ using System.Text;
 
 namespace CardGame
 {
-    public class Highroller : IPlayer
+    public class Player : IPlayer
     {
         public string Name { get; } = null;
         private List<ICard> _hand = new List<ICard>();
 
-        public Highroller(string name)
+        public Player(string name)
         {
             Name = name;
-        }
-        public string Name
-        {
-            get { return _name; }
         }
 
         public void ShowHand()

@@ -13,9 +13,9 @@ namespace CardGame.Application
             Deck myDeck = new Deck(32);
             Game myGame = new Game(myDeck);
 
-            IPlayer player1 = new Highroller("Bob");
-            IPlayer player2 = new Highroller("Joe");
-            IPlayer player3 = new Highroller("Sue");
+            IPlayer player1 = new Player("Bob");
+            IPlayer player2 = new Player("Joe");
+            IPlayer player3 = new Player("Sue");
 
             myGame.AddPlayer(player1);
             myGame.AddPlayer(player2);

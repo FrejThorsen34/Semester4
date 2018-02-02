@@ -19,7 +19,7 @@ namespace CardGame
         public IPlayer Winner()
         {
             var tv = 0;
-            IPlayer winner = new IPlayer("no winners?");
+            IPlayer winner = new Player("no winners?");
             foreach (var p in _players)
             {
                 var ntv = p.TotalValue();

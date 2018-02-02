@@ -8,8 +8,6 @@ namespace CardGame
     {
         string Name { get; }
 
-        int Value { get; }
-
         void ShowHand();
 
         int TotalValue();

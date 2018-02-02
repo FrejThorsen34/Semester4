@@ -7,7 +7,7 @@ namespace CardGame
     public class Deck
     {
         Random random = new Random();
-        private stack<ICard> _cards;
+        private List<ICard> _cards = new List<ICard>();
 
         public Deck(uint size)
         {
@@ -16,19 +16,23 @@ namespace CardGame
                 int suit = random.Next(1, 4);
                 int number = random.Next(1, 8);
 
-                switch(ran)
+                switch(suit)
                 {
                     case 1:
-                        _cards.Push(RedCard(number));
+                        var red = new RedCard(number);
+                        _cards.Add(red);
                         break;
                     case 2:
-                        _cards.Push(BlueCard(number));
+                        var blue = new BlueCard(number);
+                        _cards.Add(blue);
                         break;
                     case 3:
-                        _cards.Push(GreenCard(number));
+                        var green = new GreenCard(number);
+                        _cards.Add(green);
                         break;
                     case 4:
-                        _cards.Push(YellowCard(number));
+                        var yellow = new YellowCard(number);
+                        _cards.Add(yellow);
                         break;
                     default:
                         Console.WriteLine("Default case handler! Maybe I should be an exception?");
@@ -40,8 +44,9 @@ namespace CardGame
         {
             for (int i = 1; i <= number; i++)
             {
-                player.DealCard(_cards.Peek());
-                _cards.Pop();
+                var temp = _cards.Count;
+                player.DealCard(_cards[temp]);
+                _cards.RemoveAt(temp);
             }
         }
     }
