@@ -44,7 +44,7 @@ namespace CardGame
         {
             for (int i = 1; i <= number; i++)
             {
-                var temp = _cards.Count;
+                var temp = _cards.Count - 1;
                 player.DealCard(_cards[temp]);
                 _cards.RemoveAt(temp);
             }

@@ -16,20 +16,18 @@ namespace CardGame
 
         public void ShowHand()
         {
-            for (int i = 0; i <= _hand.Count; i++)
+            foreach (var ICard in _hand)
             {
-                var temp = _hand[i];
-                Console.WriteLine($"I am holding a: {temp.Suit} {temp.Number}");
+                Console.WriteLine($"{Name} is holding a: {ICard.Suit} {ICard.Number}");
             }
         }
 
         public int TotalValue()
         {
             var totalValue = 0;
-            for (int i = 0; i <= _hand.Count; i++)
+            foreach (var ICard in _hand)
             {
-                var temp = _hand[i];
-                totalValue = temp.Value;
+                totalValue = totalValue + ICard.Value;
             }
             // Console.WriteLine($"The total value of my hand is {totalValue}.");
             return totalValue;

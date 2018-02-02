@@ -19,14 +19,14 @@ namespace CardGame
         public IPlayer Winner()
         {
             var tv = 0;
-            IPlayer winner = new Player("no winners?");
-            foreach (var p in _players)
+            IPlayer winner = null;
+            foreach (var IPlayer in _players)
             {
-                var ntv = p.TotalValue();
+                var ntv = IPlayer.TotalValue();
                 if (ntv > tv)
                 {
                     tv = ntv;
-                    winner = p;
+                    winner = IPlayer;
                 }
             }
             return winner;
@@ -44,9 +44,9 @@ namespace CardGame
         {
             _onGoing = true;
 
-            foreach (var p in _players)
+            foreach (var IPlayer in _players)
             {
-                _deck.DealCards(p, numberOfCards);
+                _deck.DealCards(IPlayer, numberOfCards);
             }
         }
     }

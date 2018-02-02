@@ -24,8 +24,11 @@ namespace CardGame.Application
             myGame.DealAllPlayers(3);
 
             player1.ShowHand();
+            Console.WriteLine($"The total value of {player1.Name}'s hand is {player1.TotalValue()}!");
             player2.ShowHand();
+            Console.WriteLine($"The total value of {player2.Name}'s hand is {player2.TotalValue()}!");
             player3.ShowHand();
+            Console.WriteLine($"The total value of {player3.Name}'s hand is {player3.TotalValue()}!");
 
             IPlayer winner = myGame.Winner();
             Console.WriteLine($"The winner is: {winner.Name}! Congratulations!");
