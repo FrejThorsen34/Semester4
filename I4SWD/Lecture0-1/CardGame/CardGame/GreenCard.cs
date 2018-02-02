@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CardGame
 {
-    class GreenCard : ICard
+    public class GreenCard : ICard
     {
     }
 }
