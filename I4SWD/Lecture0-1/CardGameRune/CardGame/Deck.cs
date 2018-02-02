@@ -9,34 +9,14 @@ namespace CardGame
 {
 	public class Deck
 	{
-		private Stack<ICard> _cards = new Stack<ICard>();
+		private Stack<ICard> _cards;
 
-		public void AddCards(int numberOfCards, int cardNumber, string suit)
+		public Deck(Stack<ICard> cards)
 		{
-			for (int i = 0; i < numberOfCards; i++)
-			{
-				switch (suit)
-				{
-					case "Red":
-						_cards.Push(new RedCard(cardNumber));
-						break;
-					case "Blue":
-						_cards.Push(new BlueCard(cardNumber));
-						break;
-					case "Green":
-						_cards.Push(new GreenCard(cardNumber));
-						break;
-					case "Yellow":
-						_cards.Push(new YellowCard(cardNumber));
-						break;
-					default:
-						throw new System.ArgumentException("Not a valid suit", suit);
-				}
-			}
-
+			_cards = cards;
 		}
 
-		public void Deal(Player player, int numberOfCards)
+		public void Deal(IPlayer player, int numberOfCards)
 		{
 			if (_cards.Peek() == null) return;
 

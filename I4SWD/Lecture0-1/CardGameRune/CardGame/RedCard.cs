@@ -7,8 +7,7 @@ namespace CardGame
 	public class RedCard : ICard
 	{
 		private int _multiplier = 1;
-
-		public RedCard(int number)
+	public RedCard(int number)
 		{
 			Number = number;
 		}

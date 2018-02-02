@@ -10,6 +10,7 @@ namespace CardGame
 		private int _number;
 		private int _multiplier = 3;
 
+		
 		public GreenCard(int number)
 		{
 			_number = number;

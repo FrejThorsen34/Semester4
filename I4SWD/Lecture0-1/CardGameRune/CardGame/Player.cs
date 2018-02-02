@@ -13,6 +13,10 @@ namespace CardGame
 		private List<ICard> _hand = new List<ICard>();
 		public string Name { get; } = null;
 
+		public Player(string name)
+		{
+			Name = name;
+		}
 		public List<ICard> ShowHand()
 		{
 			return _hand;
