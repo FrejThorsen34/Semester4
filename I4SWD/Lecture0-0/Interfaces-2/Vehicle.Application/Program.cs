@@ -16,12 +16,12 @@ namespace Vehicle.Application
             // ************************************** //
             var myGasEngine = new GasEngine(100);
             var myGasMotorBike = new MotorBike(myGasEngine);
-            var thr = myGasEngine.Throttle;
+            var thr = myGasEngine.CurThrottle;
             Console.WriteLine($"My gas throttle when idling is: {thr}.");
             thr = myGasEngine.MaxThrottle;
             Console.WriteLine($"My gas throttle at full speed is: {thr}");
             myGasMotorBike.RunAtHalfSpeed();
-            thr = myGasEngine.Throttle;
+            thr = myGasEngine.CurThrottle;
             Console.WriteLine($"My gas throttle at half speed is: {thr}");
 
             // ******************************************** //
@@ -30,12 +30,12 @@ namespace Vehicle.Application
             var myDieselEngine = new DieselEngine(120);
             var myDieselMotorBike = new MotorBike(myDieselEngine);
             // Diesel-bike outputs:
-            var thr2 = myDieselEngine.Throttle;
+            var thr2 = myDieselEngine.CurThrottle;
             Console.WriteLine($"My diesel throttle when idling is: {thr2}");
             thr2 = myDieselEngine.MaxThrottle;
             Console.WriteLine($"My diesel throttle at full speed is: {thr2}");
             myDieselMotorBike.RunAtHalfSpeed();
-            thr2 = myDieselEngine.Throttle;
+            thr2 = myDieselEngine.CurThrottle;
             Console.WriteLine($"My diesel throttle at half speed is: {thr2}");
 
             // ************************************************ //
@@ -44,12 +44,12 @@ namespace Vehicle.Application
             var myElectricEngine = new ElectricEngine(168);
             var myElectricMotorBike = new MotorBike(myElectricEngine);
             // Electric-bike outputs:
-            var thr3 = myElectricEngine.Throttle;
+            var thr3 = myElectricEngine.CurThrottle;
             Console.WriteLine($"My electric throttle when idling is: {thr3}");
             thr3 = myElectricEngine.MaxThrottle;
             Console.WriteLine($"My electric throttle at full speed is: {thr3}");
             myElectricMotorBike.RunAtHalfSpeed();
-            thr3 = myElectricEngine.Throttle;
+            thr3 = myElectricEngine.CurThrottle;
             Console.WriteLine($"My electric throttle at half speed is: {thr3}");
 
             Console.ReadLine();

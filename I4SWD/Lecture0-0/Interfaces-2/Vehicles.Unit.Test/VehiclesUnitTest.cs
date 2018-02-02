@@ -16,9 +16,9 @@ namespace Vehicles.Unit.Test
         {
             DieselEngine _suut = new DieselEngine(a);
             MotorBike _uut = new MotorBike(_suut);
-            Assert.That(_suut.Throttle = a, Is.EqualTo(a));
+            Assert.That(_suut.CurThrottle = a, Is.EqualTo(a));
             _uut.RunAtHalfSpeed();
-            Assert.That(_suut.Throttle, Is.EqualTo(a / 2));
+            Assert.That(_suut.CurThrottle, Is.EqualTo(a / 2));
         }
 
         [TestCase((uint)88)]
@@ -26,9 +26,9 @@ namespace Vehicles.Unit.Test
         {
             GasEngine _suut = new GasEngine(a);
             MotorBike _uut = new MotorBike(_suut);
-            Assert.That(_suut.Throttle = a, Is.EqualTo(a));
+            Assert.That(_suut.CurThrottle = a, Is.EqualTo(a));
             _uut.RunAtHalfSpeed();
-            Assert.That(_suut.Throttle, Is.EqualTo(a / 2));
+            Assert.That(_suut.CurThrottle, Is.EqualTo(a / 2));
         }
 
         [TestCase((uint)122)]
@@ -36,9 +36,9 @@ namespace Vehicles.Unit.Test
         {
             ElectricEngine _suut = new ElectricEngine(a);
             MotorBike _uut = new MotorBike(_suut);
-            Assert.That(_suut.Throttle = a, Is.EqualTo(a));
+            Assert.That(_suut.CurThrottle = a, Is.EqualTo(a));
             _uut.RunAtHalfSpeed();
-            Assert.That(_suut.Throttle, Is.EqualTo(a / 2));
+            Assert.That(_suut.CurThrottle, Is.EqualTo(a / 2));
         }
 
     }
