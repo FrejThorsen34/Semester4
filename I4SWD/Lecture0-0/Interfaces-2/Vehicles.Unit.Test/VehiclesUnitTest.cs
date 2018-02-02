@@ -11,34 +11,34 @@ namespace Vehicles.Unit.Test
     [Author("NERK")]
     public class VehiclesUnitTest
     {
-        [TestCase(66)]
+        [TestCase((uint)66)]
         public void DieselEngine_Set_Get(uint a)
         {
             DieselEngine _suut = new DieselEngine(a);
             MotorBike _uut = new MotorBike(_suut);
-            Assert.That(_suut.Throttle = a, Is.EqualTo(a));
+            Assert.That(_suut.CurThrottle = a, Is.EqualTo(a));
             _uut.RunAtHalfSpeed();
-            Assert.That(_suut.Throttle, Is.EqualTo(a / 2));
+            Assert.That(_suut.CurThrottle, Is.EqualTo(a / 2));
         }
 
-        [TestCase(88)]
+        [TestCase((uint)88)]
         public void GasEngine_Set_Get(uint a)
         {
             GasEngine _suut = new GasEngine(a);
             MotorBike _uut = new MotorBike(_suut);
-            Assert.That(_suut.Throttle = a, Is.EqualTo(a));
+            Assert.That(_suut.CurThrottle = a, Is.EqualTo(a));
             _uut.RunAtHalfSpeed();
-            Assert.That(_suut.Throttle, Is.EqualTo(a / 2));
+            Assert.That(_suut.CurThrottle, Is.EqualTo(a / 2));
         }
 
-        [TestCase(122)]
+        [TestCase((uint)122)]
         public void ElectricEngine_Set_Get(uint a)
         {
             ElectricEngine _suut = new ElectricEngine(a);
             MotorBike _uut = new MotorBike(_suut);
-            Assert.That(_suut.Throttle = a, Is.EqualTo(a));
+            Assert.That(_suut.CurThrottle = a, Is.EqualTo(a));
             _uut.RunAtHalfSpeed();
-            Assert.That(_suut.Throttle, Is.EqualTo(a / 2));
+            Assert.That(_suut.CurThrottle, Is.EqualTo(a / 2));
         }
 
     }

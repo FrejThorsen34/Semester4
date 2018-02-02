@@ -21,7 +21,7 @@ namespace Vehicles
             get { return _maxThrottle; }
         }
 
-        public uint Throttle
+        public uint CurThrottle
         {
             get { return _curThrottle; }
             set { _curThrottle = value; }
