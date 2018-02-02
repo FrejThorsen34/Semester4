@@ -23,9 +23,7 @@ namespace CardGame
             for (int i = 0; i <= _hand.Count; i++)
             {
                 var temp = _hand[i];
-                var number = temp.Number;
-                var suit = temp.Suit;
-                Console.WriteLine($"I am holding a: {suit} {number}");
+                Console.WriteLine($"I am holding a: {temp.Suit} {temp.Number}");
             }
         }
 

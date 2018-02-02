@@ -29,6 +29,10 @@ namespace CardGame
                         break;
                     case 4:
                         _cards.Push(YellowCard(number));
+                        break;
+                    default:
+                        Console.WriteLine("Default case handler! Maybe I should be an exception?");
+                        break;
                 }
             }
         }
