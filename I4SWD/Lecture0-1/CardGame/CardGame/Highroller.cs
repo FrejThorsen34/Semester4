@@ -22,9 +22,10 @@ namespace CardGame
         {
             for (int i = 0; i <= _hand.Count; i++)
             {
-                var number = _hand.[i].Number;
-                var suit = _hand.[i].Suit;
-                Console.WriteLine($"I am holding a {suit} {number}");
+                var temp = _hand[i];
+                var number = temp.Number;
+                var suit = temp.Suit;
+                Console.WriteLine($"I am holding a: {suit} {number}");
             }
         }
 
@@ -33,7 +34,8 @@ namespace CardGame
             var totalValue = 0;
             for (int i = 0; i <= _hand.Count; i++)
             {
-                totalValue = +_hand.[i].Value;
+                var temp = _hand[i];
+                totalValue = temp.Value;
             }
             Console.WriteLine($"The total value of my hand is {totalValue}.");
         }
