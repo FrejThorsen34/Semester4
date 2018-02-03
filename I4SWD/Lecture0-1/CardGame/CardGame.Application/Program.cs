@@ -30,8 +30,18 @@ namespace CardGame.Application
             player3.ShowHand();
             Console.WriteLine($"The total value of {player3.Name}'s hand is {player3.TotalValue()}!");
 
-            IPlayer winner = myGame.Winner();
-            Console.WriteLine($"The winner is: {winner.Name}! Congratulations!");
+            if (myGame.Winner().Count() == 1)
+            {
+                Console.WriteLine($"The game had one winner! The winner is {myGame.Winner()[0].Name}");
+            }
+            else
+            {
+                Console.WriteLine($"The game had {myGame.Winner().Count()} winners! The winners are: ");
+                foreach (var IPlayer in myGame.Winner())
+                {
+                    Console.WriteLine($"{IPlayer.Name} !!");
+                }
+            }
             Console.ReadLine();
         }
     }

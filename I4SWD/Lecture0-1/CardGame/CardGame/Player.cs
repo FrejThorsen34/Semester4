@@ -35,6 +35,11 @@ namespace CardGame
 
         public void DealCard(ICard card)
         {
+            if(_hand.Count >= 7)
+            {
+                throw new InvalidOperationException("Maximum handsize in this game is 7!");
+            }
+            else
             _hand.Add(card);
         }
     }

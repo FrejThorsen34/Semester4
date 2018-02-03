@@ -7,6 +7,7 @@ namespace CardGame
     public class Game
     {
         private List<IPlayer> _players = new List<IPlayer>();
+        private List<IPlayer> _winners = new List<IPlayer>();
         private Deck _deck = null;
 
         private bool _onGoing = false;
@@ -16,26 +17,34 @@ namespace CardGame
             _deck = deck;
         }
 
-        public IPlayer Winner()
+        public List<IPlayer> Winner()
         {
             var tv = 0;
-            IPlayer winner = null;
             foreach (var IPlayer in _players)
             {
                 var ntv = IPlayer.TotalValue();
                 if (ntv > tv)
                 {
                     tv = ntv;
-                    winner = IPlayer;
+                    _winners.Clear();
+                    _winners.Add(IPlayer);
+                }
+                else if (ntv == tv)
+                {
+                    _winners.Add(IPlayer);
                 }
             }
-            return winner;
+            return _winners;
         }
 
         public void AddPlayer(IPlayer player)
         {
             if (_onGoing == true)
                 throw new InvalidOperationException("Game has started, no new players!");
+            else if(_players.Count == 10)
+            {
+                throw new InvalidOperationException("The maximum amount of players allowed is 10!");
+            }
             else
                 _players.Add(player);
         }
@@ -44,10 +53,15 @@ namespace CardGame
         {
             _onGoing = true;
 
-            foreach (var IPlayer in _players)
+            if ((_players.Count * numberOfCards) < _deck.Size)
             {
-                _deck.DealCards(IPlayer, numberOfCards);
+                foreach (var IPlayer in _players)
+                {
+                    _deck.DealCards(IPlayer, numberOfCards);
+                }
             }
+            else
+                throw new InvalidOperationException("Not enough cards in deck!");
         }
     }
 }
