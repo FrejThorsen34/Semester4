@@ -16,10 +16,15 @@ namespace CardGame
 
         public void ShowHand()
         {
-            foreach (var ICard in _hand)
+            if (_hand.Count > 0)
             {
-                Console.WriteLine($"{Name} is holding a: {ICard.Suit} {ICard.Number}");
+                foreach (var ICard in _hand)
+                {
+                    Console.WriteLine($"{Name} is holding a: {ICard.Suit} {ICard.Number}");
+                }
             }
+            else
+                Console.WriteLine("My hand is empty!");
         }
 
         public int TotalValue()
@@ -40,7 +45,7 @@ namespace CardGame
                 throw new InvalidOperationException("Maximum handsize in this game is 7!");
             }
             else
-            _hand.Add(card);
+                _hand.Add(card);
         }
     }
 }

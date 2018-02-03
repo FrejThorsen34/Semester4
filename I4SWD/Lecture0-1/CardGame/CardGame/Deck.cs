@@ -37,8 +37,7 @@ namespace CardGame
                             _cards.Add(yellow);
                             break;
                         default:
-                            Console.WriteLine("Default case handler! Maybe I should be an exception?");
-                            break;
+                            throw new InvalidOperationException("Suit is undefined!");
                     }
                 }
             }
@@ -49,12 +48,19 @@ namespace CardGame
         }
         public void DealCards(IPlayer player, int number)
         {
-            for (int i = 1; i <= number; i++)
+            if (number == 0)
+                return;
+            if (number > 0)
             {
-                var temp = _cards.Count - 1;
-                player.DealCard(_cards[temp]);
-                _cards.RemoveAt(temp);
+                for (int i = 1; i <= number; i++)
+                {
+                    var temp = _cards.Count - 1;
+                    player.DealCard(_cards[temp]);
+                    _cards.RemoveAt(temp);
+                }
             }
+            else
+                throw new InvalidOperationException("Number must be a positive integer!");
         }
 
         public int Size
