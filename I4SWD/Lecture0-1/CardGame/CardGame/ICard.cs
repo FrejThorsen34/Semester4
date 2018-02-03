@@ -6,8 +6,8 @@ namespace CardGame
     {
         string Suit { get; }
 
-        int Number { get; }
+        uint Number { get; }
 
-        int Value { get; }
+        uint Value { get; }
     }
 }

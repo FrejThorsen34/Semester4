@@ -15,8 +15,8 @@ namespace CardGame
             {
                 for (int i = 1; i <= size; i++)
                 {
-                    int suit = random.Next(1, 4);
-                    int number = random.Next(1, 8);
+                    uint suit = (uint)random.Next(1, 4);
+                    uint number = (uint)random.Next(1, 8);
 
                     switch (suit)
                     {
@@ -46,7 +46,7 @@ namespace CardGame
                 throw new InvalidOperationException("Deck must contain a mimimum of one card!");
             }
         }
-        public void DealCards(IPlayer player, int number)
+        public void DealCards(IPlayer player, uint number)
         {
             if (number == 0)
                 return;

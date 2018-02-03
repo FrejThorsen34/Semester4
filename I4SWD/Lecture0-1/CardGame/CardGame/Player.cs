@@ -27,9 +27,9 @@ namespace CardGame
                 Console.WriteLine("My hand is empty!");
         }
 
-        public int TotalValue()
+        public uint TotalValue()
         {
-            var totalValue = 0;
+            uint totalValue = 0;
             foreach (var ICard in _hand)
             {
                 totalValue = totalValue + ICard.Value;

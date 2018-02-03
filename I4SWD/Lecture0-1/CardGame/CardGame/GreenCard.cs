@@ -7,10 +7,10 @@ namespace CardGame
     public class GreenCard : ICard
     {
         private string _suit = "Green";
-        private int _number;
-        private int _multiplier = 3;
+        private uint _number;
+        private uint _multiplier = 3;
 
-        public GreenCard(int number)
+        public GreenCard(uint number)
         {
             _number = number;
         }
@@ -20,12 +20,12 @@ namespace CardGame
             get { return _suit; }
         }
 
-        public int Number
+        public uint Number
         {
             get { return _number; }
         }
 
-        public int Value
+        public uint Value
         {
             get { return _multiplier * _number; }
         }

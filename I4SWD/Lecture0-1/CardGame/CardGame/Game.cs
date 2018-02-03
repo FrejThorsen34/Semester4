@@ -6,7 +6,7 @@ namespace CardGame
 {
     public class Game
     {
-        private List<IPlayer> _players = new List<IPlayer>();
+        public List<IPlayer> _players = new List<IPlayer>();
         private List<IPlayer> _winners = new List<IPlayer>();
         private Deck _deck = null;
 
@@ -19,7 +19,7 @@ namespace CardGame
 
         public List<IPlayer> Winner()
         {
-            var tv = 0;
+            uint tv = 0;
             foreach (var IPlayer in _players)
             {
                 var ntv = IPlayer.TotalValue();
@@ -49,7 +49,7 @@ namespace CardGame
                 _players.Add(player);
         }
 
-        public void DealAllPlayers(int numberOfCards)
+        public void DealAllPlayers(uint numberOfCards)
         {
             _onGoing = true;
 
