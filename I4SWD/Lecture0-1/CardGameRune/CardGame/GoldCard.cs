@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CardGame
 {
-	public class RedCard : ICard
+	public class GoldCard : ICard
 	{
-		private int _multiplier = 1;
+		private int _multiplier = 5;
 		private int _number;
-		private string _suit = "Red";
-		public RedCard(int number)
+		private string _suit = "Gold";
+
+		public GoldCard(int number)
 		{
 			_number = number;
 		}

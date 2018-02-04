@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace CardGame
 {
-	public class Game : IGame
+	public class GameLowWin : IGame
 	{
 		private List<IPlayer> _players = new List<IPlayer>();
 		private List<IPlayer> _winners = new List<IPlayer>();
 		private Deck _deck = null;
 		private bool _onGoing = false;
 
-		public Game(Deck deck)
+		public GameLowWin(Deck deck)
 		{
 			_deck = deck;
 		}
@@ -26,13 +25,14 @@ namespace CardGame
 
 		public List<IPlayer> Winner()
 		{
-			var tv = 0;
-			
+
+			var tv = Int32.MaxValue;
+
 			foreach (var player in _players)
 			{
 				var ntv = player.TotalValue();
 
-				if(ntv > tv)
+				if (ntv < tv)
 				{
 					tv = ntv;
 					_winners.Clear();
@@ -54,7 +54,7 @@ namespace CardGame
 				throw new InvalidOperationException("Game has started, no new players");
 			}
 			else
-			_players.Add(player);
+				_players.Add(player);
 		}
 
 		public void DealAllPlayers(int numberOfCards)
@@ -63,9 +63,8 @@ namespace CardGame
 
 			foreach (var p in _players)
 			{
-				_deck.Deal(p,numberOfCards);
+				_deck.Deal(p, numberOfCards);
 			}
 		}
-
 	}
 }

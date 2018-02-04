@@ -11,20 +11,28 @@ namespace CardGame
 	{
 		private Stack<ICard> _cards;
 
-		public Deck(Stack<ICard> cards)
+		public Deck(List<ICard> cards)
 		{
-			_cards = cards;
+			_cards = new Stack<ICard>(cards);
 		}
 
 		public void Deal(IPlayer player, int numberOfCards)
 		{
-			if (_cards.Peek() == null) return;
-
-			for (int i = 0; i > numberOfCards; i++)
+			if (numberOfCards <= 0)
+				throw new InvalidOperationException("Cannot deal less than one card");
+			if (numberOfCards > 0)
 			{
-				player.DealCard(_cards.Pop());
+				for (int i = 0; i < numberOfCards; i++)
+				{
+					if (_cards.Count < 1)
+					{
+						Console.WriteLine("The Deck is empty!");
+						return;
+					}
+						
+					player.DealCard(_cards.Pop());
+				}
 			}
-			
 		}
 	
 	}

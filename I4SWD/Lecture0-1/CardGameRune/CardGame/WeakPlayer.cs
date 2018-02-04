@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace CardGame
 {
-	
-
-	public class Player : IPlayer
+	public class WeakPlayer : IPlayer
 	{
 		private List<ICard> _hand = new List<ICard>();
 		public string Name { get; } = null;
 
-		public Player(string name)
+		public WeakPlayer(string name)
 		{
-			Name = name;
+			Name = name+"(weak)";
 		}
 		public List<ICard> ShowHand()
 		{
@@ -37,6 +35,13 @@ namespace CardGame
 		public void DealCard(ICard card)
 		{
 			_hand.Add(card);
+
+			if (_hand.Count > 3)
+			{
+				Random random = new Random();
+				_hand.RemoveAt((int)random.Next(1, 3));
+			}
+			
 		}
 	}
 }

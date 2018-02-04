@@ -43,9 +43,13 @@
     <Compile Include="BlueCard.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GameLowWin.cs" />
+    <Compile Include="GoldCard.cs" />
     <Compile Include="GreenCard.cs" />
+    <Compile Include="IGame.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="WeakPlayer.cs" />
     <Compile Include="YellowCard.cs" />
     <Compile Include="RedCard.cs" />
     <Compile Include="ICard.cs" />
