@@ -49,7 +49,7 @@
     <Compile Include="IGame.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="WeakPlayer.cs" />
+    <Compile Include="PlayerWeak.cs" />
     <Compile Include="YellowCard.cs" />
     <Compile Include="RedCard.cs" />
     <Compile Include="ICard.cs" />

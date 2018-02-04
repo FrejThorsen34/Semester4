@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace CardGame
 {
-	public class WeakPlayer : IPlayer
+	public class PlayerWeak : IPlayer
 	{
 		private List<ICard> _hand = new List<ICard>();
 		public string Name { get; } = null;
 
-		public WeakPlayer(string name)
+		public PlayerWeak(string name)
 		{
 			Name = name+"(weak)";
 		}
@@ -39,7 +39,7 @@ namespace CardGame
 			if (_hand.Count > 3)
 			{
 				Random random = new Random();
-				_hand.RemoveAt((int)random.Next(1, 3));
+				_hand.RemoveAt((int)random.Next(0, 3));
 			}
 			
 		}

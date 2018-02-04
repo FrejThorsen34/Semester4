@@ -11,42 +11,41 @@ namespace CardGame.Application
 		static void Main(string[] args)
 		{
 
-			//Generate Deck
+			//Generate cards
 			List<ICard> myCards = new List<ICard>();
 
-			Random random = new Random();
-
-				for (int i = 1; i <= 25; i++)
+			for (int i = 1; i < 9; i++)
+			{
+				for (int j = 1; j < 6; j++)
 				{
-					int suit = (int)random.Next(1, 5);
-					int number = (int)random.Next(1, 8);
 
-					switch (suit)
+					switch (j)
 					{
 						case 1:
-							var red = new RedCard(number);
+							var red = new RedCard(i);
 							myCards.Add(red);
 							break;
 						case 2:
-							var blue = new BlueCard(number);
+							var blue = new BlueCard(i);
 							myCards.Add(blue);
 							break;
 						case 3:
-							var green = new GreenCard(number);
+							var green = new GreenCard(i);
 							myCards.Add(green);
 							break;
 						case 4:
-							var yellow = new YellowCard(number);
+							var yellow = new YellowCard(i);
 							myCards.Add(yellow);
 							break;
 						case 5:
-							var gold = new GoldCard(number);
+							var gold = new GoldCard(i);
 							myCards.Add(gold);
 							break;
-					default:
+						default:
 							throw new InvalidOperationException("Suit is undefined!");
 					}
 				}
+			}
 		
 			Deck myDeck = new Deck(myCards);
 			IGame myGame = new GameLowWin(myDeck);
@@ -54,8 +53,8 @@ namespace CardGame.Application
 			IPlayer player1 = new Player("player1");
 			IPlayer player2 = new Player("player2");
 			IPlayer player3 = new Player("player3");
-			IPlayer player4 = new WeakPlayer("player4");
-			IPlayer player5 = new WeakPlayer("player5");
+			IPlayer player4 = new PlayerWeak("player4");
+			IPlayer player5 = new PlayerWeak("player5");
 
 			myGame.AddPlayer(player1);
 			myGame.AddPlayer(player2);
