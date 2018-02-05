@@ -10,7 +10,7 @@ namespace CardGame.Application
     {
         static void Main(string[] args)
         {
-            Deck myDeck = new Deck(32);
+            Deck myDeck = new Deck(33);
             Game myGame = new Game(myDeck);
 
             IPlayer player1 = new Player("Bob");
