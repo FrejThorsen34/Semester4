@@ -6,7 +6,53 @@
         xmlns:local="clr-namespace:HullSpeedNickolai"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+    <StackPanel Name="MainPanel"
+                Orientation="Horizontal"
+                >
+        <StackPanel >
+            <WrapPanel>
+                <Label Margin="3"
+                       Content="_Name: "
+                       Panel.ZIndex="1"
+                       />
+                <TextBox Name="tbxName"
+                         Margin="3"
+                         MinWidth="200"
+                         Panel.ZIndex="2" 
+                         TextChanged="tbxName_TextChanged" />
+            </WrapPanel>
+            <WrapPanel>
+                <Label Margin="3"
+                       Content="_Length: "
+                       Panel.ZIndex="3"
+                       />
+                <TextBox Name="tbxLength"
+                         Margin="3"
+                         MinWidth="50"
+                         Panel.ZIndex="4" TextChanged="tbxLength_TextChanged" />
+                <Label Margin="3"
+                       Content="feet"
+                       />
+            </WrapPanel>
+            <Button Name="btnCalculateHullSpeed"
+                    Content="Calculate Hull Speed"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Center"
+                    Margin="3"
+                    Padding="5,0"
+                    Panel.ZIndex="5" Click="BtnCalculateHullSpeed_OnClick" IsDefault="True" />
+            <WrapPanel>
+                <TextBlock Margin="3">Hull speed:</TextBlock>
+                <TextBlock Margin="3"
+                           MinWidth="44"
+                           Name="tbxHullSpeed"
+                           />
+                <TextBlock Margin="3"
+                           Text="knots"
+                           />
+            </WrapPanel>
+        </StackPanel>
+        <Image Source="Sailboat.jpg"
+               Margin="10,0"/>
+    </StackPanel>
 </Window>
