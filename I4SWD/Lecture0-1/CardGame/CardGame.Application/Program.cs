@@ -25,7 +25,7 @@ namespace CardGame.Application
             myGame.AddPlayer(player4);
             myGame.AddPlayer(player5);
 
-            myGame.DealAllPlayers(5);
+            myGame.DealAllPlayers(7);
 
             foreach (var player in myGame.GetPlayers())
             {

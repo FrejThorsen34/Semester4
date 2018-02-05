@@ -44,7 +44,7 @@ namespace CardGame
         {
             if (_hand.Count >= Handsize)
             {
-                int temp = myRand.Next(1, Handsize + 1);
+                int temp = myRand.Next(1, Handsize);
                 _hand.RemoveAt(temp);
             }
             _hand.Add(card);
