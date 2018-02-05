@@ -15,8 +15,8 @@ namespace CardGame
             {
                 for (int i = 1; i <= size; i++)
                 {
-                    uint suit = (uint)random.Next(1, 4);
-                    uint number = (uint)random.Next(1, 8);
+                    uint suit = (uint)random.Next(1, 5);
+                    uint number = (uint)random.Next(1, 9);
 
                     switch (suit)
                     {
