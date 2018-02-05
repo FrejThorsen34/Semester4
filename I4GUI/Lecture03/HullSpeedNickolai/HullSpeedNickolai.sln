@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HullSpeedNickolai", "HullSpeedNickolai\HullSpeedNickolai.csproj", "{0703D937-96E7-4F4C-BB2C-31AA736F91A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HullSpeed2Nickolai", "HullSpeed2Nickolai\HullSpeed2Nickolai.csproj", "{5918A76B-087B-4B1C-9B4B-1CBA13E0C690}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0703D937-96E7-4F4C-BB2C-31AA736F91A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0703D937-96E7-4F4C-BB2C-31AA736F91A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0703D937-96E7-4F4C-BB2C-31AA736F91A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5918A76B-087B-4B1C-9B4B-1CBA13E0C690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5918A76B-087B-4B1C-9B4B-1CBA13E0C690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5918A76B-087B-4B1C-9B4B-1CBA13E0C690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5918A76B-087B-4B1C-9B4B-1CBA13E0C690}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
