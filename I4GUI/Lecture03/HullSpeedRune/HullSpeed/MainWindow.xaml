@@ -11,21 +11,23 @@
 			<WrapPanel>
 				<Label Margin="3"
 					   Content="_Name: "
-					   Panel.ZIndex="1"/>
+					   
+					   />
 				<TextBox x:Name="tbxName"
 						 Margin="3"
 						 MinWidth="200"
-						 Panel.ZIndex="2"
+						 
 						 TextChanged="tbxName_TextChanged"/>
 			</WrapPanel>
 			<WrapPanel>
 				<Label Margin="3"
 					   Content="_Length: "
-					   Panel.ZIndex="3"/>
+					   
+					   />
 				<TextBox Name="tbxLength"
 						 Margin="3"
 						 MinWidth="50"
-						 Panel.ZIndex="4"
+						 
 						 TextChanged="tbxLength_TextChanged"/>
 				<Label Margin="3"
 					   Content="feet"/>
@@ -36,7 +38,7 @@
 					HorizontalAlignment="Center"
 					Margin="3"
 					Padding="5,0"
-					Panel.ZIndex="5"
+					
 					Click="btnCalculateHullSpeed_Click"
 					IsDefault="True"
 					/>
