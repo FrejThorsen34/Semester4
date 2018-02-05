@@ -15,7 +15,7 @@ namespace CardGame
             {
                 for (int i = 1; i <= size; i++)
                 {
-                    uint suit = (uint)random.Next(1, 5);
+                    uint suit = (uint)random.Next(1, 6);
                     uint number = (uint)random.Next(1, 9);
 
                     switch (suit)
@@ -35,6 +35,10 @@ namespace CardGame
                         case 4:
                             var yellow = new YellowCard(number);
                             _cards.Add(yellow);
+                            break;
+                        case 5:
+                            var gold = new GoldCard(number);
+                            _cards.Add(gold);
                             break;
                         default:
                             throw new InvalidOperationException("Suit is undefined!");
