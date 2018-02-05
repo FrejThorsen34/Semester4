@@ -6,7 +6,7 @@ namespace CardGame
 {
     public class Game
     {
-        public List<IPlayer> _players = new List<IPlayer>();
+        public List<IPlayer> Players = new List<IPlayer>();
         private List<IPlayer> _winners = new List<IPlayer>();
         private Deck _deck = null;
 
@@ -20,18 +20,18 @@ namespace CardGame
         public List<IPlayer> Winner()
         {
             uint tv = 0;
-            foreach (var IPlayer in _players)
+            foreach (var player in Players)
             {
-                var ntv = IPlayer.TotalValue();
+                var ntv = player.TotalValue();
                 if (ntv > tv)
                 {
                     tv = ntv;
                     _winners.Clear();
-                    _winners.Add(IPlayer);
+                    _winners.Add(player);
                 }
                 else if (ntv == tv)
                 {
-                    _winners.Add(IPlayer);
+                    _winners.Add(player);
                 }
             }
             return _winners;
@@ -41,23 +41,23 @@ namespace CardGame
         {
             if (_onGoing == true)
                 throw new InvalidOperationException("Game has started, no new players!");
-            else if(_players.Count == 10)
+            else if(Players.Count == 10)
             {
                 throw new InvalidOperationException("The maximum amount of players allowed is 10!");
             }
             else
-                _players.Add(player);
+                Players.Add(player);
         }
 
         public void DealAllPlayers(uint numberOfCards)
         {
             _onGoing = true;
 
-            if ((_players.Count * numberOfCards) < _deck.Size)
+            if ((Players.Count * numberOfCards) < _deck.Size)
             {
-                foreach (var IPlayer in _players)
+                foreach (var player in Players)
                 {
-                    _deck.DealCards(IPlayer, numberOfCards);
+                    _deck.DealCards(player, numberOfCards);
                 }
             }
             else
