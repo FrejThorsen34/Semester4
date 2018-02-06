@@ -26,6 +26,7 @@ namespace HullSpeed2Nickolai_2
             InitializeComponent();
             boat = new Sailboat();
             Loaded += new RoutedEventHandler(MainWindow_Loaded);
+            PreviewKeyDown += new KeyEventHandler(MainWindow_PreviewKeyDown);
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -35,7 +36,16 @@ namespace HullSpeed2Nickolai_2
 
         private void tbxLength_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            boat.Length = Double.Parse(tbxLength.Text);
+            if (tbxLength.Text.Trim() != "")
+                try
+                {
+                    boat.Length = Double.Parse(tbxLength.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("The length must be numbers!");
+                }
+
         }
         private void tbxName_OnTextChanged(object sender, TextChangedEventArgs e)
         {
@@ -44,7 +54,35 @@ namespace HullSpeed2Nickolai_2
 
         private void BtnCalculateHullSpeed_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            tbxHullSpeed.Text = boat.Hullspeed().ToString("F1");
+        }
+
+        private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.L:
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        FontSize += 2;
+                        e.Handled = true;
+                    }
+                    break;
+                case Key.S:
+                    if ((Keyboard.Modifiers == ModifierKeys.Control) && FontSize >= 6)
+                    {
+                        FontSize -= 2;
+                        e.Handled = true;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Image_MouseDown(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show($"The name of the boat is {boat.Name}!");
         }
     }
 }

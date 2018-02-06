@@ -26,6 +26,7 @@ namespace HullSpeed2Nickolai
             InitializeComponent();
             boat = new Sailboat();
             Loaded += new RoutedEventHandler(MainWindow_Loaded);
+            PreviewKeyDown += new KeyEventHandler(MainWindow_PreviewKeyDown);
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -39,11 +40,47 @@ namespace HullSpeed2Nickolai
 
         private void tbxLength_TextChanged(object sender, TextChangedEventArgs e)
         {
-            boat.Length = Double.Parse(tbxLength.Text);
+            if (tbxLength.Text.Trim() != "")
+                try
+                {
+                    boat.Length = Double.Parse(tbxLength.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("The length field must only contain numbers!");
+                }
         }
         private void tbxName_TextChanged(object sender, TextChangedEventArgs e)
         {
             boat.Name = tbxName.Text;
+        }
+
+        private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.L:
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        FontSize += 2;
+                        e.Handled = true;
+                    }
+                    break;
+                case Key.S:
+                    if ((Keyboard.Modifiers == ModifierKeys.Control) && FontSize >= 4)
+                    {
+                        FontSize -= 2;
+                        e.Handled = true;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Image_MouseDown(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show($"The name of the boat is {boat.Name}!");
         }
     }
 }

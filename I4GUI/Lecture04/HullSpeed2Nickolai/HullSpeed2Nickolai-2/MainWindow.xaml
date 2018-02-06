@@ -85,6 +85,7 @@
         <Grid Grid.Column="1">
             <Image Margin="10, 3"
                    Source="Sailboat.jpg"
+                   MouseDown="Image_MouseDown"
                    />
         </Grid>
     </Grid>
