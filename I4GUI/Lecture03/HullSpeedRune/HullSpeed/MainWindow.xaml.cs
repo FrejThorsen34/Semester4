@@ -27,6 +27,35 @@ namespace HullSpeed
 			InitializeComponent();
 			boat = new SailBoat();
 			Loaded += new RoutedEventHandler(MainWindow_Loaded);
+			PreviewKeyDown += new KeyEventHandler(MainWindow_PreviewKeyDown);
+			//MouseLeftButtonDown += new MouseButtonEventHandler(Image_MouseLeftButtonDown);
+		}
+
+		private void Image_MouseLeftButtonDown(object sender, MouseEventArgs e)
+		{
+			MessageBox.Show($"The name of the ship is {boat.Name}");
+		}
+
+		private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.L)
+			{
+				if (Keyboard.Modifiers == ModifierKeys.Control)
+				{
+					FontSize += 2;
+					e.Handled = true;
+				}
+			}
+
+			if (e.Key == Key.S)
+			{
+				if (Keyboard.Modifiers == ModifierKeys.Control && FontSize >= 4)
+				{
+					FontSize -= 2;
+					e.Handled = true;
+				}
+			}
+			
 		}
 
 		private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -41,7 +70,15 @@ namespace HullSpeed
 
 		private void tbxLength_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			boat.Length = Double.Parse(tbxLength.Text);
+			if (tbxLength.Text.Trim() != "")
+				try
+				{
+					boat.Length = Double.Parse(tbxLength.Text);
+				}
+				catch
+				{
+					MessageBox.Show("The length field must only contaion numbers");
+				}
 		}
 
 		private void btnCalculateHullSpeed_Click(object sender, RoutedEventArgs e)
