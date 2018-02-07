@@ -4,14 +4,14 @@ using System.Text;
 
 namespace CardGame
 {
-    public class Player : IPlayer
+    public class WeakPlayer : IPlayer
     {
         public string Name { get; } = null;
-        private int Handsize = 9999;
-        private List<ICard> _hand = new List<ICard>();
+        private int Handsize = 3;
         Random myRand = new Random();
+        private List<ICard> _hand = new List<ICard>();
 
-        public Player(string name)
+        public WeakPlayer(string name)
         {
             Name = name;
         }
@@ -44,7 +44,7 @@ namespace CardGame
         {
             if (_hand.Count >= Handsize)
             {
-                int temp = myRand.Next(1, Handsize + 1);
+                int temp = myRand.Next(1, Handsize);
                 _hand.RemoveAt(temp);
             }
             _hand.Add(card);
