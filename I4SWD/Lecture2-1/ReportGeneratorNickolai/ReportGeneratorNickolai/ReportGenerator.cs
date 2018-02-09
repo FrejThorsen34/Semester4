@@ -4,28 +4,44 @@ using System.Text;
 
 namespace ReportGeneratorNickolai
 {
-    
+    public enum ReportOutputFormatType
+    {
+        NameFirst,
+        SalaryFirst
+    }
     public class ReportGenerator
     {
-        private readonly EmployeeDB _employeeDB;
-        private ReportOutputFormatType _format;
+        private readonly EmployeeDB _employeeDb;
+        private ReportOutputFormatType _currentOutputFormat;
 
-        public ReportGenerator(EmployeeDB e, ReportOutputFormatType format)
+
+        public ReportGenerator(EmployeeDB employeeDb)
         {
-            if (e == null) throw new ArgumentNullException("employeeDb");
-            OutputFormat.SetOutputFormat(format);
-            _employeeDB = e;
+            if (employeeDb == null) throw new ArgumentNullException("employeeDb");
+            _currentOutputFormat = ReportOutputFormatType.NameFirst;
+            _employeeDb = employeeDb;
         }
+
 
         public void CompileReport()
         {
-            List<Employee> report = _employeeDB.GetEmployees();
-            _format = OutputFormat.GetOutputFormatType();
-            switch(_format)
+            var employees = new List<Employee>();
+            Employee employee;
+
+            _employeeDb.Reset();
+
+            // Get all employees
+            while ((employee = _employeeDb.GetNextEmployee()) != null)
+            {
+                employees.Add(employee);
+            }
+
+            // All employees collected - let's output them
+            switch (_currentOutputFormat)
             {
                 case ReportOutputFormatType.NameFirst:
-                    Console.WriteLine("Name first report");
-                    foreach (var e in report)
+                    Console.WriteLine("Name-first report");
+                    foreach (var e in employees)
                     {
                         Console.WriteLine("------------------");
                         Console.WriteLine("Name: {0}", e.Name);
@@ -33,19 +49,24 @@ namespace ReportGeneratorNickolai
                         Console.WriteLine("------------------");
                     }
                     break;
+
                 case ReportOutputFormatType.SalaryFirst:
-                    Console.WriteLine("Salary first report");
-                    foreach (var e in report)
+                    Console.WriteLine("Salary-first report");
+                    foreach (var e in employees)
                     {
                         Console.WriteLine("------------------");
                         Console.WriteLine("Salary: {0}", e.Salary);
                         Console.WriteLine("Name: {0}", e.Name);
                         Console.WriteLine("------------------");
                     }
-                    break;
-                default:
                     break;
             }
         }
-    }    
+
+
+        public void SetOutputFormat(ReportOutputFormatType format)
+        {
+            _currentOutputFormat = format;
+        }
+    }
 }

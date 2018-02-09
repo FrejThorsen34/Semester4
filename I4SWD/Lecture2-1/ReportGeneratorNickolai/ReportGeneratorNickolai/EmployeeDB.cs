@@ -6,39 +6,30 @@ namespace ReportGeneratorNickolai
 {
     public class EmployeeDB
     {
-        public List<Employee> _employees;
+        private readonly List<Employee> _employees;
+        private int _currentEmployeeIndex;
 
         public EmployeeDB()
         {
-            ResetDB();
+            _employees = new List<Employee>();
+            Reset();
         }
 
-        public void ResetDB()
+        public void Reset()
         {
-            //_employees.Clear();
+            _currentEmployeeIndex = 0;
         }
 
-        public void AddEmployee(Employee e)
+        public Employee GetNextEmployee()
         {
-            _employees.Add(e);
+            if (_currentEmployeeIndex == _employees.Count)
+                return null;
+            return _employees[_currentEmployeeIndex++];
         }
 
-        public void RemoveEmployee(Employee e)
+        public void AddEmployee(Employee employee)
         {
-            int index = _employees.BinarySearch(e);
-            try
-            {
-                _employees.RemoveAt(index);
-            }
-            catch
-            {
-                Console.WriteLine("Employee not found!");
-            }
-        }
-
-        public List<Employee> GetEmployees()
-        {
-            return _employees;
+            _employees.Add(employee);
         }
     }
 }
