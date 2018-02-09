@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReportGeneratorNickolai.Application
 {
-    public class Program
+    internal class ReportGeneratorClient
     {
         private static void Main()
         {
@@ -17,7 +17,7 @@ namespace ReportGeneratorNickolai.Application
             db.AddEmployee(new Employee("Berit", 2000));
             db.AddEmployee(new Employee("Christel", 1000));
 
-            var reportGenerator = new ReportGenerator(db, ReportOutputFormatType.NameFirst);
+            var reportGenerator = new ReportGenerator(db);
 
             // Create a default (name-first) report
             reportGenerator.CompileReport();
@@ -26,8 +26,9 @@ namespace ReportGeneratorNickolai.Application
             Console.WriteLine("");
 
             // Create a salary-first report
-            OutputFormat.SetOutputFormat(ReportOutputFormatType.SalaryFirst);
+            reportGenerator.SetOutputFormat(ReportOutputFormatType.SalaryFirst);
             reportGenerator.CompileReport();
+            Console.ReadLine();
         }
     }
 }
