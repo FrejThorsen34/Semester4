@@ -10,24 +10,34 @@ namespace ReportGeneratorNickolai.Application
     {
         private static void Main()
         {
+            // Db setup
             var db = new EmployeeDB();
 
             // Add some employees
-            db.AddEmployee(new Employee("Anne", 3000));
-            db.AddEmployee(new Employee("Berit", 2000));
-            db.AddEmployee(new Employee("Christel", 1000));
+            db.AddEmployee(new Employee("Anne", 3000, 51));
+            db.AddEmployee(new Employee("Berit", 4000, 25));
+            db.AddEmployee(new Employee("Christel", 1000, 37));
 
-            var reportGenerator = new ReportGenerator(db);
+            // Setup compile
+            var compiledDb = new CompileDB(db);
+            var reportGenerator = new ReportGenerator(compiledDb);
 
-            // Create a default (name-first) report
-            reportGenerator.CompileReport();
+            //Default (name-first) report
+            reportGenerator.GenerateReport();
 
             Console.WriteLine("");
             Console.WriteLine("");
 
             // Create a salary-first report
             reportGenerator.SetOutputFormat(ReportOutputFormatType.SalaryFirst);
-            reportGenerator.CompileReport();
+            reportGenerator.GenerateReport();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            // Create an age-first report
+            reportGenerator.SetOutputFormat(ReportOutputFormatType.AgeFirst);
+            reportGenerator.GenerateReport();
             Console.ReadLine();
         }
     }

@@ -7,54 +7,58 @@ namespace ReportGeneratorNickolai
     public enum ReportOutputFormatType
     {
         NameFirst,
-        SalaryFirst
+        SalaryFirst,
+        AgeFirst
     }
     public class ReportGenerator
     {
-        private readonly EmployeeDB _employeeDb;
+        private readonly CompileDB _compileDb;
         private ReportOutputFormatType _currentOutputFormat;
 
 
-        public ReportGenerator(EmployeeDB employeeDb)
+        public ReportGenerator(CompileDB compileDb)
         {
-            if (employeeDb == null) throw new ArgumentNullException("employeeDb");
+            if (compileDb == null) throw new ArgumentNullException("compileDb");
             _currentOutputFormat = ReportOutputFormatType.NameFirst;
-            _employeeDb = employeeDb;
+            _compileDb = compileDb;
         }
 
 
-        public void CompileReport()
+        public void GenerateReport()
         {
-            var employees = new List<Employee>();
-            Employee employee;
-
-            _employeeDb.Reset();
-
-            // Get all employees
-            while ((employee = _employeeDb.GetNextEmployee()) != null)
-            {
-                employees.Add(employee);
-            }
-
+            var employee = _compileDb.CompileDatabase();
             // All employees collected - let's output them
             switch (_currentOutputFormat)
             {
                 case ReportOutputFormatType.NameFirst:
                     Console.WriteLine("Name-first report");
-                    foreach (var e in employees)
+                    foreach (var e in employee)
                     {
                         Console.WriteLine("------------------");
                         Console.WriteLine("Name: {0}", e.Name);
                         Console.WriteLine("Salary: {0}", e.Salary);
+                        Console.WriteLine("Age: {0}", e.Age);
                         Console.WriteLine("------------------");
                     }
                     break;
 
                 case ReportOutputFormatType.SalaryFirst:
                     Console.WriteLine("Salary-first report");
-                    foreach (var e in employees)
+                    foreach (var e in employee)
                     {
                         Console.WriteLine("------------------");
+                        Console.WriteLine("Salary: {0}", e.Salary);
+                        Console.WriteLine("Name: {0}", e.Name);
+                        Console.WriteLine("Age: {0}", e.Age);
+                        Console.WriteLine("------------------");
+                    }
+                    break;
+                case ReportOutputFormatType.AgeFirst:
+                    Console.WriteLine("Age-first report");
+                    foreach (var e in employee)
+                    {
+                        Console.WriteLine("------------------");
+                        Console.WriteLine("Age: {0}", e.Age);
                         Console.WriteLine("Salary: {0}", e.Salary);
                         Console.WriteLine("Name: {0}", e.Name);
                         Console.WriteLine("------------------");
@@ -62,7 +66,6 @@ namespace ReportGeneratorNickolai
                     break;
             }
         }
-
 
         public void SetOutputFormat(ReportOutputFormatType format)
         {

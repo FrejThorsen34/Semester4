@@ -6,7 +6,7 @@ namespace ReportGeneratorNickolai
 {
     public class EmployeeDB
     {
-        private readonly List<Employee> _employees;
+        private List<Employee> _employees;
         private int _currentEmployeeIndex;
 
         public EmployeeDB()
