@@ -13,7 +13,7 @@ namespace ReportGenerator
             db.AddEmployee(new Employee("Berit", 2000));
             db.AddEmployee(new Employee("Christel", 1000));
 
-            var reportGenerator = new ReportGenerator(db.GetList());
+            var reportGenerator = new ReportGenerator(db);
 
             // Create a default (name-first) report
             reportGenerator.CompileReport();

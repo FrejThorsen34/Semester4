@@ -12,12 +12,12 @@ namespace ReportGenerator
             _employees = new List<Employee>();
             Reset();
         }
-		//not neeeded?
+
         public void Reset()
         {
             _currentEmployeeIndex = 0;
         }
-		//not needed?
+	
         public Employee GetNextEmployee()
         {
             if (_currentEmployeeIndex == _employees.Count)
@@ -29,11 +29,5 @@ namespace ReportGenerator
         {
             _employees.Add(employee);
         }
-
-		//Get list
-	    public List<Employee> GetList()
-	    {
-		    return _employees;
-	    }
 	}
 }
