@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BabyNames
 {
-	class BabyName
+	public class BabyName
 	{
 		private string _name;
 		private int[] _ranks;
@@ -23,8 +23,8 @@ namespace BabyNames
 
 			tokens = nameAndRankings.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
 			this._name = tokens[0];
-			this._ranks = new int[10];
-			for (int i = 0; i < 10; i++)
+			this._ranks = new int[11];
+			for (int i = 0; i < 11; i++)
 			{
 				this._ranks[i] = int.Parse(tokens[i + 1]);
 			}
@@ -32,7 +32,8 @@ namespace BabyNames
 
 		public int Rank(int year)
 		{
-			int index = (year - 1900) / 10;
+			int index;
+			index = (year - 1900) / 10;
 			if (index < 0 || index > 10)
 			{
 				throw new SystemException("Year must be 1900, 1910 ... 2000");

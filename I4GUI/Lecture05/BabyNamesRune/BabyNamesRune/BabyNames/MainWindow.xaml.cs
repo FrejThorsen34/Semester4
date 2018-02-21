@@ -21,22 +21,35 @@ namespace BabyNames
 	public partial class MainWindow : Window
 	{
 		private List<BabyName> _namesCollection;
-		private string[,] _rankMatrix = new string[10, 10];
+		private string[,] _rankMatrix = new string[11, 10];
 
 		public MainWindow()
 		{
 			InitializeComponent();
 			Loaded += new RoutedEventHandler(MainWindow_Loaded);
 			lstDecade.SelectionChanged += new SelectionChangedEventHandler(lstDecade_SelectionChanged);
+			btnSearch.Click += new RoutedEventHandler(Search);
+		}
+
+		private void Search(object sender, RoutedEventArgs e)
+		{
+			string name = tbxName.Text;
+
 		}
 
 		private void lstDecade_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			ListBoxItem item = lstDecade.SelectedItem as ListBoxItem;
+			ListBoxItem item;
+
+			item = lstDecade.SelectedItem as ListBoxItem;
 			if (item != null)
 			{
-				int deade = (Convert.ToInt32(item.Content) - 1900) / 10;
-				
+				int decade = (Convert.ToInt32(item.Content) - 1900) / 10;
+				lstTopBabyNames.Items.Clear();
+				for (int i=1; i < 11; i++)
+				{
+					lstTopBabyNames.Items.Add(string.Format("{0,2} {1}", i, _rankMatrix[decade, i - 1]));
+				}
 			}
 		}
 
@@ -58,7 +71,7 @@ namespace BabyNames
 						}
 						else
 						{
-							_rankMatrix[decadeIndex, rank-1] += "and" + name.Name;
+							_rankMatrix[decadeIndex, rank-1] += " and " + name.Name;
 						}
 
 				}
