@@ -16,7 +16,14 @@ namespace TheObserverPattern
 	    {
 		    TotalValueUpdate();
 	    }
-	    public void Attach(IDisplay display)
+        public void Notify()
+        {
+            foreach (var d in _displays)
+            {
+                d.Update(this);
+            }
+        }
+        public void Attach(IDisplay display)
 	    {
 		    _displays.Add(display);
 	    }
@@ -25,14 +32,6 @@ namespace TheObserverPattern
 	    {
 		    _displays.Remove(display);
 
-	    }
-
-	    public void Notify()
-	    {
-		    foreach (var d in _displays)
-		    {
-			    d.Update(this);
-		    }
 	    }
 
 		public void AddStock( StockHolding stockHolding)
