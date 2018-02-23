@@ -5,7 +5,7 @@ namespace TheObserverPattern
 {
 	public class Stock
 	{
-		private List<StockHolding> _stockHoldings;
+		private List<StockHolding> _stockHoldings = new List<StockHolding>();
 		public void Attach(StockHolding stockHolding)
 		{
 			_stockHoldings.Add(stockHolding);
@@ -28,9 +28,9 @@ namespace TheObserverPattern
 		private readonly string _name;
 		private double _value;
 
-		Stock(string name, double value)
+		public Stock(string name, double value)
 		{
-			Value = value;
+			_value = value;
 			_name = name;
 		}
 
@@ -42,7 +42,7 @@ namespace TheObserverPattern
 		public double Value
 		{
 			get { return _value; }
-			set { _value = value; }
+			set { _value = value; Notify();}
 		}
 
 	}

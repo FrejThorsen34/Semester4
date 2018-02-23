@@ -4,7 +4,7 @@ namespace TheObserverPattern
 {
 	public class StockHolding
 	{
-		private List<IPortfolio> _portfolios;
+		private List<IPortfolio> _portfolios = new List<IPortfolio>();
 		private double _totalValue;
 		private double _value;
 		private uint _amount;
@@ -12,14 +12,14 @@ namespace TheObserverPattern
 
 		public StockHolding(Stock stock, uint amount)
 		{
-			stock.Attach(this);
 			_name = stock.Name;
 			_value = stock.Value;
 			_amount = amount;
+			stock.Attach(this);
 		}
 		public void Update(Stock stock)
 		{
-			_value = stock.Value;
+			Value = stock.Value;
 		}
 
 		public void Attach(IPortfolio portfolio)
@@ -51,7 +51,7 @@ namespace TheObserverPattern
 		public double Value
 		{
 			get { return _value; }
-			set { _value = value; }
+			set { _value = value; Notify(); }
 		}
 
 		public string Name

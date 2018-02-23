@@ -8,16 +8,13 @@ namespace TheObserverPattern
 {
     public class Portfolio : IPortfolio
     {
-	    public List<StockHolding> _stockHoldings;
-	    private List<IDisplay> _displays;
+	    public List<StockHolding> _stockHoldings = new List<StockHolding>();
+	    private List<IDisplay> _displays= new List<IDisplay>();
 	    private double _totalStockValue;
 
 	    public void Update(StockHolding stockHolding)
 	    {
-		    var name = stockHolding.Name;
-		    var index = _stockHoldings.FindIndex(sh => sh.Name == name);
-		    _stockHoldings[index].Value = stockHolding.Value;
-			TotalValueUpdate();
+		    TotalValueUpdate();
 	    }
 	    public void Attach(IDisplay display)
 	    {
@@ -38,18 +35,19 @@ namespace TheObserverPattern
 		    }
 	    }
 
-		public void AddStock( Stock stock, uint amount)
+		public void AddStock( StockHolding stockHolding)
 	    {
 		    foreach (var sh in _stockHoldings)
 		    {
-			    if (sh.Name == stock.Name)
+			    if (sh.Name == stockHolding.Name)
 			    {
-				    sh.Amount += amount;
+				    sh.Amount += stockHolding.Amount;
 					TotalValueUpdate();
 					return;
 			    }
 		    }
-		   _stockHoldings.Add(new StockHolding(stock, amount));
+		   _stockHoldings.Add(stockHolding);
+			stockHolding.Attach(this);
 			TotalValueUpdate();
 	    }
 
@@ -61,7 +59,7 @@ namespace TheObserverPattern
 			    tv += sh.TotalValue;
 		    }
 
-		    _totalStockValue = tv;
+		    TotalStockValue = tv;
 		}
 
 	    //public void RemoveStock();
@@ -69,6 +67,7 @@ namespace TheObserverPattern
 	    public double TotalStockValue
 	    {
 		    get { return _totalStockValue; }
+		    set { _totalStockValue = value; Notify(); }
 	    }
     }
 }
