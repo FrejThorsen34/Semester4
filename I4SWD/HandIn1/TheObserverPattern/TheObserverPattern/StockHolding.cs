@@ -51,6 +51,7 @@ namespace TheObserverPattern
 		public double Value
 		{
 			get { return _value; }
+			set { _value = value; }
 		}
 
 		public string Name

@@ -9,14 +9,36 @@ namespace TheObserverPattern
     public class Portfolio : IPortfolio
     {
 	    public List<StockHolding> _stockHoldings;
+	    private List<IDisplay> _displays;
 	    private double _totalStockValue;
 
 	    public void Update(StockHolding stockHolding)
 	    {
-			
+		    var name = stockHolding.Name;
+		    var index = _stockHoldings.FindIndex(sh => sh.Name == name);
+		    _stockHoldings[index].Value = stockHolding.Value;
+			TotalValueUpdate();
+	    }
+	    public void Attach(IDisplay display)
+	    {
+		    _displays.Add(display);
 	    }
 
-	    public void AddStock( Stock stock, uint amount)
+	    public void Detach(IDisplay display)
+	    {
+		    _displays.Remove(display);
+
+	    }
+
+	    public void Notify()
+	    {
+		    foreach (var d in _displays)
+		    {
+			    d.Update(this);
+		    }
+	    }
+
+		public void AddStock( Stock stock, uint amount)
 	    {
 		    foreach (var sh in _stockHoldings)
 		    {
