@@ -1,55 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace TheObserverPattern
 {
     public class Portfolio : IPortfolio
     {
-	    public List<Stock> _stocks;
+	    public List<StockHolding> _stockHoldings;
 	    private double _totalStockValue;
 
-	    public void Update(Stock stock)
+	    public void Update(StockHolding stockHolding)
 	    {
-		    var name = stock.Name;
-		    var value = stock.Value;
+			
+	    }
 
-		    foreach (var s in _stocks)
+	    public void AddStock( Stock stock, uint amount)
+	    {
+		    foreach (var sh in _stockHoldings)
 		    {
-			    if (s.Name == name)
+			    if (sh.Name == stock.Name)
 			    {
-				    s.Value = value;
+				    sh.Amount += amount;
+					TotalValueUpdate();
+					return;
 			    }
 		    }
-
-		    double totalvalue = 0;
-		    foreach (var s in _stocks)
-		    {
-			    totalvalue += s.Value;
-		    }
-
-		    _totalStockValue = totalvalue;
+		   _stockHoldings.Add(new StockHolding(stock, amount));
+			TotalValueUpdate();
 	    }
 
-	    public void BuyStock(Stock stock)
+	    private void TotalValueUpdate()
 	    {
-		   _stocks.Add(stock);
-		   _totalStockValue += stock.Value;
-	    }
-
-	    public void SellStock(Stock stock)
-	    {
-		    var name = stock.Name;
-		    var index = _stocks.FindIndex(s => stock.Name == name);
-		    if (index < 0)
+		    double tv = 0;
+		    foreach (var sh in _stockHoldings)
 		    {
-			    throw new ArgumentOutOfRangeException("No stocks to sell");
+			    tv += sh.TotalValue;
 		    }
-			_stocks.RemoveAt(index);
-		    _totalStockValue -= stock.Value;
 
+		    _totalStockValue = tv;
 		}
+
+	    //public void RemoveStock();
 
 	    public double TotalStockValue
 	    {

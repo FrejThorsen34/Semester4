@@ -5,23 +5,23 @@ namespace TheObserverPattern
 {
 	public class Stock
 	{
-		private List<IPortfolio> _portfolios;
-		public void Attach(IPortfolio portfolio)
+		private List<StockHolding> _stockHoldings;
+		public void Attach(StockHolding stockHolding)
 		{
-			_portfolios.Add(portfolio);
+			_stockHoldings.Add(stockHolding);
 		}
 
-		public void Detach(IPortfolio portfolio)
+		public void Detach(StockHolding stockHolding)
 		{
-			_portfolios.Remove(portfolio);
+			_stockHoldings.Remove(stockHolding);
 
 		}
 
-		public void Notify(string name)
+		public void Notify()
 		{
-			foreach (var portfolio in _portfolios)
+			foreach (var sh in _stockHoldings)
 			{
-				portfolio.Update(this);
+				sh.Update(this);
 			}
 		}
 

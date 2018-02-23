@@ -2,6 +2,6 @@
 {
 	public interface IPortfolio
 	{
-		void Update(Stock stock);
+		void Update(StockHolding stockHolding);
 	}
 }
