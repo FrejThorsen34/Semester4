@@ -7,7 +7,7 @@ namespace TheObserverPattern
 {
     public class Portfolio : IPortfolio
     {
-	    private List<Stock> _stocks;
+	    public List<Stock> _stocks;
 	    private double _totalStockValue;
 
 	    public void Update(Stock stock)
@@ -22,20 +22,34 @@ namespace TheObserverPattern
 				    s.Value = value;
 			    }
 		    }
+
+		    double totalvalue = 0;
+		    foreach (var s in _stocks)
+		    {
+			    totalvalue += s.Value;
+		    }
+
+		    _totalStockValue = totalvalue;
 	    }
 
 	    public void BuyStock(Stock stock)
 	    {
-			_stocks.Add(stock);
+		   _stocks.Add(stock);
+		   _totalStockValue += stock.Value;
 	    }
 
 	    public void SellStock(Stock stock)
 	    {
 		    var name = stock.Name;
-
 		    var index = _stocks.FindIndex(s => stock.Name == name);
+		    if (index < 0)
+		    {
+			    throw new ArgumentOutOfRangeException("No stocks to sell");
+		    }
 			_stocks.RemoveAt(index);
-	    }
+		    _totalStockValue -= stock.Value;
+
+		}
 
 	    public double TotalStockValue
 	    {

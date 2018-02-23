@@ -8,7 +8,7 @@ namespace TheObserverPattern
     {
 	    public void PrintStocks(Portfolio portfolio)
 	    {
-
+		
 	    }
     }
 }
