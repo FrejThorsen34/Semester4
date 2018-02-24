@@ -22,7 +22,15 @@ namespace TheObserverPattern
 			Value = stock.Value;
 		}
 
-		public void Attach(IPortfolio portfolio)
+	    public void Notify()
+	    {
+	        foreach (var p in _portfolios)
+	        {
+	            p.Update(this);
+	        }
+	    }
+
+        public void Attach(IPortfolio portfolio)
 		{
 			_portfolios.Add(portfolio);
 		}
@@ -31,18 +39,8 @@ namespace TheObserverPattern
 		{
 			_portfolios.Remove(portfolio);
 
-		}
-
-		public void Notify()
-		{
-			foreach (var p in _portfolios)
-			{
-				p.Update(this);
-			}
-		}
-
+		}		
 		
-
 		public uint Amount
 		{
 			get { return _amount; }
