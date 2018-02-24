@@ -10,11 +10,14 @@ namespace TheObserverPattern
 	    {
 		    foreach (var p in portfolio._stockHoldings)
 		    {
+				Console.WriteLine("---------------");
 				Console.WriteLine($"Stock: {p.Name}");
 			    Console.WriteLine($"Amount: {p.Amount}");
 			    Console.WriteLine($"Value: {p.Value}");
 			    Console.WriteLine($"Total Value: {p.TotalValue}");
+			    Console.WriteLine("---------------");
 			}
+		    Console.WriteLine("XXXXXXXXXXXXXXX");
 		}
     }
 }

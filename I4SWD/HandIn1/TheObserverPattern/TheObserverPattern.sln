@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheObserverPattern", "TheOb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObserverPattern.Application", "ObserverPattern.Application\ObserverPattern.Application.csproj", "{48540BB1-EFA1-4200-9656-0D92B9A3C6BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObserverPatternAlternative", "ObserverPatternAlternative\ObserverPatternAlternative.csproj", "{78385780-9BDD-4903-BB3C-B7DE7FBBEB25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{48540BB1-EFA1-4200-9656-0D92B9A3C6BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48540BB1-EFA1-4200-9656-0D92B9A3C6BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48540BB1-EFA1-4200-9656-0D92B9A3C6BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78385780-9BDD-4903-BB3C-B7DE7FBBEB25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78385780-9BDD-4903-BB3C-B7DE7FBBEB25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78385780-9BDD-4903-BB3C-B7DE7FBBEB25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78385780-9BDD-4903-BB3C-B7DE7FBBEB25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

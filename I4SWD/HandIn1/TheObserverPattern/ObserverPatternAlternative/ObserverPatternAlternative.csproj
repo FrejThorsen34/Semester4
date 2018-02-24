@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{48540BB1-EFA1-4200-9656-0D92B9A3C6BD}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ObserverPattern.Application</RootNamespace>
-    <AssemblyName>ObserverPattern.Application</AssemblyName>
+    <ProjectGuid>{78385780-9BDD-4903-BB3C-B7DE7FBBEB25}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ObserverPatternAlternative</RootNamespace>
+    <AssemblyName>ObserverPatternAlternative</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,17 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Display.cs" />
+    <Compile Include="IObserver.cs" />
+    <Compile Include="Portfolio.cs" />
+    <Compile Include="Stock.cs" />
+    <Compile Include="StockHolding.cs" />
+    <Compile Include="SubjectType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ObserverPatternAlternative\ObserverPatternAlternative.csproj">
-      <Project>{78385780-9bdd-4903-bb3c-b7de7fbbeb25}</Project>
-      <Name>ObserverPatternAlternative</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
