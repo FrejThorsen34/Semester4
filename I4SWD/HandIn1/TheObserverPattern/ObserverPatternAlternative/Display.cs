@@ -16,11 +16,11 @@ namespace ObserverPatternAlternative
 				Console.WriteLine("---------------");
 				Console.WriteLine($"Stock: {sh.Name}");
 				Console.WriteLine($"Amount: {sh.Amount}");
-				Console.WriteLine($"Value: {sh.Value}");
-				Console.WriteLine($"Total Value: {sh.TotalValue}");
+				Console.WriteLine($"Value: {sh.Value:N2}");
+				Console.WriteLine($"Total Value: {sh.TotalValue:N2}");
 				Console.WriteLine("---------------");
 			}
-			Console.WriteLine($"Total Stock Value: {subject.TotalStockValue}");
+			Console.WriteLine($"Total Stock Value: {subject.TotalStockValue:N2}");
 			Console.WriteLine("XXXXXXXXXXXXXXX");
 		}
 	}

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ObserverPatternAlternative;
+using System.Timers;
 //using TheObserverPattern;
 
 namespace ObserverPattern.Application
@@ -13,7 +15,7 @@ namespace ObserverPattern.Application
 		static void Main(string[] args)
 		{
 			Stock GoogleStock = new Stock("Google", 600.50);
-			Stock VestasStock = new Stock("Vestas",300);
+			Stock VestasStock = new Stock("Vestas", 300);
 
 			StockHolding TenGoogle = new StockHolding(GoogleStock, 10);
 			StockHolding TwentyVestas = new StockHolding(VestasStock, 20);
@@ -27,9 +29,40 @@ namespace ObserverPattern.Application
 			MyPotfolio.AddStock(TenGoogle);
 			MyPotfolio.AddStock(TwentyVestas);
 
-			GoogleStock.Value = 700;
+			Random myRandom = new Random();
+			bool positive = true;
+			double procent;
 
-			Console.ReadLine();
+			while (true)
+			{
+				if (myRandom.Next(0, 2) == 1) positive = true;
+				else positive = false;
+				procent = myRandom.Next(1, 6);
+
+
+				if (positive)
+				{
+					GoogleStock.Value += GoogleStock.Value * (procent / 100);
+				}
+				else
+				{
+					GoogleStock.Value -= GoogleStock.Value * (procent / 100);
+				}
+
+				if (myRandom.Next(0, 2) == 1) positive = true;
+				else positive = false;
+				procent = myRandom.Next(0, 6);
+
+				if (positive)
+				{
+					VestasStock.Value += VestasStock.Value * (procent / 100);
+				}
+				else
+				{
+					VestasStock.Value -= VestasStock.Value * (procent / 100);
+				}
+				Thread.Sleep(3000);
+			}
 		}
 	}
 }

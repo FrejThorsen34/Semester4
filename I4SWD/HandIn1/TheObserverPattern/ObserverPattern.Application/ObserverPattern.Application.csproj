@@ -49,9 +49,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ObserverPatternAlternative\ObserverPatternAlternative.csproj">
+    <ProjectReference Include="..\ObserverPatternAlternative\ObserverPattern.csproj">
       <Project>{78385780-9bdd-4903-bb3c-b7de7fbbeb25}</Project>
-      <Name>ObserverPatternAlternative</Name>
+      <Name>ObserverPattern</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
