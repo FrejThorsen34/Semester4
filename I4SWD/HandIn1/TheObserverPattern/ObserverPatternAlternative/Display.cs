@@ -10,7 +10,8 @@ namespace ObserverPatternAlternative
 	{
 		public void Update(Portfolio subject)
 		{
-			foreach (var sh in subject._stockHoldings)
+			List<StockHolding> stockHoldings = subject.StockHoldings;
+			foreach (var sh in stockHoldings)
 			{
 				Console.WriteLine("---------------");
 				Console.WriteLine($"Stock: {sh.Name}");

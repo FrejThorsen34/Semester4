@@ -9,7 +9,7 @@ namespace ObserverPatternAlternative
 	public class Portfolio : SubjectType<Portfolio>, IObserver<StockHolding>
 	{
 		private double _totalStockValue;
-		public List<StockHolding> _stockHoldings = new List<StockHolding>();
+		private List<StockHolding> _stockHoldings = new List<StockHolding>();
 
 		public void Update(StockHolding subjectType)
 		{
@@ -40,6 +40,11 @@ namespace ObserverPatternAlternative
 			}
 
 			TotalStockValue = tv;
+		}
+
+		public List<StockHolding> StockHoldings
+		{
+			get { return _stockHoldings; }
 		}
 
 		public double TotalStockValue
