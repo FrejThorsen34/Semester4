@@ -6,7 +6,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using ObserverPatternAlternative;
 using System.Timers;
-//using TheObserverPattern;
+//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
+//	Group 25									//
+//	NE84070 - Nickolai Lundby Ernst				//
+//	20105809 - Rune Aagaard Keena				//
+//												//
+//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
+
 
 namespace ObserverPattern.Application
 {
