@@ -10,8 +10,7 @@ namespace file_client
 {
     class FileClient
     {
-        private static Socket _clientSocket =
-            new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        private static Socket _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         static void Main(string[] args)
         {
