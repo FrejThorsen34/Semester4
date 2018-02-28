@@ -30,21 +30,27 @@
                  FontSize="20" FontWeight="Bold"
                  Background="AliceBlue">
 
-            <Button Height="auto" ToolTip="Move to previous agent" Content="&lt;"
+            <Button Height="auto" 
+                    ToolTip="Move to previous agent" 
+                    Content="&lt;"
                     Command="{Binding PreviousCommand}"
                     />
-            <Button Height="auto" ToolTip="Move to next agent" Content="&gt;"
+            <Button Height="auto" 
+                    ToolTip="Move to next agent" 
+                    Content="&gt;"
                     Command="{Binding Path=NextCommand}"
                     />
-            <Button ToolTip="Add a new agent" Content="+"
+            <Button ToolTip="Add a new agent" 
+                    Content="+"
                     Command="{Binding AddCommand}"
                     />
-            <Button ToolTip="Delete selected agent" Content="-"
+            <Button ToolTip="Delete selected agent" 
+                    Content="-"
                     Command="{Binding DeleteCommand}"
                     />
 
         </ToolBar>
-        <Grid Name="agentGrid" DataContext="{StaticResource agents}">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="265*"/>
                 <ColumnDefinition Width="220*"/>
