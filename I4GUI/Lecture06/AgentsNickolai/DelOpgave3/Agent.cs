@@ -5,7 +5,14 @@ using System.Collections.ObjectModel;
 
 namespace DelOpgave3
 {
-    public class Agents : ObservableCollection<Agent> { };  // Just to reference it from xaml
+    public class Agents : ObservableCollection<Agent>
+    {
+        public Agents()
+        {
+            Add(new Agent("001", "Nina", "Assassination", "UpperVolta"));
+            Add(new Agent("007", "James Bond", "Martinis", "North Korea"));
+        }
+    }
 
     [Serializable]
     public class Agent

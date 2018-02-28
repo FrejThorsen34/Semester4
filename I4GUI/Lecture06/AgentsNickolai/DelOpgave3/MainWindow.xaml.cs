@@ -20,13 +20,32 @@ namespace DelOpgave3
     /// </summary>
     public partial class MainWindow : Window
     {
-        Agents agents = new Agents();
         public MainWindow()
         {
             InitializeComponent();
-            agents.Add(new Agent() { ID = "001", CodeName = "Nina", Speciality = "Assassination", Assignment = "UpperVolta" });
-            agents.Add(new Agent("007", "James Bond", "Martinis", "North Korea"));
-            agentGrid.DataContext = agents;
+            btnForward.Click += new RoutedEventHandler(btnForward_Click);
+            btnBack.Click += new RoutedEventHandler(btnBack_Click);
+            btnAddNew.Click += new RoutedEventHandler(btnAddNew_Click);
+        }
+
+        void btnAddNew_Click(object sender, RoutedEventArgs e)
+        {
+            Agents agents = (Agents) this.FindResource("agents");
+            agents.Add(new Agent());
+            lbxAgents.SelectedIndex = lbxAgents.Items.Count - 1;
+            tbxId.Focus();
+        }
+
+        void btnForward_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbxAgents.SelectedIndex < lbxAgents.Items.Count - 1)
+                lbxAgents.SelectedIndex = ++lbxAgents.SelectedIndex;
+        }
+
+        void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbxAgents.SelectedIndex > 0)
+                lbxAgents.SelectedIndex = --lbxAgents.SelectedIndex;
         }
     }
 }
