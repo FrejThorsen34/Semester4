@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{24646A32-4BD2-45FF-858D-17C121DDC5EE}</ProjectGuid>
+    <ProjectGuid>{9801A1E2-E287-46D1-8EF5-69A5099C5472}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>DelOpgave2</RootNamespace>
-    <AssemblyName>DelOpgave2</AssemblyName>
+    <RootNamespace>DelOpgave3</RootNamespace>
+    <AssemblyName>DelOpgave3</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
