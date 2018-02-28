@@ -26,6 +26,23 @@ namespace DelOpgave2
         {
             InitializeComponent();
             Loaded += new RoutedEventHandler(MainWindow_Loaded);
+            IstDecade.SelectionChanged += new SelectionChangedEventHandler(IstDecade_SelectionChanged);
+        }
+
+        void IstDecade_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBoxItem item;
+
+            item = IstDecade.SelectedItem as ListBoxItem;
+            if (item != null)
+            {
+                int decade = (Convert.ToInt32(item.Content) - 1900) / 10;
+                IstTopBabyNames.Items.Clear();
+                for (int i = 1; i < 11; ++i)
+                {
+                    IstTopBabyNames.Items.Add(string.Format("{0,2} {1}", i, _rankMatrix[decade, i - 1]));
+                }
+            }
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
