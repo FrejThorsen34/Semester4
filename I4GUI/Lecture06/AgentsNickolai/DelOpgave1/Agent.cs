@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections.ObjectModel;
 
-namespace I4GUI
+namespace DelOpgave1
 {
    public class Agents : ObservableCollection<Agent> { };  // Just to reference it from xaml
 
@@ -19,7 +19,7 @@ namespace I4GUI
       {
       }
 
-      public Agent(string aId, string aName, string aAddress, string aSpeciality, string aAssignment)
+      public Agent(string aId, string aName, string aSpeciality, string aAssignment)
       {
          id = aId;
          codeName = aName;
