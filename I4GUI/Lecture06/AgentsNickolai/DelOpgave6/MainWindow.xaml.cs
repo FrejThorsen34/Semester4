@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace DelOpgave6
 {
@@ -20,9 +21,21 @@ namespace DelOpgave6
     /// </summary>
     public partial class MainWindow : Window
     {
+        DispatcherTimer timer = new DispatcherTimer();
+        Clock clock = new Clock();
         public MainWindow()
         {
             InitializeComponent();
+
+            spClock.DataContext = clock;
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += new EventHandler(Timer_Tick);
+            timer.Start();
+        }
+
+        void Timer_Tick(object sender, EventArgs e)
+        {
+            clock.Update();
         }
     }
 }
