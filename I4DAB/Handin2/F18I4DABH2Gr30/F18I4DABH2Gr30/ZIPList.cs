@@ -17,7 +17,12 @@ namespace F18I4DABH2Gr30
 
 		public static int LookUp(ZIP zip)
 		{
-			bool isThere = _zips.Contains(zip);
+		    if (_zips.Count == 0)
+		    {
+		        AddZip(zip);
+		        return _zips.Count - 1;
+		    }
+		    bool isThere = _zips.Contains(zip);
 			if (!isThere)
 			{
 				AddZip(zip);

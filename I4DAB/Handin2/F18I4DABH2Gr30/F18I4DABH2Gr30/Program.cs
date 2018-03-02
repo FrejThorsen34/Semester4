@@ -11,6 +11,7 @@ namespace F18I4DABH2Gr30
 		static void Main(string[] args)
 		{
             PersonKartotek mitKartotek = new PersonKartotek();
+            ZIPList ziplist = new ZIPList();
             Email email = new Email("Nickolai@email.dk");
             PhoneNumber phone1 = new PhoneNumber(22334455, "Private", "Telia");
 		    PhoneNumber phone2 = new PhoneNumber(11001100, "Workphone", "TDC");
@@ -25,6 +26,7 @@ namespace F18I4DABH2Gr30
             person1.SetAddress(address3);
             person1.SetPhoneNumber(phone1);
 		    person1.SetPhoneNumber(phone2);
+            person1.SetEmail(email);
 
 		    mitKartotek.AddPerson(person1);
             mitKartotek.PrintPersonKartotek();
