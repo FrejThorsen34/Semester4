@@ -24,7 +24,8 @@ namespace F18I4DABH2Gr30
 		    _zip = ZIPList._zips[i];
 		}
 
-	    public string GetAddressType
+        #region Properties
+        public string GetAddressType
 	    {
 	        get { return _addressType; }
 	    }
@@ -48,5 +49,6 @@ namespace F18I4DABH2Gr30
 	    {
 	        get { return _zip; }
 	    }
-	}
+        #endregion
+    }
 }

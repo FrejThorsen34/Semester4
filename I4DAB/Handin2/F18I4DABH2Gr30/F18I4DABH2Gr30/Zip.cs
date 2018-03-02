@@ -21,10 +21,12 @@ namespace F18I4DABH2Gr30
 			_town = town;
 		}
 
-		public string Country { get => _country;}
+        #region Properties
+        public string Country { get => _country;}
 		public string Town { get => _town;}
 		public string State { get => _state; }
 		public string ZipCode { get => _zipCode;}
+        #endregion
 
-	}
+    }
 }

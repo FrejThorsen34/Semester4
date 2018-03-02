@@ -58,6 +58,7 @@ namespace F18I4DABH2Gr30
 
         #endregion
 
+        #region Commands
         public void SetAddress(Address address)
 	    {
 	        _addresses.Add(address);
@@ -87,5 +88,6 @@ namespace F18I4DABH2Gr30
 	    {
 	        return _email;
 	    }
-	}
+        #endregion
+    }
 }

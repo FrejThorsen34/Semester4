@@ -18,5 +18,22 @@ namespace F18I4DABH2Gr30
             _number = number;
             _provider = provider;
         }
-	}
+
+        #region Properties
+        public string GetPhoneType
+	    {
+	        get { return _phoneType; }
+	    }
+
+	    public uint GetNumber
+	    {
+	        get { return _number; }
+	    }
+
+	    public string GetProvider
+	    {
+	        get { return _provider; }
+	    }
+        #endregion
+    }
 }

@@ -14,5 +14,10 @@ namespace F18I4DABH2Gr30
 	    {
 	        _emailAddress = emailAddress;
 	    }
+
+	    public string GetEmail
+	    {
+	        get { return _emailAddress; }
+	    }
 	}
 }
