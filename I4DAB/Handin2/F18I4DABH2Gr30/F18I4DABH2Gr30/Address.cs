@@ -20,7 +20,8 @@ namespace F18I4DABH2Gr30
 			_street = street;
 			_streetNo = streetNo;
 			_apartmentNo = apartmentNo;
-
+		    int i = ZIPList.LookUp(zip);
+		    _zip = ZIPList._zips[i];
 		}
 	}
 }

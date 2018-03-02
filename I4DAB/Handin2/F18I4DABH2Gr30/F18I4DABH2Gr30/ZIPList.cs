@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace F18I4DABH2Gr30
 {
-	class ZIPList
+	public class ZIPList
 	{
-		private static List<ZIP> _zips;
+		public static List<ZIP> _zips;
 
 		public ZIPList()
 		{
