@@ -19,7 +19,6 @@ namespace F18I4DABH2Gr30
 			_country = country;
 			_state = state;
 			_town = town;
-
 		}
 
 		public string Country { get => _country;}

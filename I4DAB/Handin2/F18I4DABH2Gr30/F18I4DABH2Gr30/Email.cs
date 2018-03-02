@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace F18I4DABH2Gr30
 {
-	class Email
+	public class Email
 	{
 		private string _emailAddress;
+
+	    public Email(string emailAddress)
+	    {
+	        _emailAddress = emailAddress;
+	    }
 	}
 }

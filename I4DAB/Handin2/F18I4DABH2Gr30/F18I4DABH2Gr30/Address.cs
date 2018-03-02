@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace F18I4DABH2Gr30
 {
-	class Address
+	public class Address
 	{
 		private string _addressType;
 		private string _street;
@@ -23,5 +23,30 @@ namespace F18I4DABH2Gr30
 		    int i = ZIPList.LookUp(zip);
 		    _zip = ZIPList._zips[i];
 		}
+
+	    public string GetAddressType
+	    {
+	        get { return _addressType; }
+	    }
+
+	    public string GetStreet
+	    {
+	        get { return _street; }
+	    }
+
+	    public uint GetStreetNo
+	    {
+	        get { return _streetNo; }
+	    }
+
+	    public uint GetApartmentNo
+	    {
+	        get { return _apartmentNo; }
+	    }
+
+	    public ZIP GetZIP
+	    {
+	        get { return _zip; }
+	    }
 	}
 }
