@@ -53,6 +53,14 @@ namespace F18I4DABH2Gr30
             mitKartotek.AddPerson(person1);
             mitKartotek.AddPerson(person2);
             mitKartotek.PrintPersonKartotek();
+
+			List<ZIP> z = ziplist.getList();
+
+			foreach (var zip in z)
+			{
+				Console.WriteLine($"{zip.ZipCode}");
+			}
+
 		    Console.ReadLine();
 		}
 	}
