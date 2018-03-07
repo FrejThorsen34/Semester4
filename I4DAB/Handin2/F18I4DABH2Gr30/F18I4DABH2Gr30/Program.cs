@@ -25,7 +25,7 @@ namespace F18I4DABH2Gr30
             Address address1 = new Address("Private", "Vestre Ringgade", 10, 3, aarhus);
 		    Address address2 = new Address("Work", "Finlandsgade", 17, 1, aarhus);
             Address address3 = new Address("Cottage", "Vollsmosegade", 1, 1, odense);
-            Person person1 = new Person("Nickolai", "Lundby", "Ernst", 130188, "Cool");
+            Person person1 = new Person("Nickolai", "Lundby", "Ernst", 130188, "Employee");
             person1.SetAddress(address1);
             person1.SetAddress(address2);
             person1.SetAddress(address3);
@@ -41,7 +41,7 @@ namespace F18I4DABH2Gr30
 		    Address address4 = new Address("Private", "Fynsgade", 4, 8, aarhus);
 		    Address address5 = new Address("Work", "Norges Alle", 11, 3, aarhus);
 		    Address address6 = new Address("Cottage", "Main Street", 13, 2, hongkong);
-		    Person person2 = new Person("Stanie", "", "Cheung", 220296, "Chill");
+		    Person person2 = new Person("Stanie", "", "Cheung", 220296, "Employee");
 		    person2.SetAddress(address4);
 		    person2.SetAddress(address5);
 		    person2.SetAddress(address6);
