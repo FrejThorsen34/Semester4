@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DelOpgave6
+namespace DelOpgave1
 {
     [Serializable]
     public class Agent

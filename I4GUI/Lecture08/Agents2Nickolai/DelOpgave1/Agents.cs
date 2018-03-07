@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Xml.Serialization;
 
-namespace DelOpgave6
+namespace DelOpgave1
 {
     public class Agents : ObservableCollection<Agent>, INotifyPropertyChanged
     {
