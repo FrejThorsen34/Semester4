@@ -40,5 +40,10 @@ namespace F18I4DABH2Gr30
 			_zips.Add(zip);
 		}
 
+		public List<ZIP> getList()
+		{
+			return _zips;
+		}
+
 	}
 }
