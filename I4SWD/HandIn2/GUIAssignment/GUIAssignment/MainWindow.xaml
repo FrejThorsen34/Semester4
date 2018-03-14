@@ -31,7 +31,7 @@
                      />
             <Button ToolTip="Search for player name"
                     Content="Search" FontSize="12"
-                    Command="{Binding SearchPlayerCommand}" CommandParameter="{Binding ElementName=tbxSearchPlayer}"
+                    Command="{Binding SearchPlayerCommand}" CommandParameter="{Binding ElementName=tbxSearchPlayer, Path=Text}"
                     />
             <Button ToolTip="Generate a database of players for testing"
                     Content="Generate player database" FontSize="12"

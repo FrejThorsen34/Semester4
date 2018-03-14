@@ -18,6 +18,7 @@ namespace GUIAssignment
     {
         public static List<Player> _players = new List<Player>();
         Player _playerModel = new Player();
+        string playerName;
         public Players()
         {
         }
@@ -134,22 +135,32 @@ namespace GUIAssignment
             }
         }
 
-        public void SearchForPlayerCommand(string playerName)
+        public void SearchForPlayerCommand(string nameToSearchFor)
         {
-            int i;
-            for (i = 0; i < _players.Count; i++)
+            playerName = nameToSearchFor.ToString();
+            if (playerName == "")
             {
-                if (_players[i].Name == playerName)
-                    break;
+                MessageBox.Show("You must enter a name!", "Unable to find player", 
+                    MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
-
-            if (-1 < i && i < _players.Count)
+            else
             {
-                _playerModel = _players[i];
-                _playerModel.Name = _players[i].Name;
-                _playerModel.Kills = _players[i].Kills;
-                _playerModel.Deaths = _players[i].Deaths;
-                _playerModel.GamesPlayed = _players[i].Deaths;
+                int i;
+
+                for (i = 0; i < _players.Count; i++)
+                {
+                    if (_players[i].Name == playerName)
+                        break;
+                }
+
+                if (-1 < i && i < _players.Count)
+                {
+                    _playerModel = _players[i];
+                    _playerModel.Name = _players[i].Name;
+                    _playerModel.Kills = _players[i].Kills;
+                    _playerModel.Deaths = _players[i].Deaths;
+                    _playerModel.GamesPlayed = _players[i].Deaths;
+                }
             }
         }
 
