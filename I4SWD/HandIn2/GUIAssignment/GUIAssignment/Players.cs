@@ -16,23 +16,10 @@ namespace GUIAssignment
 {
     public class Players : ObservableCollection<Player>, INotifyPropertyChanged
     {
-        public static List<Player> _players;
+        public static List<Player> _players = new List<Player>();
         Player _playerModel = new Player();
         public Players()
         {
-            if ((bool) (DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue))
-            {
-                Add(new Player("Nickolai 10 2 5"));
-                Add(new Player("Rune 11 2 5"));
-                Add(new Player("Armina 27 5 8"));
-                Add(new Player("Emma 14 14 14"));
-                Add(new Player("Parweiz 23 10 17"));
-                Add(new Player("Simon 11 7 9"));
-                Add(new Player("Tobias 15 5 7"));
-                Add(new Player("Susanne 23 10 12"));
-                Add(new Player("Poul Eijnar 14 10 12"));
-                Add(new Player("Lars Mortensen 9 1 4"));
-            }
         }
 
         #region Commands
@@ -164,6 +151,45 @@ namespace GUIAssignment
                 _playerModel.Deaths = _players[i].Deaths;
                 _playerModel.GamesPlayed = _players[i].Deaths;
             }
+        }
+
+        ICommand _generatePlayerDatabase;
+
+        public ICommand GeneratePlayerDatabase
+        {
+            get
+            {
+                return _generatePlayerDatabase ??
+                       (_generatePlayerDatabase = new RelayCommand(GeneratePlayerDatabaseCommand));
+            }
+        }
+
+        public void GeneratePlayerDatabaseCommand()
+        {
+            Add(new Player("Nickolai", 10, 2, 5));
+            Add(new Player("Rune", 11, 2, 5));
+            Add(new Player("Armina", 27, 5, 8));
+            Add(new Player("Emma", 14, 14, 14));
+            Add(new Player("Parweiz", 23, 10, 17));
+            Add(new Player("Simon", 11, 7, 9));
+            Add(new Player("Tobias", 15, 5, 7));
+            Add(new Player("Susanne", 23, 10, 12));
+            Add(new Player("Poul Eijnar", 14, 10, 12));
+            Add(new Player("Lars Mortensen", 9, 1, 4));
+            Add(new Player("Bossen", 37, 21, 29));
+            Add(new Player("Bumsen", 2, 19, 19));
+            Add(new Player("Anders", 21, 14, 17));
+            Add(new Player("Lasse", 17, 9, 11));
+            Add(new Player("Uffe", 28, 20, 22));
+            Add(new Player("Signe", 9, 9, 9));
+            Add(new Player("Troels", 30, 23, 24));
+            Add(new Player("Mike", 5, 15, 15));
+            Add(new Player("Camilla", 12, 19, 20));
+            Add(new Player("Frederik", 20, 17, 17));
+            Add(new Player("Tina", 1, 1, 1));
+            Add(new Player("Letsgo", 3, 7, 7));
+            Add(new Player("Miriam", 7, 8, 8));
+            Add(new Player("Tim", 13, 13, 13));
         }
 
 

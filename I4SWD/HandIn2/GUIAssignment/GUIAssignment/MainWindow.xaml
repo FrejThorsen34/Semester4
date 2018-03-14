@@ -33,6 +33,10 @@
                     Content="Search" FontSize="12"
                     Command="{Binding SearchPlayerCommand}" CommandParameter="{Binding ElementName=tbxSearchPlayer}"
                     />
+            <Button ToolTip="Generate a database of players for testing"
+                    Content="Generate player database" FontSize="12"
+                    Command="{Binding GeneratePlayerDatabase}"
+                   />
         </ToolBar>
         <Grid Name="playerGrid">
             <Grid.RowDefinitions>

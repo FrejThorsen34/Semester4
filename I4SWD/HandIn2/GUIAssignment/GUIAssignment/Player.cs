@@ -25,15 +25,12 @@ namespace GUIAssignment
         {
         }
 
-        public Player(string nameAndStatistics)
+        public Player(string name, uint kills, uint deaths, uint gamesPlayed)
         {
-            string[] tokens;
-            char[] separators = {' '};
-            tokens = nameAndStatistics.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-            this._name = tokens[0];
-            this._kills = uint.Parse(tokens[1]);
-            this._deaths = uint.Parse(tokens[2]);
-            this._gamesPlayed = uint.Parse(tokens[3]);
+            Name = name;
+            Kills = kills;
+            Deaths = deaths;
+            GamesPlayed = gamesPlayed;
         }
 
         public string Name
