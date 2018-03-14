@@ -21,9 +21,27 @@ namespace GUIAssignment
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<Player> _players;
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += new RoutedEventHandler(MainWindow_Loaded);
+        }
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            bool fileFound = true;
+            string file;
+            file = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "playernames.txt");
+            try
+            {
+                Players._players = Utility.ReadPlayerData(file);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "An error occured in GUI Assignment: ");
+                Application.Current.Shutdown();
+                fileFound = false;
+            }
         }
     }
 }

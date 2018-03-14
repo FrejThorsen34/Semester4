@@ -2,18 +2,18 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"      
         xmlns:local="clr-namespace:GUIAssignment"
-        Title="HackMan Highscores!" Height="400" Width="600">
+        Title="HackMan Highscores!" Height="400" Width="750">
     <Window.DataContext>
         <local:Players/>
     </Window.DataContext>
     <DockPanel Name="dockPanelMain">
         <Menu DockPanel.Dock="Top" Name="sortMenu">
             <MenuItem Header="_Sort list">
-                <MenuItem Header="_Kills"  />
-                <MenuItem Header="_Deaths"  />
-                <MenuItem Header="_Games Played"  />
-                <MenuItem Header="Games _Won"  />
-                <MenuItem Header="_Points"  />
+                <MenuItem Header="_Kills" Command="{Binding SortKillsCommand}" />
+                <MenuItem Header="_Deaths" Command="{Binding SortDeathsCommand}" />
+                <MenuItem Header="_Games Played" Command="{Binding SortGamesPlayedCommand}" />
+                <MenuItem Header="Games _Won" Command="{Binding SortGamesWonCommand}" />
+                <MenuItem Header="_Points" Command="{Binding SortPointsCommand}" />
             </MenuItem>
         </Menu>
         <ToolBar DockPanel.Dock="Top" Height="auto"
@@ -22,6 +22,7 @@
             <Label Content="_Search Player: "
                    FontSize="12"
                    VerticalAlignment="Center"
+                   Target="{Binding ElementName=tbxSearchPlayer}"
                    />
             <TextBox Name="tbxSearchPlayer"
                      FontSize="12"
@@ -30,13 +31,84 @@
                      />
             <Button ToolTip="Search for player name"
                     Content="Search" FontSize="12"
+                    Command="{Binding SearchPlayerCommand}" CommandParameter="{Binding ElementName=tbxSearchPlayer}"
                     />
         </ToolBar>
         <Grid Name="playerGrid">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200*"/>
-                <ColumnDefinition Width="400*"/>
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300*"/>
+                <RowDefinition Height="100*"/>
+            </Grid.RowDefinitions>
+            <Grid Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0"
+                       Margin="10,5"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Content="Top 10 players in selected category"
+                />
+                <ListBox Grid.Row="1"
+                         HorizontalAlignment="Center"
+                         Margin="10,0,10,10"
+                         Padding="5"
+                         Name="PlayerHighscores"
+                         />
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0"
+                       Content="_Name"
+                    />
+                <TextBlock Grid.Column="0"
+                           Text="{Binding Path=FoundName}"
+                           FontWeight="Bold"
+                         />
+                <Label Grid.Column="1"
+                       Content="_Kills"
+                       />
+                <TextBlock Grid.Column="1"
+                           Text="{Binding Path=FoundKills}"
+                           FontWeight="Bold"
+                    />
+                <Label Grid.Column="2"
+                       Content="_Deaths"
+                       />
+                <TextBlock Grid.Column="2"
+                           Text="{Binding Path=FoundDeaths}"
+                           FontWeight="Bold"
+                           />
+                <Label Grid.Column="3"
+                       Content="_Games played"
+                       />
+                <TextBlock Grid.Column="3"
+                           Text="{Binding Path=FoundGamesPlayed}"
+                           FontWeight="Bold"
+                           />
+                <Label Grid.Column="4"
+                       Content="Games _won"
+                       />
+                <TextBlock Grid.Column="4"
+                           Text="{Binding Path=FoundGamesWon}"
+                           FontWeight="Bold"
+                           />
+                <Label Grid.Column="5"
+                       Content="_Points"
+                       />
+                <TextBlock Grid.Column="5"
+                           Text="{Binding Path=FoundPoints}"
+                           FontWeight="Bold"
+                           />
+            </Grid>
         </Grid>
     </DockPanel>
 </Window>
