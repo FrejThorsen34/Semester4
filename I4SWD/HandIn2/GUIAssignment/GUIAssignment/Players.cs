@@ -253,6 +253,7 @@ namespace GUIAssignment
             _players.Add(new Player("Letsgo", 3, 7, 7));
             _players.Add(new Player("Miriam", 7, 8, 8));
             _players.Add(new Player("Tim", 13, 13, 13));
+            _players.Add(new Player("Anne", 36, 3, 9));
         }
 
 
