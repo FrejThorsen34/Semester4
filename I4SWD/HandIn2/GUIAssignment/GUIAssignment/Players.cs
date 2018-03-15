@@ -228,6 +228,7 @@ namespace GUIAssignment
 
         public void GeneratePlayerDatabaseCommand()
         {
+            _players.Clear();
             _players.Add(new Player("Nickolai", 10, 2, 5));
             _players.Add(new Player("Rune", 11, 2, 5));
             _players.Add(new Player("Armina", 27, 5, 8));

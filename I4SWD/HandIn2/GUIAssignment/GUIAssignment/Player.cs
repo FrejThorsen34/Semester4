@@ -29,12 +29,15 @@ namespace GUIAssignment
 
         public Player(string name, int kills, int deaths, int gamesPlayed)
         {
+            // Setting properties
             Name = name;
             Kills = kills;
             Deaths = deaths;
             GamesPlayed = gamesPlayed;
-            Points = SettingPoints();
+
+            // Setting properties through functions
             GamesWon = SettingGamesWon();
+            Points = SettingPoints();
         }
 
         public int SettingGamesWon()
