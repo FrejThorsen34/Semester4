@@ -19,10 +19,7 @@ namespace GUIAssignment
         public static List<Player> _players = new List<Player>();
         public static List<string> _displayPlayers = new List<string>();
         Player _playerModel = new Player();
-        string playerName;
-        public Players()
-        {
-        }
+        private string _lastSort;
 
         #region Commands
 
@@ -44,6 +41,7 @@ namespace GUIAssignment
             for (int rank = 0; rank < 10; rank++)
                 tempList.Add(string.Format("{0} {1} {2}", rank + 1, sortedList[rank].Name, sortedList[rank].Kills));
             DisplayPlayers = tempList;
+            LastSort = "Kills";
         }
 
         public bool SortByKills_CanExecute()
@@ -72,6 +70,7 @@ namespace GUIAssignment
             for (int rank = 0; rank < 10; rank++)
                 tempList.Add(string.Format("{0} {1} {2}", rank + 1, sortedList[rank].Name, sortedList[rank].Deaths));
             DisplayPlayers = tempList;
+            LastSort = "Deaths";
         }
 
         public bool SortByDeaths_CanExecute()
@@ -100,6 +99,7 @@ namespace GUIAssignment
             for (int rank = 0; rank < 10; rank++)
                 tempList.Add(string.Format("{0} {1} {2}", rank + 1, sortedList[rank].Name, sortedList[rank].GamesPlayed));
             DisplayPlayers = tempList;
+            LastSort = "Games played";
         }
 
         public bool SortByGamesPlayedCommand_CanExecute()
@@ -127,6 +127,7 @@ namespace GUIAssignment
             for (int rank = 0; rank < 10; rank++)
                 tempList.Add(string.Format("{0} {1} {2}", rank + 1, sortedList[rank].Name, sortedList[rank].GamesWon));
             DisplayPlayers = tempList;
+            LastSort = "Games won";
         }
 
         public bool SortByGamesWonCommand_CanExecute()
@@ -154,6 +155,7 @@ namespace GUIAssignment
             for (int rank = 0; rank < 10; rank++)
                 tempList.Add(string.Format("{0} {1} {2}", rank+1, sortedList[rank].Name, sortedList[rank].Points));
             DisplayPlayers = tempList;
+            LastSort = "Points";
         }
 
         public bool SortByPointsCommand_CanExecute()
@@ -178,8 +180,7 @@ namespace GUIAssignment
 
         public void SearchForPlayerCommand(string nameToSearchFor)
         {
-            playerName = nameToSearchFor.ToString();
-            if (playerName == "")
+            if (nameToSearchFor == "")
             {
                 MessageBox.Show("You must enter a name!", "Unable to find player", 
                     MessageBoxButton.OK, MessageBoxImage.Exclamation);
@@ -187,10 +188,9 @@ namespace GUIAssignment
             else
             {
                 int i;
-
                 for (i = 0; i < _players.Count; i++)
                 {                    
-                    if (playerName.Equals(_players[i].Name, StringComparison.Ordinal))
+                    if (nameToSearchFor.Equals(_players[i].Name, StringComparison.Ordinal))
                         break;
                 }
 
@@ -338,6 +338,18 @@ namespace GUIAssignment
             }
         }
 
+        public string LastSort
+        {
+            get { return _lastSort; }
+            set
+            {
+                if (value != _lastSort)
+                {
+                    _lastSort = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
         public List<string> DisplayPlayers
         {
             get { return _displayPlayers; }
