@@ -17,6 +17,7 @@ namespace GUIAssignment
     public class Players : ObservableCollection<Player>, INotifyPropertyChanged
     {
         public static List<Player> _players = new List<Player>();
+        public static List<string> _displayPlayers = new List<string>();
         Player _playerModel = new Player();
         string playerName;
         public Players()
@@ -38,11 +39,19 @@ namespace GUIAssignment
 
         public void SortByKills()
         {
+            List<Player> sortedList = _players.OrderByDescending(o => o.Kills).ToList();
+            List<string> tempList = new List<string>();
+            for (int rank = 0; rank < 10; rank++)
+                tempList.Add(string.Format("{0} {1} {2}", rank + 1, sortedList[rank].Name, sortedList[rank].Kills));
+            DisplayPlayers = tempList;
         }
 
         public bool SortByKills_CanExecute()
         {
-            return true;
+            if (_players.Count > 0)
+                return true;
+            else
+                return false;
         }
 
         ICommand _sortDeathsCommand;
@@ -58,11 +67,19 @@ namespace GUIAssignment
 
         public void SortByDeaths()
         {
+            List<Player> sortedList = _players.OrderByDescending(o => o.Deaths).ToList();
+            List<string> tempList = new List<string>();
+            for (int rank = 0; rank < 10; rank++)
+                tempList.Add(string.Format("{0} {1} {2}", rank + 1, sortedList[rank].Name, sortedList[rank].Deaths));
+            DisplayPlayers = tempList;
         }
 
         public bool SortByDeaths_CanExecute()
         {
-            return true;
+            if (_players.Count > 0)
+                return true;
+            else
+                return false;
         }
 
         ICommand _sortGamesPlayedCommand;
@@ -78,11 +95,18 @@ namespace GUIAssignment
 
         public void SortByGamesPlayedCommand()
         {
+            List<Player> sortedList = _players.OrderByDescending(o => o.GamesPlayed).ToList();
+            List<string> tempList = new List<string>();
+            for (int rank = 0; rank < 10; rank++)
+                tempList.Add(string.Format("{0} {1} {2}", rank + 1, sortedList[rank].Name, sortedList[rank].GamesPlayed));
+            DisplayPlayers = tempList;
         }
 
         public bool SortByGamesPlayedCommand_CanExecute()
         {
-            return true;
+            if (_players.Count > 0)
+                return true;
+            return false;
         }
 
         ICommand _sortGamesWonCommand;
@@ -98,11 +122,18 @@ namespace GUIAssignment
 
         public void SortByGamesWonCommand()
         {
+            List<Player> sortedList = _players.OrderByDescending(o => o.GamesWon).ToList();
+            List<string> tempList = new List<string>();
+            for (int rank = 0; rank < 10; rank++)
+                tempList.Add(string.Format("{0} {1} {2}", rank + 1, sortedList[rank].Name, sortedList[rank].GamesWon));
+            DisplayPlayers = tempList;
         }
 
         public bool SortByGamesWonCommand_CanExecute()
         {
-            return true;
+            if (_players.Count > 0)
+                return true;
+            return false;
         }
 
         ICommand _sortPointsCommand;
@@ -118,11 +149,21 @@ namespace GUIAssignment
 
         public void SortByPointsCommand()
         {
+            List<Player> sortedList = _players.OrderByDescending(o => o.Points).ToList();
+            List<string> tempList = new List<string>();
+            for (int rank = 0; rank < 10; rank++)
+                tempList.Add(string.Format("{0} {1} {2}", rank+1, sortedList[rank].Name, sortedList[rank].Points));
+            DisplayPlayers = tempList;
         }
 
         public bool SortByPointsCommand_CanExecute()
         {
-            return true;
+            if (_players.Count > 0)
+                return true;
+            else
+            {
+                return false;
+            }
         }
 
         ICommand _searchPlayerCommand;
@@ -194,7 +235,7 @@ namespace GUIAssignment
             _players.Add(new Player("Parweiz", 23, 10, 17));
             _players.Add(new Player("Simon", 11, 7, 9));
             _players.Add(new Player("Tobias", 15, 5, 7));
-            _players.Add(new Player("Susanne", 23, 10, 12));
+            _players.Add(new Player("Susanne", 23, 10, 12));            
             _players.Add(new Player("Poul Eijnar", 14, 10, 12));
             _players.Add(new Player("Lars Mortensen", 9, 1, 4));
             _players.Add(new Player("Bossen", 37, 21, 29));
@@ -231,7 +272,7 @@ namespace GUIAssignment
             }
         }
 
-        public uint FoundKills
+        public int FoundKills
         {
             get { return _playerModel.Kills; }
             set
@@ -244,7 +285,7 @@ namespace GUIAssignment
             }
         }
 
-        public uint FoundDeaths
+        public int FoundDeaths
         {
             get { return _playerModel.Deaths; }
             set
@@ -257,7 +298,7 @@ namespace GUIAssignment
             }
         }
 
-        public uint FoundGamesPlayed
+        public int FoundGamesPlayed
         {
             get { return _playerModel.GamesPlayed; }
             set
@@ -270,7 +311,7 @@ namespace GUIAssignment
             }
         }
 
-        public uint FoundGamesWon
+        public int FoundGamesWon
         {
             get { return _playerModel.GamesWon; }
             set
@@ -283,7 +324,7 @@ namespace GUIAssignment
             }
         }
 
-        public double FoundPoints
+        public int FoundPoints
         {
             get { return _playerModel.Points; }
             set
@@ -291,6 +332,19 @@ namespace GUIAssignment
                 if (value != _playerModel.Points)
                 {
                     _playerModel.Points = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public List<string> DisplayPlayers
+        {
+            get { return _displayPlayers; }
+            set
+            {
+                if (value != _displayPlayers)
+                {
+                    _displayPlayers = value;
                     NotifyPropertyChanged();
                 }
             }

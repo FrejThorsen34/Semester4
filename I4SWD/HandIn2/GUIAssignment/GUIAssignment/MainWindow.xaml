@@ -56,10 +56,10 @@
                        Content="Top 10 players in selected category"
                 />
                 <ListBox Grid.Row="1"
+                         MinWidth="150"
+                         Margin="10, 10, 10, 10"
                          HorizontalAlignment="Center"
-                         Margin="10,0,10,10"
-                         Padding="5"
-                         Name="PlayerHighscores"
+                         ItemsSource="{Binding DisplayPlayers}"
                          />
             </Grid>
             <Grid Grid.Row="1">

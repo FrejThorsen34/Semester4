@@ -21,7 +21,6 @@ namespace GUIAssignment
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Player> _players;
         public MainWindow()
         {
             InitializeComponent();
