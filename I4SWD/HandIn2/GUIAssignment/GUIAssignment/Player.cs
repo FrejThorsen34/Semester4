@@ -20,6 +20,8 @@ namespace GUIAssignment
         private uint _kills;
         private uint _deaths;
         private uint _gamesPlayed;
+        private uint _gamesWon;
+        private double _points;
 
         public Player()
         {
@@ -31,6 +33,18 @@ namespace GUIAssignment
             Kills = kills;
             Deaths = deaths;
             GamesPlayed = gamesPlayed;
+        }
+
+        public uint SettingGamesWon()
+        {
+            uint gamesWon = (this.GamesPlayed - this.Deaths);
+            return gamesWon;
+        }
+
+        public double SettingPoints()
+        {
+            double points = (this.GamesWon * 10) + (this.Kills * 3) - (this.Deaths * 2);
+            return points;
         }
 
         public string Name
@@ -59,16 +73,14 @@ namespace GUIAssignment
 
         public double Points
         {
-            get
-            {
-                double points = (GamesWon * 10) + (Kills * 3) - (Deaths * 2);
-                return points;
-            }
+            get { return _points; }
+            set { _points = value; }
         }
 
         public uint GamesWon
         {
-            get { return GamesPlayed - Deaths; }
+            get { return _gamesWon; }
+            set { _gamesWon = value; }
         }
     }
 }

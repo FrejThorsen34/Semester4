@@ -148,18 +148,28 @@ namespace GUIAssignment
                 int i;
 
                 for (i = 0; i < _players.Count; i++)
-                {
-                    if (_players[i].Name == playerName)
+                {                    
+                    if (playerName.Equals(_players[i].Name, StringComparison.Ordinal))
                         break;
                 }
 
                 if (-1 < i && i < _players.Count)
                 {
-                    _playerModel = _players[i];
-                    _playerModel.Name = _players[i].Name;
-                    _playerModel.Kills = _players[i].Kills;
-                    _playerModel.Deaths = _players[i].Deaths;
-                    _playerModel.GamesPlayed = _players[i].Deaths;
+                    FoundName = _players[i].Name;
+                    FoundKills = _players[i].Kills;
+                    FoundDeaths = _players[i].Deaths;
+                    FoundGamesPlayed = _players[i].GamesPlayed;
+                    FoundGamesWon = _players[i].SettingGamesWon();
+                    FoundPoints = _players[i].SettingPoints();
+                }
+                else
+                {
+                    FoundName = "Name not found!";
+                    FoundKills = 0;
+                    FoundDeaths = 0;
+                    FoundGamesPlayed = 0;
+                    FoundGamesWon = 0;
+                    FoundPoints = 0;
                 }
             }
         }
@@ -177,30 +187,30 @@ namespace GUIAssignment
 
         public void GeneratePlayerDatabaseCommand()
         {
-            Add(new Player("Nickolai", 10, 2, 5));
-            Add(new Player("Rune", 11, 2, 5));
-            Add(new Player("Armina", 27, 5, 8));
-            Add(new Player("Emma", 14, 14, 14));
-            Add(new Player("Parweiz", 23, 10, 17));
-            Add(new Player("Simon", 11, 7, 9));
-            Add(new Player("Tobias", 15, 5, 7));
-            Add(new Player("Susanne", 23, 10, 12));
-            Add(new Player("Poul Eijnar", 14, 10, 12));
-            Add(new Player("Lars Mortensen", 9, 1, 4));
-            Add(new Player("Bossen", 37, 21, 29));
-            Add(new Player("Bumsen", 2, 19, 19));
-            Add(new Player("Anders", 21, 14, 17));
-            Add(new Player("Lasse", 17, 9, 11));
-            Add(new Player("Uffe", 28, 20, 22));
-            Add(new Player("Signe", 9, 9, 9));
-            Add(new Player("Troels", 30, 23, 24));
-            Add(new Player("Mike", 5, 15, 15));
-            Add(new Player("Camilla", 12, 19, 20));
-            Add(new Player("Frederik", 20, 17, 17));
-            Add(new Player("Tina", 1, 1, 1));
-            Add(new Player("Letsgo", 3, 7, 7));
-            Add(new Player("Miriam", 7, 8, 8));
-            Add(new Player("Tim", 13, 13, 13));
+            _players.Add(new Player("Nickolai", 10, 2, 5));
+            _players.Add(new Player("Rune", 11, 2, 5));
+            _players.Add(new Player("Armina", 27, 5, 8));
+            _players.Add(new Player("Emma", 14, 14, 14));
+            _players.Add(new Player("Parweiz", 23, 10, 17));
+            _players.Add(new Player("Simon", 11, 7, 9));
+            _players.Add(new Player("Tobias", 15, 5, 7));
+            _players.Add(new Player("Susanne", 23, 10, 12));
+            _players.Add(new Player("Poul Eijnar", 14, 10, 12));
+            _players.Add(new Player("Lars Mortensen", 9, 1, 4));
+            _players.Add(new Player("Bossen", 37, 21, 29));
+            _players.Add(new Player("Bumsen", 2, 19, 19));
+            _players.Add(new Player("Anders", 21, 14, 17));
+            _players.Add(new Player("Lasse", 17, 9, 11));
+            _players.Add(new Player("Uffe", 28, 20, 22));
+            _players.Add(new Player("Signe", 9, 9, 9));
+            _players.Add(new Player("Troels", 30, 23, 24));
+            _players.Add(new Player("Mike", 5, 15, 15));
+            _players.Add(new Player("Camilla", 12, 19, 20));
+            _players.Add(new Player("Frederik", 20, 17, 17));
+            _players.Add(new Player("Tina", 1, 1, 1));
+            _players.Add(new Player("Letsgo", 3, 7, 7));
+            _players.Add(new Player("Miriam", 7, 8, 8));
+            _players.Add(new Player("Tim", 13, 13, 13));
         }
 
 
@@ -263,11 +273,27 @@ namespace GUIAssignment
         public uint FoundGamesWon
         {
             get { return _playerModel.GamesWon; }
+            set
+            {
+                if (value != _playerModel.GamesWon)
+                {
+                    _playerModel.GamesWon = value;
+                    NotifyPropertyChanged();
+                }
+            }
         }
 
         public double FoundPoints
         {
             get { return _playerModel.Points; }
+            set
+            {
+                if (value != _playerModel.Points)
+                {
+                    _playerModel.Points = value;
+                    NotifyPropertyChanged();
+                }
+            }
         }
 
         #endregion

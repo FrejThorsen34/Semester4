@@ -41,7 +41,8 @@
         <Grid Name="playerGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="300*"/>
-                <RowDefinition Height="100*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
             </Grid.RowDefinitions>
             <Grid Row="0">
                 <Grid.RowDefinitions>
@@ -73,45 +74,55 @@
                 <Label Grid.Column="0"
                        Content="_Name"
                     />
-                <TextBlock Grid.Column="0"
-                           Text="{Binding Path=FoundName}"
-                           FontWeight="Bold"
-                         />
                 <Label Grid.Column="1"
                        Content="_Kills"
                        />
-                <TextBlock Grid.Column="1"
-                           Text="{Binding Path=FoundKills}"
-                           FontWeight="Bold"
-                    />
                 <Label Grid.Column="2"
                        Content="_Deaths"
                        />
-                <TextBlock Grid.Column="2"
-                           Text="{Binding Path=FoundDeaths}"
-                           FontWeight="Bold"
-                           />
                 <Label Grid.Column="3"
                        Content="_Games played"
                        />
-                <TextBlock Grid.Column="3"
-                           Text="{Binding Path=FoundGamesPlayed}"
-                           FontWeight="Bold"
-                           />
                 <Label Grid.Column="4"
                        Content="Games _won"
                        />
-                <TextBlock Grid.Column="4"
-                           Text="{Binding Path=FoundGamesWon}"
-                           FontWeight="Bold"
-                           />
                 <Label Grid.Column="5"
                        Content="_Points"
                        />
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="150*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Text="{Binding Path=FoundName}"
+                           FontWeight="Bold"
+                />
+                <TextBlock Grid.Column="1"
+                           Text="{Binding Path=FoundKills}"
+                           FontWeight="Bold"
+                />
+                <TextBlock Grid.Column="2"
+                           Text="{Binding Path=FoundDeaths}"
+                           FontWeight="Bold"
+                />
+                <TextBlock Grid.Column="3"
+                           Text="{Binding Path=FoundGamesPlayed}"
+                           FontWeight="Bold"
+                />
+                <TextBlock Grid.Column="4"
+                           Text="{Binding Path=FoundGamesWon}"
+                           FontWeight="Bold"
+                />
                 <TextBlock Grid.Column="5"
                            Text="{Binding Path=FoundPoints}"
                            FontWeight="Bold"
-                           />
+                />
             </Grid>
         </Grid>
     </DockPanel>
