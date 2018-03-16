@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Xml.Serialization;
+using MvvmFoundation.Wpf;
 
 namespace GUIAssignmentImproved
 {
@@ -31,7 +32,10 @@ namespace GUIAssignmentImproved
             {
                 if (_changePageCommand == null)
                 {
-                    _changePageCommand = new RelayCommandHack(p => ChangeViewModel((IPageViewModel)p),p => p is IPageViewModel);
+	                return _changePageCommand ?? (
+		                       _changePageCommand = new RelayCommand<IPageViewModel>(
+			                       model => ChangeViewModel((IPageViewModel) model), model => model is IPageViewModel));
+	                //_changePageCommand = new RelayCommandHack(p => ChangeViewModel((IPageViewModel)p),p => p is IPageViewModel);
                 }
 
                 return _changePageCommand;

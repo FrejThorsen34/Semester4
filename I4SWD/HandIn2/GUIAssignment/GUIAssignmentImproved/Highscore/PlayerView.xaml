@@ -8,51 +8,53 @@
              d:DesignHeight="400" d:DesignWidth="750">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type local:PlayerModel}">
-            <DockPanel Name="dockPanelMain">
-                <Menu DockPanel.Dock="Top" Name="sortMenu">
-                    <MenuItem Header="_Sort list">
-                        <MenuItem Header="_Kills" Command="{Binding SortKillsCommand}" />
-                        <MenuItem Header="_Deaths" Command="{Binding SortDeathsCommand}" />
-                        <MenuItem Header="_Games Played" Command="{Binding SortGamesPlayedCommand}" />
-                        <MenuItem Header="Games _Won" Command="{Binding SortGamesWonCommand}" />
-                        <MenuItem Header="_Points" Command="{Binding SortPointsCommand}" />
-                    </MenuItem>
-                </Menu>
-                <ToolBar DockPanel.Dock="Top" Height="auto"
+	    </DataTemplate>
+    </UserControl.Resources>
+	<DockPanel Name="dockPanelMain">
+				<Menu DockPanel.Dock="Top" Name="sortMenu">
+					<MenuItem Header="_Sort list">
+						<MenuItem Header="_Kills" Command="{Binding SortKillsCommand}" />
+						<MenuItem Header="_Deaths" Command="{Binding SortDeathsCommand}" />
+						<MenuItem Header="_Games Played" Command="{Binding SortGamesPlayedCommand}" />
+						<MenuItem Header="Games _Won" Command="{Binding SortGamesWonCommand}" />
+						<MenuItem Header="_Points" Command="{Binding SortPointsCommand}" />
+					</MenuItem>
+				</Menu>
+				<ToolBar DockPanel.Dock="Top" Height="auto"
                             FontSize="20" FontWeight="Bold"
                  Background="AliceBlue">
-                    <Label Content="_Search Player: "
+					<Label Content="_Search Player: "
                    FontSize="12"
                    VerticalAlignment="Center"
                    Target="{Binding ElementName=tbxSearchPlayer}"
                    />
-                    <TextBox Name="tbxSearchPlayer"
+					<TextBox Name="tbxSearchPlayer"
                      FontSize="12"
                      VerticalAlignment="Center"
                      MinWidth="100"
                      />
-                    <Button ToolTip="Search for player name"
+					<Button ToolTip="Search for player name"
                     Content="Search" FontSize="12"
                     Command="{Binding SearchPlayerCommand}" CommandParameter="{Binding ElementName=tbxSearchPlayer, Path=Text}"
                     />
-                    <Button ToolTip="Generate a database of players for testing"
+					<Button ToolTip="Generate a database of players for testing"
                     Content="Generate player database" FontSize="12"
                     Command="{Binding GeneratePlayerDatabase}"
                    />
-                </ToolBar>
-                <Grid Name="playerGrid">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50*"/>
-                        <RowDefinition Height="300*"/>
-                        <RowDefinition Height="50*"/>
-                        <RowDefinition Height="50*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="325*"/>
-                            <ColumnDefinition Width="325*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0"
+				</ToolBar>
+				<Grid Name="playerGrid">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="50*"/>
+						<RowDefinition Height="300*"/>
+						<RowDefinition Height="50*"/>
+						<RowDefinition Height="50*"/>
+					</Grid.RowDefinitions>
+					<Grid Row="0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="325*"/>
+							<ColumnDefinition Width="325*"/>
+						</Grid.ColumnDefinitions>
+						<Label Grid.Row="0"
                        Grid.Column="0"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Right"
@@ -60,7 +62,7 @@
                        Target="{Binding ElementName=tbxLastSort}"
                        Content="Top 10 players in category: "
                 />
-                        <TextBlock Grid.Row="0"
+						<TextBlock Grid.Row="0"
                            Grid.Column="1"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"
@@ -68,104 +70,102 @@
                            FontWeight="Bold"
                            Text="{Binding Path=LastSort}"
                            />
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <ListBox MinWidth="150"
+					</Grid>
+					<Grid Grid.Row="1">
+						<ListBox MinWidth="150"
                          BorderBrush="Black"
                          BorderThickness="5"
                          Margin="10, 10, 10, 10"
                          HorizontalAlignment="Center"
                          ItemsSource="{Binding DisplayPlayers}"
                 />
-                    </Grid>
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150*"/>
-                            <ColumnDefinition Width="150*"/>
-                            <ColumnDefinition Width="150*"/>
-                            <ColumnDefinition Width="150*"/>
-                            <ColumnDefinition Width="150*"/>
-                            <ColumnDefinition Width="150*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0"
+					</Grid>
+					<Grid Grid.Row="2">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="150*"/>
+							<ColumnDefinition Width="150*"/>
+							<ColumnDefinition Width="150*"/>
+							<ColumnDefinition Width="150*"/>
+							<ColumnDefinition Width="150*"/>
+							<ColumnDefinition Width="150*"/>
+						</Grid.ColumnDefinitions>
+						<Label Grid.Column="0"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Content="_Name"
                     />
-                        <Label Grid.Column="1"
+						<Label Grid.Column="1"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Content="_Kills"
                        />
-                        <Label Grid.Column="2"
+						<Label Grid.Column="2"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Content="_Deaths"
                        />
-                        <Label Grid.Column="3"
+						<Label Grid.Column="3"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Content="_Games played"
                        />
-                        <Label Grid.Column="4"
+						<Label Grid.Column="4"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Content="Games _won"
                        />
-                        <Label Grid.Column="5"
+						<Label Grid.Column="5"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Content="_Points"
                        />
-                    </Grid>
-                    <Grid Grid.Row="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150*"/>
-                            <ColumnDefinition Width="150*"/>
-                            <ColumnDefinition Width="150*"/>
-                            <ColumnDefinition Width="150*"/>
-                            <ColumnDefinition Width="150*"/>
-                            <ColumnDefinition Width="150*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0"
+					</Grid>
+					<Grid Grid.Row="3">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="150*"/>
+							<ColumnDefinition Width="150*"/>
+							<ColumnDefinition Width="150*"/>
+							<ColumnDefinition Width="150*"/>
+							<ColumnDefinition Width="150*"/>
+							<ColumnDefinition Width="150*"/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Grid.Column="0"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            Text="{Binding Path=FoundName}"
                            FontWeight="Bold"
                 />
-                        <TextBlock Grid.Column="1"
+						<TextBlock Grid.Column="1"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            Text="{Binding Path=FoundKills}"
                            FontWeight="Bold"
                 />
-                        <TextBlock Grid.Column="2"
+						<TextBlock Grid.Column="2"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            Text="{Binding Path=FoundDeaths}"
                            FontWeight="Bold"
                 />
-                        <TextBlock Grid.Column="3"
+						<TextBlock Grid.Column="3"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            Text="{Binding Path=FoundGamesPlayed}"
                            FontWeight="Bold"
                 />
-                        <TextBlock Grid.Column="4"
+						<TextBlock Grid.Column="4"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            Text="{Binding Path=FoundGamesWon}"
                            FontWeight="Bold"
                 />
-                        <TextBlock Grid.Column="5"
+						<TextBlock Grid.Column="5"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            Text="{Binding Path=FoundPoints}"
                            FontWeight="Bold"
                 />
-                    </Grid>
-                </Grid>
-            </DockPanel>
-        </DataTemplate>
-    </UserControl.Resources>
+					</Grid>
+				</Grid>
+			</DockPanel>
 </UserControl>
