@@ -23,6 +23,7 @@ namespace GUIAssignmentImproved
         {
             PageViewModels.Add(new HomeViewModel());
             PageViewModels.Add(new PlayerViewModel());
+			PageViewModels.Add(new SoundsViewModel());
         }
 
 
