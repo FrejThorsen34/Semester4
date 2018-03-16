@@ -14,11 +14,11 @@ using System.Xml.Serialization;
 
 namespace GUIAssignmentImproved
 {
-    public class HomeViewModel : IPageViewModel, INotifyPropertyChanged
+    public class SoundsViewModel : IPageViewModel, INotifyPropertyChanged
     {
         public string Name
         {
-            get { return "Frontpage"; }
+            get { return "Sounds"; }
         }
 
         #region INotifyPropertyChanged

@@ -65,6 +65,10 @@
     <Compile Include="MenuViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="RelayCommandHack.cs" />
+    <Compile Include="Sounds\SoundsViewModel.cs" />
+    <Compile Include="Sounds\SoundsView.xaml.cs">
+      <DependentUpon>SoundsView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Highscore\PlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -85,6 +89,10 @@
       <DependentUpon>MenuView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Sounds\SoundsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Highscore\PlayerModel.cs" />
@@ -113,6 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Graphics\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

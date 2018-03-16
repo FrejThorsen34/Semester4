@@ -20,7 +20,7 @@ namespace GUIAssignmentImproved
         public static List<string> _displayPlayers = new List<string>();
         PlayerModel _playerModel = new PlayerModel();
         private string _lastSort;
-        private string _name = "PlayerViewModel";
+        private string _name = "Highscores";
 
         #region Commands
 
