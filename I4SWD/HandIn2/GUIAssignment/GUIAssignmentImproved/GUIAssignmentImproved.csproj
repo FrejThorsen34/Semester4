@@ -54,6 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Graphics\GraphicsView.xaml.cs">
+      <DependentUpon>GraphicsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Graphics\GraphicsViewModel.cs" />
     <Compile Include="Highscore\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
     </Compile>
@@ -69,6 +73,10 @@
     <Compile Include="Sounds\SoundsView.xaml.cs">
       <DependentUpon>SoundsView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Graphics\GraphicsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Highscore\PlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -122,8 +130,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Graphics\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
