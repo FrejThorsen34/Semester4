@@ -55,7 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Player.cs" />
-    <Compile Include="Players.cs" />
+    <Compile Include="HighscoreViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

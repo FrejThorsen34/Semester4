@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:GUIAssignment"
         Title="HackMan Highscores!" Height="400" Width="750">
     <Window.DataContext>
-        <local:Players/>
+        <local:HighscoreViewModel/>
     </Window.DataContext>
     <DockPanel Name="dockPanelMain">
         <Menu DockPanel.Dock="Top" Name="sortMenu">

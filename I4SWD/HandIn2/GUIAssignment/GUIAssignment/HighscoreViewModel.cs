@@ -14,7 +14,7 @@ using System.Xml.Serialization;
 
 namespace GUIAssignment
 {
-    public class Players : ObservableCollection<Player>, INotifyPropertyChanged
+    public class HighscoreViewModel : ObservableCollection<Player>, INotifyPropertyChanged
     {
         public static List<Player> _players = new List<Player>();
         public static List<string> _displayPlayers = new List<string>();
