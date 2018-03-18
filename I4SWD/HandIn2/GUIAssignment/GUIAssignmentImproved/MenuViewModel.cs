@@ -12,6 +12,12 @@ using System.Windows;
 using System.Xml.Serialization;
 using MvvmFoundation.Wpf;
 
+// ========== Authors ==========  //
+// Gruppe 25 SWD: GUI Assignment  //
+// Nickolai Lundby Ernst, NE84070 //
+// Rune Keenaa Aagaard, 20105809  //
+// =============================  //
+
 namespace GUIAssignmentImproved
 {
     public class MenuViewModel : INotifyPropertyChanged

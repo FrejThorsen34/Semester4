@@ -13,6 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+// ========== Authors ==========  //
+// Gruppe 25 SWD: GUI Assignment  //
+// Nickolai Lundby Ernst, NE84070 //
+// Rune Keenaa Aagaard, 20105809  //
+// =============================  //
+
 namespace GUIAssignmentImproved
 {
     /// <summary>
