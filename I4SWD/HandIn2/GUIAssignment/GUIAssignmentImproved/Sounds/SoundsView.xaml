@@ -4,13 +4,86 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUIAssignmentImproved"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:sounds="clr-namespace:GUIAssignmentImproved"
+             mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="750">
+
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type sounds:SoundsModel}">
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="This is the sounds options"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontWeight="Bold"
-                   FontSize="18"/>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="0"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Label Content="Music" 
+               HorizontalAlignment="Left" 
+               Margin="45,47,0,0" 
+               VerticalAlignment="Top" 
+               FontSize="24" 
+               FontFamily="Consolas" 
+               Foreground="#FFFEFEFE"
+               />
+        <Label Content="Sounds" 
+               HorizontalAlignment="Left" 
+               Margin="45,117,0,0" 
+               VerticalAlignment="Top" 
+               FontSize="24" 
+               FontFamily="Consolas" 
+               Foreground="#FFFCF8F8"
+               />
+        <Slider 
+                HorizontalAlignment="Left" 
+                Margin="276,51,0,0" 
+                VerticalAlignment="Top" 
+                Height="44" 
+                Width="331"
+                Maximum="1"
+                Minimum="0"
+                Value="0.5"
+                SmallChange="0.1"
+                TickPlacement="BottomRight"
+                TickFrequency="0.1"
+                Name="MusicSlider"
+                />
+        <Slider HorizontalAlignment="Left" 
+                Margin="276,115,0,0" 
+                VerticalAlignment="Top" 
+                Height="45" 
+                Width="331"
+                Name="SoundSlider"
+                
+                />
+        <Button Content="Key Controls" 
+                HorizontalAlignment="Left" 
+                Margin="45,188,0,0" 
+                VerticalAlignment="Top" 
+                Width="192" 
+                FontSize="24" 
+                FontFamily="Consolas" 
+                Height="49"
+                />
+        <Button Content="Help" 
+                HorizontalAlignment="Left"
+                Margin="45,278,0,0" 
+                VerticalAlignment="Top" 
+                Width="192" 
+                FontSize="24" 
+                FontFamily="Consolas" 
+                Height="49"
+                />
+        <MediaElement HorizontalAlignment="Left" 
+                      Height="100" 
+                      Margin="607,237,0,0" 
+                      VerticalAlignment="Top" 
+                      Width="100"
+                      Name ="Background"
+                      Source ="C:\Users\Susan\source\repos\ProjektGruppe32\GUI\GUIAssignment\GUIAssignmentImproved\Resources\Background.wav"
+                      Volume="{Binding ElementName=MusicSlider, Path=Value}"
+                      LoadedBehavior="Manual" 
+                      UnloadedBehavior="Stop"
+                      />
     </Grid>
 </UserControl>

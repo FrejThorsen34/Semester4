@@ -23,6 +23,7 @@ namespace GUIAssignmentImproved
         public SoundsView()
         {
             InitializeComponent();
+            Background.Play();
         }
     }
 }

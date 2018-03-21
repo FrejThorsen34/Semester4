@@ -69,6 +69,7 @@
     <Compile Include="MenuViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="RelayCommandHack.cs" />
+    <Compile Include="Sounds\SoundsModel.cs" />
     <Compile Include="Sounds\SoundsViewModel.cs" />
     <Compile Include="Sounds\SoundsView.xaml.cs">
       <DependentUpon>SoundsView.xaml</DependentUpon>
@@ -130,6 +131,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Background.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

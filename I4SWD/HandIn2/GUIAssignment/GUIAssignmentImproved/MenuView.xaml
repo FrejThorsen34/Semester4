@@ -20,12 +20,22 @@
     </Window.Resources>
 
     <DockPanel>
-        <Border DockPanel.Dock="Left" BorderBrush="Black" BorderThickness="0,0,1,0">
+        <Border DockPanel.Dock="Top" BorderBrush="White" BorderThickness="0,0,0,1" Background="Black">
             <ItemsControl ItemsSource="{Binding PageViewModels}">
+	            <ItemsControl.ItemsPanel>
+		            <ItemsPanelTemplate>
+			            <DockPanel LastChildFill="False" HorizontalAlignment="Center"/>
+		            </ItemsPanelTemplate>
+	            </ItemsControl.ItemsPanel>
+	            <ItemsControl.ItemContainerStyle>
+		            <Style TargetType="ContentPresenter">
+			            <Setter Property="DockPanel.Dock" Value="Left"/>
+		            </Style>
+	            </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Button Content="{Binding Name}"
-                                FontWeight="Bold"
+                                FontFamily="Consolas"
                                 Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                 CommandParameter="{Binding }"
                                 Margin="5,5"/>
