@@ -74,13 +74,7 @@ namespace GUIAssignmentImproved
         public bool MusicVolumeCommand_CanExecute()
         {
             //Check om musik kan afspille lydfil
-            if ()
-            {
-                return true;
-            }
-            else
-                return false;
-
+            return true;
         }
 
         #region INotifyPropertyChanged

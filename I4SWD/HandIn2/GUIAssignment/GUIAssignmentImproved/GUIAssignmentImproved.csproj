@@ -132,7 +132,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Background.wav" />
+    <Resource Include="Resources\Background.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Sounds\Resources\Background.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

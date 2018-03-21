@@ -80,7 +80,7 @@
                       VerticalAlignment="Top" 
                       Width="100"
                       Name ="Background"
-                      Source ="C:\Users\Susan\source\repos\ProjektGruppe32\GUI\GUIAssignment\GUIAssignmentImproved\Resources\Background.wav"
+                      Source="Resources/Background.wav"
                       Volume="{Binding ElementName=MusicSlider, Path=Value}"
                       LoadedBehavior="Manual" 
                       UnloadedBehavior="Stop"
