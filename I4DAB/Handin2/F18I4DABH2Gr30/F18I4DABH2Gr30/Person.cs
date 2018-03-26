@@ -61,6 +61,7 @@ namespace F18I4DABH2Gr30
         #region Commands
         public void SetAddress(Address address)
 	    {
+			address.AddPerson(this);
 	        _addresses.Add(address);
 	    }
 

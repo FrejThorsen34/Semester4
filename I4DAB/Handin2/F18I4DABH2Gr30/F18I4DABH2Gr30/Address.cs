@@ -13,6 +13,7 @@ namespace F18I4DABH2Gr30
 		private uint _streetNo;
 		private uint _apartmentNo;
 		private ZIP _zip;
+		private List<Person> _persons = new List<Person>();
 
 		public Address(string addressType, string street, uint streetNo, uint apartmentNo, ZIP zip)
 		{
@@ -25,6 +26,7 @@ namespace F18I4DABH2Gr30
 		}
 
         #region Properties
+
         public string GetAddressType
 	    {
 	        get { return _addressType; }
@@ -49,6 +51,28 @@ namespace F18I4DABH2Gr30
 	    {
 	        get { return _zip; }
 	    }
-        #endregion
-    }
+		#endregion
+
+		#region Commands
+
+		public void AddPerson(Person person)
+		{
+			bool isThere = _persons.Contains(person);
+			if (!isThere)
+			{
+				_persons.Add(person);
+			}
+			else
+			{
+				return;
+			}
+		}
+
+		public List<Person> LookUpPersons()
+		{
+			return _persons;
+		}
+
+		#endregion
+	}
 }
