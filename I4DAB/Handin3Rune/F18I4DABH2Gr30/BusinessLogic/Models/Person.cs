@@ -10,7 +10,7 @@ namespace BusinessLogic.Models
 	{
 		public Person()
 		{
-			Addresses = new List<Address>();
+			SecondaryAddresses = new List<AddressType>();
 			PhoneNumbers = new List<PhoneNumber>();
 		}
 		public int PersonId { get; set; }
@@ -19,7 +19,8 @@ namespace BusinessLogic.Models
 		public string LastName { get; set; }
 		public string PersonType { get; set; }
 		public string Email { get; set; }
-		public IList<Address> Addresses { get; set; }
+		public AddressType PrimaryAddress { get; set; }
+		public IList<AddressType> SecondaryAddresses { get; set; }
 		public IList<PhoneNumber> PhoneNumbers { get; set; }
 	}
 }

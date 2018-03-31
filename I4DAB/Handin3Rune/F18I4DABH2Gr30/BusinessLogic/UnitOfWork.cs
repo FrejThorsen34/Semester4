@@ -17,10 +17,12 @@ namespace BusinessLogic
 			Persons = new PersonRepository(_context);
 			Addresses = new AddressRepository(_context);
 			Zips = new ZipRepository(_context);
+			AddressTypes = new AddressTypeRepository(_context);
 		}
 		public IPersonRepository Persons { get; private set; }
 		public IAddressRepository Addresses{ get; private set; }
 		public IZipRepository Zips{ get; private set; }
+		public IAddressTypeRepository AddressTypes { get; private set; }
 
 		public int Complete()
 		{
