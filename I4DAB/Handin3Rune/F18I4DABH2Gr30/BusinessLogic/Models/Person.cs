@@ -19,8 +19,8 @@ namespace BusinessLogic.Models
 		public string LastName { get; set; }
 		public string PersonType { get; set; }
 		public string Email { get; set; }
-		public AddressType PrimaryAddress { get; set; }
-		public IList<AddressType> SecondaryAddresses { get; set; }
-		public IList<PhoneNumber> PhoneNumbers { get; set; }
+		public virtual AddressType PrimaryAddress { get; set; }
+		public virtual IList<AddressType> SecondaryAddresses { get; set; }
+		public virtual IList<PhoneNumber> PhoneNumbers { get; set; }
 	}
 }

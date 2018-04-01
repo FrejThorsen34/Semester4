@@ -16,6 +16,6 @@ namespace BusinessLogic.Models
 		public string Street { get; set; }
 		public uint StreetNumber { get; set; }
 		public Zip Zip { get; set; }
-		public IList<Person> Persons { get; set; }
+		public virtual IList<Person> Persons { get; set; }
 	}
 }

@@ -9,7 +9,7 @@ namespace BusinessLogic.Models
 	public class AddressType
 	{
 		public string Type { get; set; }
-		public Address Address { get; set; }
-		public Person Person { get; set; }
+		public virtual Address Address { get; set; }
+		public virtual Person Person { get; set; }
 	}
 }
