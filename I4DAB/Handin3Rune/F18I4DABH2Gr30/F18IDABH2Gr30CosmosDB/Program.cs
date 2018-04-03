@@ -154,7 +154,7 @@ namespace F18IDABH2Gr30CosmosDB
 
 			await this.UpdateIfExits("PersonKartotekDB", "PersonCollection", "Rune.1", runePerson);
 
-			await this.RemoveIfExits("PersonKartotekDB", "PersonCollection", "Rune.1");
+			await this.RemoveIfExits("PersonKartotekDB", "PersonCollection", "Nickolai.1");
 
 		}
 
