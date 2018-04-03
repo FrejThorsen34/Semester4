@@ -12,39 +12,103 @@ namespace Test
 	{
 		static void Main(string[] args)
 		{
+			
 			using (var unitOfWork = new UnitOfWork(new ApplicationContext()))
 			{
-				Zip zip = new Zip();
-				zip.State = "jylland";
-				zip.Country = "DaneMArken";
-				zip.Town = "Double A";
-				zip.ZipCode = "9000";
+				//Read operations
+				var phones = unitOfWork.PhoneNumberRepo.GetAll();
+				var persons = unitOfWork.PersonRepo.GetAll();
+				var primaryAddresses = unitOfWork.PrimaryAddressRepo.GetAll();
+				var addresstypes = unitOfWork.AddressTypeRepo.GetAll();
+				var addresses = unitOfWork.AddressRepo.GetAll();
+				var zips = unitOfWork.ZipRepo.GetAll();
+				//Delete operations
+				unitOfWork.ZipRepo.RemoveRange(zips);
+				unitOfWork.AddressTypeRepo.RemoveRange(addresstypes);
+				unitOfWork.AddressRepo.RemoveRange(addresses);
+				unitOfWork.PhoneNumberRepo.RemoveRange(phones);
+				unitOfWork.PrimaryAddressRepo.RemoveRange(primaryAddresses);
+				unitOfWork.PersonRepo.RemoveRange(persons);
+				unitOfWork.Complete();
 
-				Address address = new Address();
-				address.AddressType = "Home";
-				address.ApartmentNumber = 1;
-				address.Street = "Gaden";
-				address.StreetNumber = 11;
-				address.Zip = zip;
+				var zip = new Zip()
+				{
+					Country = "Denmark",
+					Zipcode = "8000",
+					Town = "Aarhus C"
+				};
 
-				PhoneNumber phone = new PhoneNumber();
-				phone.Provider = "TDC";
-				phone.PhoneType = "work";
-				phone.Number = 12345678;
-				
-				Person person = new Person();
-				person.PersonType = "BOSS!";
-				person.FirstName = "Jens";
-				person.MiddleName = "Peter";
-				person.LastName = "Jensen";
-				person.Email = "jens@jens.dk";
-				person.Addresses.Add(address);
-				person.PhoneNumbers.Add(phone);
-				
 
-				address.Persons.Add(person);
+				Person person = new Person
+				{
+					FirstName = "Jens",
+					MiddleName = "Kjeld",
+					LastName = "Larsen",
+					Email = "JKL@minmail.dk",
+					PersonType = "co-worker",
+					PhoneNumbers = new List<PhoneNumber>()
+					{
+						new PhoneNumber()
+						{
+							Number = "12345678",
+							PhoneType = "Home",
+							Provider = "TDC"
+						},
+						new PhoneNumber()
+						{
+							Number = "87654321",
+							PhoneType = "Work",
+							Provider = "Telia"
+						}
+					},
+					PrimaryAddress = new PrimaryAddress
+					{
+						Street = "Ringgaden",
+						StreetNumber = "154A",
+						Zip = zip
+					}
+				};
 
-				unitOfWork.Persons.Add(person);
+				var addresshome = new Address()
+				{
+					StreetNumber = "11B",
+					Street = "Vejen",
+					Zip = zip
+				};
+
+
+				var HomeAddressType = new AddressType()
+				{
+					Type = "Home",
+					Address = addresshome,
+					Person = person
+
+				};
+
+				var WorkAddressType = new AddressType
+				{
+					Type = "Work",
+					Address = new Address
+					{
+						StreetNumber = "89E",
+						Street = "Arbejdsvej",
+						Zip = zip
+					},
+					Person = person
+				};
+
+				//create operations
+				person.SecondaryAddresses.Add(HomeAddressType);
+				person.SecondaryAddresses.Add(WorkAddressType);
+				unitOfWork.PersonRepo.Add(person);
+				unitOfWork.Complete();
+
+				//Read operation
+				person = unitOfWork.PersonRepo.Get(person.Id);
+				person.FirstName = "Mark";
+				person.PhoneNumbers.Add(new PhoneNumber(){Number = "5655665",Provider = "Telia", PhoneType = "Mobile"});
+				//Update operation
+				unitOfWork.PersonRepo.Update(person.Id,person);
 				unitOfWork.Complete();
 			}
 		}

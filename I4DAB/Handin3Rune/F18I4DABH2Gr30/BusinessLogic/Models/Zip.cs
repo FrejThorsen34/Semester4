@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Models
 {
-	public class Zip
+	public class Zip : BaseModel
 	{
 		public string Country { get; set; }
 		public string Town { get; set; }
-		public string State { get; set; }
 		[Key]
-		public string ZipCode { get; set; }
+		public string Zipcode { get; set; }
+
+		public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
 	}
 }

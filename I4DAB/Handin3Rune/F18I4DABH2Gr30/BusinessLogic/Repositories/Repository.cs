@@ -5,11 +5,12 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
-using BusinessLogic.Interfaces;
+using System.Data.Entity.Migrations;
+using BusinessLogic.Models;
 
-namespace BusinessLogic
+namespace BusinessLogic.Repositories
 {
-	public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+	public class Repository<TEntity> where TEntity : BaseModel
 	{
 		protected readonly DbContext Context;
 
@@ -49,6 +50,18 @@ namespace BusinessLogic
 		public void RemoveRange(IEnumerable<TEntity> entities)
 		{
 			Context.Set<TEntity>().RemoveRange(entities);
+		}
+
+		public void Update(int id, TEntity entity)
+		{
+			if (id != entity.Id)
+			{
+				Context.Set<TEntity>().Add(entity);
+			}
+			else
+			{
+				Context.Set<TEntity>().AddOrUpdate(entity);
+			}
 		}
 	}
 }

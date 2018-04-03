@@ -12,11 +12,16 @@ namespace BusinessLogic
 	{
 		public ApplicationContext() : base("DefaultConnection")
 		{
-			Configuration.LazyLoadingEnabled = false;
+			//Configuration.LazyLoadingEnabled = true;
 		}
 
-		public virtual DbSet<Person> Persons { get; set; }
-		public virtual DbSet<Address> Addresses { get; set; }
-		public virtual DbSet<Zip> Zips { get; set; }
+		
+		public DbSet<PhoneNumber> PhoneNumbers { get; set; }
+		public DbSet<Person> Persons { get; set; }
+		public DbSet<PrimaryAddress> PrimaryAddresses { get; set; }
+		public DbSet<AddressType> AddressTypes { get; set; }
+		public DbSet<Address> Addresses { get; set; }
+		public DbSet<Zip> Zips { get; set; }
+
 	}
 }

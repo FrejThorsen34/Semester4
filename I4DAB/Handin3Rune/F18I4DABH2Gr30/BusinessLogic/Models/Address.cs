@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Models
 {
-	public class Address
+	public class Address : BaseModel
 	{
-		public Address()
-		{
-			Persons = new List<Person>();
-		}
-		public int Id { get; set; }
 		public string Street { get; set; }
-		public uint StreetNumber { get; set; }
-		public Zip Zip { get; set; }
-		public virtual IList<Person> Persons { get; set; }
+		public string StreetNumber { get; set; }
+		public virtual Zip Zip { get; set; }
+		public virtual ICollection<Person> Persons { get; set; } = new List<Person>();
+		public virtual ICollection<AddressType> AddressTypes { get; set; } = new List<AddressType>();
 	}
 }
