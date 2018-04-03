@@ -55,12 +55,10 @@ namespace F18IDABH2Gr30CosmosDB
 			{
 				AddressType = "Work",
 				Street = "Finlandsgade",
-				StreetNumber = 21,
-				ApartmentNumber = 1,
+				StreetNumber = "21",
 				ZIP = new ZIP
 				{
 					Country = "Denmark",
-					State = "Jylland",
 					Town = "Aarhus V",
 					ZipCode = "8210"
 				}
@@ -80,12 +78,10 @@ namespace F18IDABH2Gr30CosmosDB
 					{
 						AddressType = "Home",
 						Street = "Vestre Ringgade",
-						StreetNumber = 176,
-						ApartmentNumber = 4,
+						StreetNumber = "176",
 						ZIP = new ZIP
 						{
 							Country = "Denmark",
-							State = "Jylland",
 							Town = "Aarhus C",
 							ZipCode = "8000"
 						}
@@ -96,20 +92,20 @@ namespace F18IDABH2Gr30CosmosDB
 				{
 					new PhoneNumber
 					{
-						Number = 12345678,
+						Number = "12345678",
 						PhoneType = "Private",
 						Provider = "TDC"
 					},
 					new PhoneNumber
 					{
-						Number = 87654321,
+						Number = "87654321",
 						PhoneType = "Work",
 						Provider = "Telia"
 					}
 				}
 			};
 
-			await this.CreateFamilyDocumentIfNotExists("PersonKartotekDB", "PersonCollection", nickolaiPerson);
+			await this.CreateIfNotExists("PersonKartotekDB", "PersonCollection", nickolaiPerson);
 
 			Person runePerson = new Person
 			{
@@ -125,12 +121,10 @@ namespace F18IDABH2Gr30CosmosDB
 					{
 						AddressType = "Home",
 						Street = "Abildgade",
-						StreetNumber = 21,
-						ApartmentNumber = 1,
+						StreetNumber = "21",
 						ZIP = new ZIP
 						{
 							Country = "Denmark",
-							State = "Jylland",
 							Town = "Aarhus N",
 							ZipCode = "8200"
 						}
@@ -141,20 +135,27 @@ namespace F18IDABH2Gr30CosmosDB
 				{
 					new PhoneNumber
 					{
-						Number = 12345678,
+						Number = "12345678",
 						PhoneType = "Private",
 						Provider = "TDC"
 					},
 					new PhoneNumber
 					{
-						Number = 87654321,
+						Number = "87654321",
 						PhoneType = "Work",
 						Provider = "Telia"
 					}
 				}
 			};
 
-			await this.CreateFamilyDocumentIfNotExists("PersonKartotekDB", "PersonCollection", runePerson);
+			await this.CreateIfNotExists("PersonKartotekDB", "PersonCollection", runePerson);
+
+			runePerson.MiddleName = "Ole";
+
+			await this.UpdateIfExits("PersonKartotekDB", "PersonCollection", "Rune.1", runePerson);
+
+			await this.RemoveIfExits("PersonKartotekDB", "PersonCollection", "Rune.1");
+
 		}
 
 		private void WriteToConsoleAndPromptToContinue(string format, params object[] args)
@@ -185,16 +186,14 @@ namespace F18IDABH2Gr30CosmosDB
 		{
 			public string AddressType { get; set; }
 			public string Street { get; set; }
-			public uint StreetNumber { get; set; }
-			public uint ApartmentNumber { get; set; }
+			public string StreetNumber { get; set; }
 			public ZIP ZIP { get; set; }
-			//public Person[] Persons { get; set; }
 		}
 
 		public class PhoneNumber
 		{
 			public string PhoneType { get; set; }
-			public uint Number { get; set; }
+			public string Number { get; set; }
 			public string Provider { get; set; }
 		}
 
@@ -202,16 +201,10 @@ namespace F18IDABH2Gr30CosmosDB
 		{
 			public string Country { get; set; }
 			public string Town { get; set; }
-			public string State { get; set; }
 			public string ZipCode { get; set; }
 		}
 
-		public class ZIPList
-		{
-			public ZIP[] Zips { get; set; }
-		}
-
-		private async Task CreateFamilyDocumentIfNotExists(string databaseName, string collectionName, Person person)
+		private async Task CreateIfNotExists(string databaseName, string collectionName, Person person)
 		{
 			try
 			{
@@ -222,7 +215,8 @@ namespace F18IDABH2Gr30CosmosDB
 			{
 				if (de.StatusCode == HttpStatusCode.NotFound)
 				{
-					await this.client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(databaseName, collectionName), person);
+					await this.client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+						person);
 					this.WriteToConsoleAndPromptToContinue("Created Person {0}", person.PersonId);
 				}
 				else
@@ -232,5 +226,46 @@ namespace F18IDABH2Gr30CosmosDB
 			}
 		}
 
+		private async Task RemoveIfExits(string databaseName, string collectionName, string documentName)
+		{
+			try
+			{
+				await this.client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(databaseName, collectionName, documentName));
+				this.WriteToConsoleAndPromptToContinue("Person {0} deleted", documentName);
+			}
+			catch (DocumentClientException de)
+			{
+				if (de.StatusCode == HttpStatusCode.NotFound)
+				{
+					this.WriteToConsoleAndPromptToContinue("Person {0} Not Found", documentName);
+				}
+				else
+				{
+					throw;
+				}
+
+			}
+		}
+
+		private async Task UpdateIfExits(string databaseName, string collectionName, string personId, Person updatedPerson)
+		{
+			try
+			{
+				await this.client.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(databaseName, collectionName, personId),
+					updatedPerson);
+				this.WriteToConsoleAndPromptToContinue("Replaced Person {0}", personId);
+			}
+			catch (DocumentClientException de)
+			{
+				if (de.StatusCode == HttpStatusCode.NotFound)
+				{
+					this.WriteToConsoleAndPromptToContinue("Person {0} Not Found", personId);
+				}
+				else
+				{
+					throw;
+				}
+			}
+		}
 	}
 }

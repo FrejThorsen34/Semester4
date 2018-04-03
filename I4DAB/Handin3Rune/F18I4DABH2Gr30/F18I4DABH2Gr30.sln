@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F18IDABH2Gr30CosmosDB", "F1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RDB", "BusinessLogic\RDB.csproj", "{4C68AD90-53C9-48BF-A8D8-6F7155E407EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{8080898A-5981-43D9-A4B0-8E46E53E58B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRDB", "Test\TestRDB.csproj", "{8080898A-5981-43D9-A4B0-8E46E53E58B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +32,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8
 		SolutionGuid = {01CF79FB-4D9A-4059-A4B2-3E640A6BDE06}
 	EndGlobalSection
 EndGlobal

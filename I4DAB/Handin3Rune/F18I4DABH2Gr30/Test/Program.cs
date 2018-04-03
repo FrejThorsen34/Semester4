@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BusinessLogic;
 using BusinessLogic.Models;
 
-namespace Test
+namespace TestRDB
 {
 	class Program
 	{

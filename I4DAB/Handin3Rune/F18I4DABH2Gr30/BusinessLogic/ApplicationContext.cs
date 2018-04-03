@@ -12,7 +12,7 @@ namespace BusinessLogic
 	{
 		public ApplicationContext() : base("DefaultConnection")
 		{
-			//Configuration.LazyLoadingEnabled = true;
+			
 		}
 
 		
