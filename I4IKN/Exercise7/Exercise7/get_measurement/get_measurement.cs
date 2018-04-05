@@ -41,6 +41,7 @@ namespace get_measurement
 
             Console.WriteLine("Measurement from server: ");
             received = Encoding.ASCII.GetString(client.Receive(ref endPointLocal));
+            Console.WriteLine(received);
         }
 
         public static void Main(string[] args)
