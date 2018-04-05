@@ -18,10 +18,13 @@ namespace measurement_server
 
         private measurement_server()
         {
-            // Create local IPEndPoint, UdpClient and Socket
+            // Create local IPEndPoint
             IPEndPoint endPointLocal = new IPEndPoint(IPAddress.Any, PORT);
+            // Create UdpClient and Socket
             UdpClient server_udp = new UdpClient(endPointLocal);
             Socket server_socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            // Create sending IPEndPoint
+            IPEndPoint endPointSend = new IPEndPoint(endPointLocal.Address, PORT);
 
             string received;
             byte[] send;
@@ -31,8 +34,7 @@ namespace measurement_server
                 Console.WriteLine("Listening...");
 
                 received = Encoding.ASCII.GetString(server_udp.Receive(ref endPointLocal));
-                IPEndPoint endPointSend = new IPEndPoint(endPointLocal.Address, PORT);
-
+                
                 Console.WriteLine("Connected!");
 
                 switch (received)
