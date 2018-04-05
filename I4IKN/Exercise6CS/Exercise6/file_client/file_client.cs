@@ -80,7 +80,37 @@ namespace tcp
         /// </param>
         private void receiveFile(String fileName, NetworkStream io)
         {
-            // TO DO Your own code
+            // Adding null terminator to fileName
+            LIB.writeTextTCP(io, fileName + "\0");
+            long fileSize = LIB.getFileSizeTCP(io);
+
+            // If getting filesize fails, return
+            if (fileSize == -1)
+            {
+                Console.WriteLine("File not found!");
+                return;
+            }
+
+            byte[] file = new byte[fileSize];
+            int received = 0;
+
+            // Loop till all files received
+            while (received < fileSize)
+            {
+                if (fileSize - received < BUFSIZE)
+                {
+                    int lastRead = io.Read(file, received, (int) fileSize - received);
+                    received = received + lastRead;
+                }
+                else
+                {
+                    int read = io.Read(file, received, BUFSIZE);
+                    received = received + read;
+                }
+            }
+
+            File.WriteAllBytes(LIB.extractFileName(fileName), file);
+            Console.WriteLine(LIB.extractFileName(fileName) + " received!");
         }
 
         /// <summary>
@@ -92,7 +122,10 @@ namespace tcp
         public static void Main(string[] args)
         {
             Console.WriteLine("Client starts...");
-            new file_client(args);
+            if (args.Length != 2)
+                Console.WriteLine("Enter IP and filepath:");
+            else
+                new file_client(args);
         }
     }
 }

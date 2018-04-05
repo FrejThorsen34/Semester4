@@ -43,5 +43,11 @@
     <Compile Include="file_client.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LIB\LIB.csproj">
+      <Project>{b74c6b12-6130-4c53-b95d-4f6f998a24cc}</Project>
+      <Name>LIB</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
