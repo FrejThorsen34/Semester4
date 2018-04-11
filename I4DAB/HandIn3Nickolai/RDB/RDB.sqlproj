@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>F18I4DABH2Gr30SQL</Name>
+    <Name>RDB</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{a32edeec-6419-444c-a4d0-0ffa6a2360bc}</ProjectGuid>
+    <ProjectGuid>{8d1d5704-bc6f-4db8-a416-e3d3c8240c84}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>F18I4DABH2Gr30SQL</RootNamespace>
-    <AssemblyName>F18I4DABH2Gr30SQL</AssemblyName>
+    <RootNamespace>RDB</RootNamespace>
+    <AssemblyName>RDB</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
