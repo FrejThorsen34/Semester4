@@ -6,48 +6,67 @@ using System.Threading.Tasks;
 
 namespace ChainOfResponsibility
 {
-	public class NegativeHandler : Handler
+	public class RegularHandler : Handler
 	{
 		public override void HandleRequest(Request request)
 		{
-			if (request.Value < 0)
+			if (request.RequestType == RequestType.Regular)
 			{
-				Console.WriteLine($"{request.Name} handled by NegativeHandler - Value: {request.Value}");
+				Console.WriteLine($"{request.Name} handled by RegularHandler - Type: {request.RequestType}");
 			}
 			else if(_nextHandler != null)
 			{
+                Console.WriteLine($"{request.Name} is redirected by RegularHandler");
 				_nextHandler.HandleRequest(request);
 			}
 		}
 	}
 
-	public class ZeroHandler : Handler
+	public class FormalHandler : Handler
 	{
 		public override void HandleRequest(Request request)
 		{
-			if (request.Value == 0)
-			{
-				Console.WriteLine($"{request.Name} handled by ZeroHandler - Value: {request.Value}");
-			}
-			else if (_nextHandler != null)
-			{
-				_nextHandler.HandleRequest(request);
-			}
-		}
+		    if (request.RequestType == RequestType.Formal)
+		    {
+		        Console.WriteLine($"{request.Name} handled by FormalHandler - Type: {request.RequestType}");
+		    }
+		    else if (_nextHandler != null)
+		    {
+		        Console.WriteLine($"{request.Name} is redirected by FormalHandler");
+		        _nextHandler.HandleRequest(request);
+		    }
+        }
 	}
 
-	public class PositiveHandler : Handler
+	public class UrgentHandler : Handler
 	{
 		public override void HandleRequest(Request request)
 		{
-			if (request.Value > 0)
-			{
-				Console.WriteLine($"{request.Name} handled by PositiveHandler - Value: {request.Value}");
-			}
-			else if (_nextHandler != null)
-			{
-				_nextHandler.HandleRequest(request);
-			}
-		}
+		    if (request.RequestType == RequestType.Urgent)
+		    {
+		        Console.WriteLine($"{request.Name} handled by UrgentHandler - Type: {request.RequestType}");
+		    }
+		    else if (_nextHandler != null)
+		    {
+		        Console.WriteLine($"{request.Name} is redirected by UrgentHandler");
+		        _nextHandler.HandleRequest(request);
+		    }
+        }
 	}
+
+    public class CriticalHandler : Handler
+    {
+        public override void HandleRequest(Request request)
+        {
+            if (request.RequestType == RequestType.Critical)
+            {
+                Console.WriteLine($"{request.Name} handled by CriticalHandler - Type: {request.RequestType}");
+            }
+            else if (_nextHandler != null)
+            {
+                Console.WriteLine($"{request.Name} is redirected by CriticalHandler");
+                _nextHandler.HandleRequest(request);
+            }
+        }
+    }
 }

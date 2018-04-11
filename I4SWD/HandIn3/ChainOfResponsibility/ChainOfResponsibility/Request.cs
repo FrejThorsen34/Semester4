@@ -6,15 +6,22 @@ using System.Threading.Tasks;
 
 namespace ChainOfResponsibility
 {
+    public enum RequestType
+    {
+        Formal,
+        Regular,
+        Urgent,
+        Critical
+    }
 	public class Request
 	{
-		public Request(int value, string name)
+		public Request(RequestType type, string name)
 		{
-			Value = value;
+		    RequestType = type;
 			Name = name;
 		}
 
-		public int Value { get; private set; }
+		public RequestType RequestType { get; private set; }
 		public string Name { get; private set; }
 	}
 }
