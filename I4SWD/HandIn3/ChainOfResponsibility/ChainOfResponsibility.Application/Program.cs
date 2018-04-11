@@ -11,22 +11,26 @@ namespace ChainOfResponsibility.Application
 	{
 		static void Main(string[] args)
 		{
-			Request testRequest1 = new Request(-1, "Negative");
-			Request testRequest2 = new Request(0, "Zero");
-			Request testRequest3 = new Request(1, "Positive");
+		    Request testRequest1 = new Request(RequestType.Regular, "RegularRequest");
+            Request testRequest2 = new Request(RequestType.Formal, "FormalRequest");
+			Request testRequest3 = new Request(RequestType.Urgent, "UrgentRequest");
+		    Request testRequest4 = new Request(RequestType.Critical, "CriticalRequest");
 
-			Handler positiveHandler = new PositiveHandler();
-			Handler zeroHandler = new ZeroHandler();
-			Handler negativeHandler = new NegativeHandler();
+            Handler regularHandler = new RegularHandler();
+			Handler formalHandler = new FormalHandler();
+			Handler urgentHandler = new UrgentHandler();
+		    Handler criticalHandler = new CriticalHandler();
 
-			negativeHandler.SetNextHandler(zeroHandler);
-			zeroHandler.SetNextHandler(positiveHandler);
+            regularHandler.SetNextHandler(formalHandler);
+			formalHandler.SetNextHandler(urgentHandler);
+            urgentHandler.SetNextHandler(criticalHandler);
 
-			negativeHandler.HandleRequest(testRequest1);
-			negativeHandler.HandleRequest(testRequest2);
-			negativeHandler.HandleRequest(testRequest3);
+			regularHandler.HandleRequest(testRequest1);
+		    regularHandler.HandleRequest(testRequest2);
+		    regularHandler.HandleRequest(testRequest3);
+		    regularHandler.HandleRequest(testRequest4);
 
-			Console.ReadKey();
+            Console.ReadKey();
 
 		}
 	}
