@@ -9,10 +9,10 @@ namespace Roulette
     public class RouletteGame
     {
         private readonly List<Bet> _bets;
-        private readonly Roulette _roulette;
+        private readonly IRoulette _roulette;
         private bool _roundIsOpen;
 
-        public RouletteGame(Roulette roulette)
+        public RouletteGame(IRoulette roulette)
         {
             _bets = new List<Bet>();
             _roulette = roulette;
@@ -53,6 +53,11 @@ namespace Roulette
                 if (won > 0)
                     Console.WriteLine("{0} just won {1}$ on a {2}", bet.PlayerName, won, bet);
             }
+        }
+
+        public bool RoundIsOpen
+        {
+            get { return _roundIsOpen; }
         }
     }
 

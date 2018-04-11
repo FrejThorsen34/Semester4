@@ -11,5 +11,10 @@ namespace Roulette
             var n = (uint)new Random().Next(lower, higher);
             return n;
         }
+        public uint Next()
+        {
+            var n = (uint)new Random().Next(0, 37);
+            return n;
+        }
     }
 }
