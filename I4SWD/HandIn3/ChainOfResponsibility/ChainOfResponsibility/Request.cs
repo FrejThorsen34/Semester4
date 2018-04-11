@@ -8,10 +8,11 @@ namespace ChainOfResponsibility
 {
     public enum RequestType
     {
-        Formal,
         Regular,
         Urgent,
-        Critical
+        Haste,
+        Critical,
+        Overdue
     }
 	public class Request
 	{
