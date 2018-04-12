@@ -16,6 +16,5 @@ namespace ChainOfResponsibility
 	    }
 
 	    public abstract void HandleRequest(Request request);
-
     }
 }

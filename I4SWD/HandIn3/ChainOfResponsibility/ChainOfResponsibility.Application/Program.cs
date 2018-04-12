@@ -27,14 +27,18 @@ namespace ChainOfResponsibility.Application
 			urgentHandler.SetNextHandler(hasteHandler);
 		    hasteHandler.SetNextHandler(criticalHandler);
             criticalHandler.SetNextHandler(overdueHandler);
-
+			
             regularHandler.HandleRequest(testRequest1);
 		    regularHandler.HandleRequest(testRequest2);
 		    regularHandler.HandleRequest(testRequest3);
 		    regularHandler.HandleRequest(testRequest4);
 		    regularHandler.HandleRequest(testRequest5);
+			
+			var testRequest6 = new Request(RequestType.Other, "OtherRequest");
+			var client = new Client();
+			client.HandleRequest(testRequest6);
 
-            Console.ReadKey();
+			Console.ReadKey();
 
 		}
 	}

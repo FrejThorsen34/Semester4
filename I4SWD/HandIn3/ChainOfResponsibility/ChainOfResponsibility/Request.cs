@@ -12,7 +12,8 @@ namespace ChainOfResponsibility
         Urgent,
         Haste,
         Critical,
-        Overdue
+        Overdue,
+	    Other
     }
 	public class Request
 	{

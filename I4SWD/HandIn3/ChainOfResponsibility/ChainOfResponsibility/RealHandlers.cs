@@ -85,4 +85,14 @@ namespace ChainOfResponsibility
             }
         }
     }
+
+	public class EndOfChainHandler : Handler
+	{
+		public override void HandleRequest(Request request)
+		{
+
+			Console.WriteLine($"{request.Name} reached end of chain without getting handled - add handler for the type '{request.RequestType}' to the chain.");
+			
+		}
+	}
 }
