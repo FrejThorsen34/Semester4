@@ -8,11 +8,11 @@ namespace ChainOfResponsibility
 {
     public abstract class Handler
     {
-	    protected Handler _nextHandler;
+	    protected Handler NextHandler;
 
 	    public void SetNextHandler(Handler next)
 	    {
-		    this._nextHandler = next;
+		    this.NextHandler = next;
 	    }
 
 	    public abstract void HandleRequest(Request request);

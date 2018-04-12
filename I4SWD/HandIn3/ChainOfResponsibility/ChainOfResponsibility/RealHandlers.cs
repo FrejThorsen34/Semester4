@@ -14,10 +14,10 @@ namespace ChainOfResponsibility
 			{
 				Console.WriteLine($"{request.Name} handled by RegularHandler - Type: {request.RequestType}");
 			}
-			else if(_nextHandler != null)
+			else if(NextHandler != null)
 			{
                 Console.WriteLine($"{request.Name} is redirected by RegularHandler");
-				_nextHandler.HandleRequest(request);
+				NextHandler.HandleRequest(request);
 			}
 		}
 	}
@@ -30,10 +30,10 @@ namespace ChainOfResponsibility
 		    {
 		        Console.WriteLine($"{request.Name} handled by UrgentHandler - Type: {request.RequestType}");
 		    }
-		    else if (_nextHandler != null)
+		    else if (NextHandler != null)
 		    {
 		        Console.WriteLine($"{request.Name} is redirected by UrgentHandler");
-		        _nextHandler.HandleRequest(request);
+			    NextHandler.HandleRequest(request);
 		    }
         }
 	}
@@ -46,10 +46,10 @@ namespace ChainOfResponsibility
             {
                 Console.WriteLine($"{request.Name} handled by HasteHandler - Type: {request.RequestType}");
             }
-            else if (_nextHandler != null)
+            else if (NextHandler != null)
             {
                 Console.WriteLine($"{request.Name} is redirected by HasteHandler");
-                _nextHandler.HandleRequest(request);
+	            NextHandler.HandleRequest(request);
             }
         }
     }
@@ -62,10 +62,10 @@ namespace ChainOfResponsibility
             {
                 Console.WriteLine($"{request.Name} handled by CriticalHandler - Type: {request.RequestType}");
             }
-            else if (_nextHandler != null)
+            else if (NextHandler != null)
             {
                 Console.WriteLine($"{request.Name} is redirected by CriticalHandler");
-                _nextHandler.HandleRequest(request);
+	            NextHandler.HandleRequest(request);
             }
         }
     }
@@ -78,10 +78,10 @@ namespace ChainOfResponsibility
             {
                 Console.WriteLine($"{request.Name} handled by OverdueHandler - Type: {request.RequestType}");
             }
-            else if (_nextHandler != null)
+            else if (NextHandler != null)
             {
                 Console.WriteLine($"{request.Name} is redirected by OverdueHandler");
-                _nextHandler.HandleRequest(request);
+	            NextHandler.HandleRequest(request);
             }
         }
     }
