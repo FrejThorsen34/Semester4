@@ -34,6 +34,7 @@ namespace F18IDABH2Gr30CosmosDB
             {
                 Client = initializer.GetClient(EndpointUrl, PrimaryKey);
                 Task program = DemoAsync(args);
+	            program.Wait();
             }
             catch (DocumentClientException de)
             {
@@ -77,7 +78,7 @@ namespace F18IDABH2Gr30CosmosDB
             //Create a new person
             Person person1 = new Person
             {
-                PersonId = "Nr1",
+				Id = "Person1",
                 Addresses = new Address[]
                 {
                     new Address
@@ -123,8 +124,8 @@ namespace F18IDABH2Gr30CosmosDB
             //Create another person
             Person person2 = new Person
             {
-                PersonId = "Nr2",
-                Addresses = new Address[]
+				Id = "Person2",
+               Addresses = new Address[]
                 {
                     new Address
                     {
@@ -177,11 +178,12 @@ namespace F18IDABH2Gr30CosmosDB
             //Read operation
             Person testPerson = new Person();
             testPerson = await UOW.ReadPerson(person2);
-            Console.WriteLine($"Id of person2: {testPerson.PersonId}");
-
+            Console.WriteLine($"Id of person2: {testPerson.Id}");
+			
             //Delete operation
             UOW.DeletePerson(person1);
             await UOW.BodyOfWork();
+			
         }
     }
 }
