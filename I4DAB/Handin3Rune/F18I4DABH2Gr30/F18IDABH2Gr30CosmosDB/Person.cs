@@ -12,7 +12,7 @@ namespace F18IDABH2Gr30CosmosDB
 {
     public class Person
     {
-        [JsonProperty(PropertyName = "id")] public string PersonId { get; set; }
+        [JsonProperty(PropertyName = "id")] public string Id { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -29,7 +29,7 @@ namespace F18IDABH2Gr30CosmosDB
 
     public class Address
     {
-        public string AddressType { get; set; }
+		public string AddressType { get; set; }
         public string Street { get; set; }
         public string StreetNumber { get; set; }
         public ZIP ZIP { get; set; }

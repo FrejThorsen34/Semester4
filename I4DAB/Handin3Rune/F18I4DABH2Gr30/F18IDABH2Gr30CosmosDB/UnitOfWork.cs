@@ -36,13 +36,13 @@ namespace F18IDABH2Gr30CosmosDB
         //Read
         public async Task<Person> ReadPerson(Person person)
         {
-            return await _personRepo.GetByIdAsync(person.PersonId);
+            return await _personRepo.GetByIdAsync(person.Id);
         }
 
         //Update
         public void UpdatePerson(Person person)
         {
-            _updated.Add(person);
+			_updated.Add(person);
             WriteToConsoleAndPromptToContinue($"{person.FirstName} added to the update-queue");
         }
 
@@ -57,8 +57,9 @@ namespace F18IDABH2Gr30CosmosDB
         public async Task BodyOfWork()
         {
             WriteToConsoleAndPromptToContinue("Working on the DB commencing");
-            //Adding
-            foreach (var added in _added)
+	      
+			//Adding
+			foreach (var added in _added)
             {
                 await _personRepo.AddOrUpdateAsync(added);
             }
@@ -67,13 +68,13 @@ namespace F18IDABH2Gr30CosmosDB
             {
                 await _personRepo.AddOrUpdateAsync(updated);
             }
-            //Deleting
-            foreach (var removed in _removed)
-            {
-                await _personRepo.RemoveAsync(removed.PersonId);
-            }
+	        //Deleting
+	        foreach (var removed in _removed)
+	        {
+		        await _personRepo.RemoveAsync(removed.Id);
+	        }
 
-            WriteToConsoleAndPromptToContinue("Work on DB complete");
+			WriteToConsoleAndPromptToContinue("Work on DB complete");
         }
 
         private void WriteToConsoleAndPromptToContinue(string format, params object[] args)
