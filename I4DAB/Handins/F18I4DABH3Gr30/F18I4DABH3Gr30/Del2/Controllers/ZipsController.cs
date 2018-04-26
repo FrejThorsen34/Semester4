@@ -17,25 +17,51 @@ namespace Del2.Controllers
     public class ZipsController : ApiController
     {
         private PersonKartotekContext db = new PersonKartotekContext();
-
+		/// <summary>
+		/// Returns all zips
+		/// </summary>
+		/// <returns></returns>
         // GET: api/Zips
-        public IQueryable<Zip> GetZips()
+        public IQueryable<ZipDTO> GetZips()
         {
-            return db.Zips;
+	        var zip = from z in db.Zips
+		        select new ZipDTO()
+		        {
+			        Id = z.Id,
+			        Country = z.Country,
+			        Town = z.Town,
+			        Zipcode = z.Zipcode
+		        };
+	        return zip;
         }
 
         // GET: api/Zips/5
-        [ResponseType(typeof(Zip))]
+		/// <summary>
+		/// Return zip and all addresses with that zip code
+		/// </summary>
+		/// <param name="id">Zipcode</param>
+		/// <returns></returns>
+        [ResponseType(typeof(ZipDetailDTO))]
         public async Task<IHttpActionResult> GetZip(string id)
         {
-            Zip zip = await db.Zips.FindAsync(id);
-            if (zip == null)
-            {
-                return NotFound();
-            }
+	        var zip = await db.Zips.Include(z => z.Addresses).Select(z => new ZipDetailDTO()
+	        {
+		        Id = z.Id,
+		        Country = z.Country,
+		        Town = z.Town,
+		        Zipcode = z.Zipcode
+	        }).SingleOrDefaultAsync(z => z.Zipcode == id);
 
-            return Ok(zip);
-        }
+	        zip.Addresses = await db.Addresses.Select(ad => new AddressDTO()
+	        {
+		        Street = ad.Street,
+		        StreetNumber = ad.StreetNumber,
+		        Id = ad.Id,
+		        ZipCode = ad.Zip.Zipcode
+	        }).Where(ad => ad.ZipCode == id).ToListAsync();
+
+	        return Ok(zip);
+		}
 
         // PUT: api/Zips/5
         [ResponseType(typeof(void))]

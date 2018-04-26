@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using Del2.Models;
 
@@ -18,7 +19,7 @@ namespace Del2.Migrations
         protected override void Seed(Del2.DAL.PersonKartotekContext context)
         {
 			//Test
-	        context.Persons.Add(new Person() {FirstName = "TestMan", MiddleName = "Test", LastName = "Testersen"});
+	        //context.Persons.Add(new Person() {FirstName = "TestMan", MiddleName = "Test", LastName = "Testersen" , PersonType = "Co-worker", Email = "Test@testersen.co", PrimaryAddress = new PrimaryAddress(){Street = "Testvej", StreetNumber = "1A", Zip = new Zip(){Country = "Testland",Town = "Testvile", Zipcode = "8000X"}}, PhoneNumbers = new List<PhoneNumber>(){new PhoneNumber(){PhoneType = "work", Number = "8989238662", Provider = "TDC"}}});
         }
     }
 }

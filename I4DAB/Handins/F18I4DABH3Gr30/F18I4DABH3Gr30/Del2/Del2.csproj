@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Del2.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,6 +57,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.2.1\lib\net40\Swashbuckle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -118,6 +122,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -154,6 +161,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -198,6 +206,22 @@
     <Compile Include="Migrations\201804261041133_InitialPerson.cs" />
     <Compile Include="Migrations\201804261041133_InitialPerson.Designer.cs">
       <DependentUpon>201804261041133_InitialPerson.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804261341176_two.cs" />
+    <Compile Include="Migrations\201804261341176_two.Designer.cs">
+      <DependentUpon>201804261341176_two.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804261351195_three.cs" />
+    <Compile Include="Migrations\201804261351195_three.Designer.cs">
+      <DependentUpon>201804261351195_three.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804261402378_four.cs" />
+    <Compile Include="Migrations\201804261402378_four.Designer.cs">
+      <DependentUpon>201804261402378_four.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804261428082_ziptest.cs" />
+    <Compile Include="Migrations\201804261428082_ziptest.Designer.cs">
+      <DependentUpon>201804261428082_ziptest.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
@@ -286,6 +310,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201804261041133_InitialPerson.resx">
       <DependentUpon>201804261041133_InitialPerson.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804261341176_two.resx">
+      <DependentUpon>201804261341176_two.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804261351195_three.resx">
+      <DependentUpon>201804261351195_three.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804261402378_four.resx">
+      <DependentUpon>201804261402378_four.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804261428082_ziptest.resx">
+      <DependentUpon>201804261428082_ziptest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

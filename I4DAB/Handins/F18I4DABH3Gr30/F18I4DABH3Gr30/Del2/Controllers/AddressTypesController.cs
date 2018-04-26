@@ -19,9 +19,17 @@ namespace Del2.Controllers
         private PersonKartotekContext db = new PersonKartotekContext();
 
         // GET: api/AddressTypes
-        public IQueryable<AddressType> GetAddressTypes()
+        public IQueryable<AddressTypeDTO> GetAddressTypes()
         {
-            return db.AddressTypes;
+	        var addresstype = from at in db.AddressTypes
+		        select new AddressTypeDTO()
+		        {
+			        Id = at.Id,
+			        AddressId = at.AddressId,
+			        PersonId = at.PersonId,
+			        Type = at.Type
+		        };
+            return addresstype;
         }
 
         // GET: api/AddressTypes/5
