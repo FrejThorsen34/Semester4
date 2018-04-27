@@ -19,13 +19,18 @@ namespace Del2.Controllers
         private PersonKartotekContext db = new PersonKartotekContext();
 		
         // GET: api/PhoneNumbers
-        public IQueryable<PhoneNumber> GetPhoneNumbers()
+        public IEnumerable<PhoneNumberDTO> GetPhoneNumbers()
         {
-            return db.PhoneNumbers;
+			List<PhoneNumberDTO> phoneNumbers = new List<PhoneNumberDTO>();
+	        foreach (PhoneNumber pn in db.PhoneNumbers)
+	        {
+		        phoneNumbers.Add(new PhoneNumberDTO(pn));
+	        }
+            return phoneNumbers;
         }
 
         // GET: api/PhoneNumbers/5
-        [ResponseType(typeof(PhoneNumber))]
+        [ResponseType(typeof(PhoneNumberDTO))]
         public async Task<IHttpActionResult> GetPhoneNumber(int id)
         {
             PhoneNumber phoneNumber = await db.PhoneNumbers.FindAsync(id);
@@ -34,7 +39,7 @@ namespace Del2.Controllers
                 return NotFound();
             }
 
-            return Ok(phoneNumber);
+            return Ok(new PhoneNumberDTO(phoneNumber));
         }
 
         // PUT: api/PhoneNumbers/5

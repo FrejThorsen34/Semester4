@@ -7,18 +7,18 @@ namespace Del2.Models
 {
 	public class ZipDTO
 	{
-		public int Id { get; set; }
+		public ZipDTO(){}
+
+		public ZipDTO(Zip zip)
+		{
+			Country = zip.Country;
+			Town = zip.Town;
+			Zipcode = zip.Zipcode;
+		}
+		
 		public string Country { get; set; }
 		public string Town { get; set; }
 		public string Zipcode { get; set; }
 	}
 
-	public class ZipDetailDTO
-	{
-		public int Id { get; set; }
-		public string Country { get; set; }
-		public string Town { get; set; }
-		public string Zipcode { get; set; }
-		public virtual ICollection<AddressDTO> Addresses { get; set; }
-	}
 }

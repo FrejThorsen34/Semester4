@@ -15,6 +15,7 @@ namespace Del2.Models
 		[DataMember]
 		public int AddressId { get; set; }
 		[DataMember]
+		[Required]
 		public string Type { get; set; }
 		[DataMember]
 		public virtual Address Address { get; set; }

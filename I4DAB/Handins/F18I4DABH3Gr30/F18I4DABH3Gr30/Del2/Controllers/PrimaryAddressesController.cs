@@ -19,13 +19,18 @@ namespace Del2.Controllers
         private PersonKartotekContext db = new PersonKartotekContext();
 
         // GET: api/PrimaryAddresses
-        public IQueryable<PrimaryAddress> GetPrimaryAddresses()
+        public IEnumerable<PrimaryAddressDTO> GetPrimaryAddresses()
         {
-            return db.PrimaryAddresses;
+			List<PrimaryAddressDTO> primaryAddresses = new List<PrimaryAddressDTO>();
+	        foreach (PrimaryAddress pa in db.PrimaryAddresses)
+	        {
+		        primaryAddresses.Add(new PrimaryAddressDTO(pa));
+	        }
+            return primaryAddresses;
         }
 
         // GET: api/PrimaryAddresses/5
-        [ResponseType(typeof(PrimaryAddress))]
+        [ResponseType(typeof(PrimaryAddressDTO))]
         public async Task<IHttpActionResult> GetPrimaryAddress(int id)
         {
             PrimaryAddress primaryAddress = await db.PrimaryAddresses.FindAsync(id);
@@ -34,7 +39,7 @@ namespace Del2.Controllers
                 return NotFound();
             }
 
-            return Ok(primaryAddress);
+            return Ok(new PrimaryAddressDTO(primaryAddress));
         }
 
         // PUT: api/PrimaryAddresses/5

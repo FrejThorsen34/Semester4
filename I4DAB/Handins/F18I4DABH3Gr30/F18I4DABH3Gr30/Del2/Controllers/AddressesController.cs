@@ -19,16 +19,13 @@ namespace Del2.Controllers
         private PersonKartotekContext db = new PersonKartotekContext();
 
         // GET: api/Addresses
-        public IQueryable<AddressDTO> GetAddresses()
+        public IEnumerable<AddressDTO> GetAddresses()
         {
-	        var addresses = from a in db.Addresses
-		        select new AddressDTO()
-		        {
-			        Id = a.Id,
-			        Street = a.Street,
-					StreetNumber = a.StreetNumber,
-					ZipCode = a.Zip.Zipcode
-		        };
+	        List<AddressDTO> addresses = new List<AddressDTO>();
+	        foreach (Address address in db.Addresses)
+	        {
+		        addresses.Add(new AddressDTO(address));
+	        }
 			return addresses;
         }
 
@@ -38,24 +35,17 @@ namespace Del2.Controllers
 		/// </summary>
 		/// <param name="id">id of the address</param>
 		/// <returns></returns>
-        [ResponseType(typeof(AddressDetailDTO))]
+        [ResponseType(typeof(AddressDTO))]
         public async Task<IHttpActionResult> GetAddress(int id)
-        {
-	        var address = await db.Addresses.Select(a =>
-				new AddressDetailDTO()
-				{
-					Id = a.Id,
-					Street = a.Street,
-					StreetNumber = a.StreetNumber,
-					ZipCode = a.Zip.Zipcode
-				}).SingleOrDefaultAsync(a => a.Id == id);
+		{
+			Address address = await db.Addresses.FindAsync(id);
 			
 			if (address == null)
             {
                 return NotFound();
             }
 
-            return Ok(address);
+            return Ok(new AddressDTO(address));
         }
 
         // PUT: api/Addresses/5

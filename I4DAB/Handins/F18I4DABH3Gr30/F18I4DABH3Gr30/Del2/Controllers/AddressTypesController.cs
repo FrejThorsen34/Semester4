@@ -19,21 +19,18 @@ namespace Del2.Controllers
         private PersonKartotekContext db = new PersonKartotekContext();
 
         // GET: api/AddressTypes
-        public IQueryable<AddressTypeDTO> GetAddressTypes()
+        public IEnumerable<AddressTypeDTO> GetAddressTypes()
         {
-	        var addresstype = from at in db.AddressTypes
-		        select new AddressTypeDTO()
-		        {
-			        Id = at.Id,
-			        AddressId = at.AddressId,
-			        PersonId = at.PersonId,
-			        Type = at.Type
-		        };
-            return addresstype;
+	        List<AddressTypeDTO> addressTypes = new List<AddressTypeDTO>();
+	        foreach (AddressType at in db.AddressTypes)
+	        {
+		        addressTypes.Add(new AddressTypeDTO(at));
+	        }
+            return addressTypes;
         }
 
         // GET: api/AddressTypes/5
-        [ResponseType(typeof(AddressType))]
+        [ResponseType(typeof(AddressTypeDTO))]
         public async Task<IHttpActionResult> GetAddressType(int id)
         {
             AddressType addressType = await db.AddressTypes.FindAsync(id);
@@ -42,7 +39,7 @@ namespace Del2.Controllers
                 return NotFound();
             }
 
-            return Ok(addressType);
+            return Ok(new AddressTypeDTO(addressType));
         }
 
         // PUT: api/AddressTypes/5

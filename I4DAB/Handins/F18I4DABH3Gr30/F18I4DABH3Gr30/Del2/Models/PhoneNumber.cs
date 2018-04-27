@@ -12,8 +12,10 @@ namespace Del2.Models
 	public class PhoneNumber : BaseModel
 	{
 		[DataMember]
+		[Required]
 		public string PhoneType { get; set; }
 		[DataMember]
+		[Required]
 		public string Number { get; set; }
 		[DataMember]
 		public string Provider { get; set; }

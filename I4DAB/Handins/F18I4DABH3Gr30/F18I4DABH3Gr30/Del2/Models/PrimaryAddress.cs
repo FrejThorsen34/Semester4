@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -11,8 +12,10 @@ namespace Del2.Models
 	public class PrimaryAddress : BaseModel
 	{
 		[DataMember]
+		[Required]
 		public string Street { get; set; }
 		[DataMember]
+		[Required]
 		public string StreetNumber { get; set; }
 		[DataMember]
 		public virtual Zip Zip { get; set; }

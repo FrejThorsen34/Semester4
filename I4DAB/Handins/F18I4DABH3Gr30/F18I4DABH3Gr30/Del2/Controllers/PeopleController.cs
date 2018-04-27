@@ -19,9 +19,14 @@ namespace Del2.Controllers
         private static PersonKartotekContext db = new PersonKartotekContext();
 		
         // GET: api/People
-        public IQueryable<Person> GetPersons()
+        public IEnumerable<PersonDTO> GetPersons()
         {
-            return db.Persons;
+			List<PersonDTO> people = new List<PersonDTO>();
+	        foreach (Person p in db.Persons)
+	        {
+		        people.Add(new PersonDTO(p));
+	        }
+            return people;
         }
 
         // GET: api/People/5
@@ -34,7 +39,7 @@ namespace Del2.Controllers
                 return NotFound();
             }
 
-            return Ok(person);
+            return Ok(new PersonDTO(person));
         }
 
         // PUT: api/People/5
