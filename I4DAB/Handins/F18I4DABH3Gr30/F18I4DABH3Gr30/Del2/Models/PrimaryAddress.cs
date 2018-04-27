@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Del2.Models
 {
-	[DataContract(IsReference = true)]
 	public class PrimaryAddress : BaseModel
 	{
-		[DataMember]
+		
 		[Required]
 		public string Street { get; set; }
-		[DataMember]
+		
 		[Required]
 		public string StreetNumber { get; set; }
-		[DataMember]
+		//Foreign key
+		public int ZipId { get; set; }
 		public virtual Zip Zip { get; set; }
 	}
 }

@@ -11,11 +11,19 @@ namespace Del2.DAL
 	{
 			public PersonKartotekContext() : base("DefaultConnection"){}
 		
-			public DbSet<PhoneNumber> PhoneNumbers { get; set; }
-			public DbSet<Person> Persons { get; set; }
-			public DbSet<PrimaryAddress> PrimaryAddresses { get; set; }
-			public DbSet<AddressType> AddressTypes { get; set; }
-			public DbSet<Address> Addresses { get; set; }
-			public DbSet<Zip> Zips { get; set; }
+			public virtual DbSet<PhoneNumber> PhoneNumbers { get; set; }
+			public virtual DbSet<Person> Persons { get; set; }
+			public virtual DbSet<PrimaryAddress> PrimaryAddresses { get; set; }
+			public virtual DbSet<AddressType> AddressTypes { get; set; }
+			public virtual DbSet<Address> Addresses { get; set; }
+			public virtual DbSet<Zip> Zips { get; set; }
+
+			protected override void OnModelCreating(DbModelBuilder modelBuilder)
+			{
+				modelBuilder.Entity<Address>()
+					.HasMany(e => e.AddressTypes)
+					.WithRequired(e => e.Address)
+					.WillCascadeOnDelete(false);
+			}
 	}
 }

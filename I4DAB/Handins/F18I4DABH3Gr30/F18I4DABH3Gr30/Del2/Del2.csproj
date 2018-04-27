@@ -203,25 +203,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804261041133_InitialPerson.cs" />
-    <Compile Include="Migrations\201804261041133_InitialPerson.Designer.cs">
-      <DependentUpon>201804261041133_InitialPerson.cs</DependentUpon>
+    <Compile Include="Migrations\201804271138060_allReverted.cs" />
+    <Compile Include="Migrations\201804271138060_allReverted.Designer.cs">
+      <DependentUpon>201804271138060_allReverted.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804261341176_two.cs" />
-    <Compile Include="Migrations\201804261341176_two.Designer.cs">
-      <DependentUpon>201804261341176_two.cs</DependentUpon>
+    <Compile Include="Migrations\201804271149204_almostDone1.cs" />
+    <Compile Include="Migrations\201804271149204_almostDone1.Designer.cs">
+      <DependentUpon>201804271149204_almostDone1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804261351195_three.cs" />
-    <Compile Include="Migrations\201804261351195_three.Designer.cs">
-      <DependentUpon>201804261351195_three.cs</DependentUpon>
+    <Compile Include="Migrations\201804271240197_almostDone876.cs" />
+    <Compile Include="Migrations\201804271240197_almostDone876.Designer.cs">
+      <DependentUpon>201804271240197_almostDone876.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804261402378_four.cs" />
-    <Compile Include="Migrations\201804261402378_four.Designer.cs">
-      <DependentUpon>201804261402378_four.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804261428082_ziptest.cs" />
-    <Compile Include="Migrations\201804261428082_ziptest.Designer.cs">
-      <DependentUpon>201804261428082_ziptest.cs</DependentUpon>
+    <Compile Include="Migrations\201804271245580_almostDone877.cs" />
+    <Compile Include="Migrations\201804271245580_almostDone877.Designer.cs">
+      <DependentUpon>201804271245580_almostDone877.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
@@ -308,20 +304,17 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804261041133_InitialPerson.resx">
-      <DependentUpon>201804261041133_InitialPerson.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804271138060_allReverted.resx">
+      <DependentUpon>201804271138060_allReverted.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804261341176_two.resx">
-      <DependentUpon>201804261341176_two.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804271149204_almostDone1.resx">
+      <DependentUpon>201804271149204_almostDone1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804261351195_three.resx">
-      <DependentUpon>201804261351195_three.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804271240197_almostDone876.resx">
+      <DependentUpon>201804271240197_almostDone876.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804261402378_four.resx">
-      <DependentUpon>201804261402378_four.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804261428082_ziptest.resx">
-      <DependentUpon>201804261428082_ziptest.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804271245580_almostDone877.resx">
+      <DependentUpon>201804271245580_almostDone877.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

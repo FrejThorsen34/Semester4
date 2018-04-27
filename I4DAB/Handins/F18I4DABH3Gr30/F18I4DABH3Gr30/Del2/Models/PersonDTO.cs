@@ -22,8 +22,6 @@ namespace Del2.Models
 
 			Email = person.Email;
 
-			PrimaryAddress = new PrimaryAddressDTO(person.PrimaryAddress);
-
 			SecondaryAddresses = new List<AddressTypeDTO>();
 
 			PhoneNumbers = new List<PhoneNumberDTO>();
@@ -37,6 +35,14 @@ namespace Del2.Models
 			{
 				PhoneNumbers.Add(new PhoneNumberDTO(pn));
 			}
+
+			PrimaryAddress = new PrimaryAddressDTO(person.PrimaryAddress);
+
+		}
+
+		public Person ToPerson()
+		{
+			return new Person() { Id = Id, FirstName = FirstName, MiddleName = MiddleName, LastName = LastName, Email = Email, PrimaryAddress = PrimaryAddress.ToPrimaryAddress(), PrimaryAddressId = PrimaryAddress.Id, SecondaryAddresses = SecondaryAddresses.Select(pa => pa.ToAddressType()).ToList(), PhoneNumbers = PhoneNumbers.Select(pn => pn.ToPhoneNumber()).ToList() };
 		}
 		public int Id { get; set; }
 		public string FirstName { get; set; }

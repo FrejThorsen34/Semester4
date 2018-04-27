@@ -8,21 +8,19 @@ using System.Threading.Tasks;
 
 namespace Del2.Models
 {
-	[DataContract(IsReference = true)]
+	
 	public class AddressType : BaseModel
 	{
 		//Foreign key
-		[DataMember]
 		public int AddressId { get; set; }
-		[DataMember]
+		
 		[Required]
 		public string Type { get; set; }
-		[DataMember]
+		
 		public virtual Address Address { get; set; }
-		[DataMember]
+		
 		public virtual Person Person { get; set; }
 		//Foreign key
-		[DataMember]
 		public int PersonId { get; set; }
 	}
 }

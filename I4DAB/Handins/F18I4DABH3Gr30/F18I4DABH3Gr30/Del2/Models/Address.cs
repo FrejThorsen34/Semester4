@@ -9,7 +9,7 @@ using Del2.Models;
 
 namespace Del2.Models
 {
-	[DataContract(IsReference = true)]
+	
 	public class Address : BaseModel
 	{
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -18,18 +18,20 @@ namespace Del2.Models
 			Persons = new HashSet<Person>();
 			AddressTypes = new HashSet<AddressType>();
 		}
-		[DataMember]
+		
 		[Required]
 		public string Street { get; set; }
-		[DataMember]
+		
 		[Required]
 		public string StreetNumber { get; set; }
-		[DataMember]
+		//Foreign key
+		public int ZipId { get; set; }
+		
 		public virtual Zip Zip { get; set; }
-		[DataMember]
+		
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 		public virtual ICollection<Person> Persons { get; set; }
-		[DataMember]
+		
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 		public virtual ICollection<AddressType> AddressTypes { get; set; }
 	}

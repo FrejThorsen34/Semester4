@@ -8,7 +8,6 @@ namespace Del2.Models
 {
 	public class BaseModel
 	{
-		[DataMember]
 		public int Id { get; set; }
 	}
 }

@@ -39,7 +39,7 @@ namespace Del2.Controllers
 		/// <param name="id">Zipcode</param>
 		/// <returns></returns>
         [ResponseType(typeof(ZipDTO))]
-        public async Task<IHttpActionResult> GetZip(string id)
+        public async Task<IHttpActionResult> GetZip(int id)
 		{
 			Zip zip = await db.Zips.FindAsync(id);
 			if (zip == null)
@@ -52,14 +52,14 @@ namespace Del2.Controllers
 
         // PUT: api/Zips/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutZip(string id, Zip zip)
+        public async Task<IHttpActionResult> PutZip(int id, Zip zip)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != zip.Zipcode)
+            if (id != zip.Id)
             {
                 return BadRequest();
             }
@@ -102,7 +102,7 @@ namespace Del2.Controllers
             }
             catch (DbUpdateException)
             {
-                if (ZipExists(zip.Zipcode))
+                if (ZipExists(zip.Id))
                 {
                     return Conflict();
                 }
@@ -140,9 +140,9 @@ namespace Del2.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ZipExists(string id)
+        private bool ZipExists(int id)
         {
-            return db.Zips.Count(e => e.Zipcode == id) > 0;
+            return db.Zips.Count(e => e.Id == id) > 0;
         }
     }
 }

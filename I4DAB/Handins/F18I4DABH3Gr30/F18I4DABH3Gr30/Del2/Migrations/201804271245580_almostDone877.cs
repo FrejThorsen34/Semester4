@@ -3,7 +3,7 @@ namespace Del2.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class three : DbMigration
+    public partial class almostDone877 : DbMigration
     {
         public override void Up()
         {

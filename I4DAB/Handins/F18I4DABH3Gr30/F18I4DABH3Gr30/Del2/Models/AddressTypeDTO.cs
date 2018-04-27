@@ -16,6 +16,19 @@ namespace Del2.Models
 			Person = new PersonDTO(addressType.Person);
 			Type = addressType.Type;
 		}
+
+		public AddressType ToAddressType()
+		{
+			return new AddressType()
+			{
+				Id = Id,
+				Type = Type,
+				Address = Address.ToAddress(),
+				AddressId = Address.Id,
+				Person = Person.ToPerson(),
+				PersonId = Person.Id
+			};
+		}
 		public int Id { get; set; }
 		public AddressDTO Address { get; set; }
 		public PersonDTO Person { get; set; }

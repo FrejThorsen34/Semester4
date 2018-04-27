@@ -16,6 +16,18 @@ namespace Del2.Models
 			StreetNumber = primaryAddress.StreetNumber;
 			Zip = new ZipDTO(primaryAddress.Zip);
 		}
+
+		public PrimaryAddress ToPrimaryAddress()
+		{
+			return new PrimaryAddress()
+			{
+				Id = Id,
+				Street = Street,
+				StreetNumber = StreetNumber,
+				Zip = Zip.ToZip(),
+				ZipId = Zip.Id
+			};
+		}
 		public int Id { get; set; }
 		public string Street { get; set; }
 		public string StreetNumber { get; set; }

@@ -29,6 +29,11 @@ namespace Del2.Models
 			}
 
 		}
+
+		public Address ToAddress()
+		{
+			return new Address() {Id = Id, Street = Street, StreetNumber = StreetNumber, Zip = Zip.ToZip(), ZipId = Zip.Id};
+		}
 		public int Id { get; set; }
 		public string Street { get; set; }
 		public string StreetNumber { get; set; }

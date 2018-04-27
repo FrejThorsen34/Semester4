@@ -7,13 +7,13 @@ namespace Del2.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialPerson : IMigrationMetadata
+    public sealed partial class almostDone876 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialPerson));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(almostDone876));
         
         string IMigrationMetadata.Id
         {
-            get { return "201804261041133_InitialPerson"; }
+            get { return "201804271240197_almostDone876"; }
         }
         
         string IMigrationMetadata.Source

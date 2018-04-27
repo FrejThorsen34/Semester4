@@ -17,6 +17,19 @@ namespace Del2.Models
 			PhoneType = phoneNumber.PhoneType;
 			Person = new PersonDTO(phoneNumber.Person);
 		}
+
+		public PhoneNumber ToPhoneNumber()
+		{
+			return new PhoneNumber()
+			{
+				Id = Id,
+				Number = Number,
+				PhoneType = PhoneType,
+				Provider = Provider,
+				Person = Person.ToPerson(),
+				PersonId = Person.Id
+			};
+		}
 		public int Id { get; set; }
 		public string Number { get; set; }
 		public string Provider { get; set; }

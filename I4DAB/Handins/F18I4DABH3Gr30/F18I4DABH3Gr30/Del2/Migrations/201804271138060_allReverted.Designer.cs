@@ -7,13 +7,13 @@ namespace Del2.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class four : IMigrationMetadata
+    public sealed partial class allReverted : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(four));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(allReverted));
         
         string IMigrationMetadata.Id
         {
-            get { return "201804261402378_four"; }
+            get { return "201804271138060_allReverted"; }
         }
         
         string IMigrationMetadata.Source
