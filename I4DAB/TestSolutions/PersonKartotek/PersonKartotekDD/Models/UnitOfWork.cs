@@ -89,7 +89,7 @@ namespace PersonKartotekDD.Models
                 await _repository.RemoveAsync(removed.Id);
             }
 
-            WriteToConsoleAndPromptToContinue("Work on DB complete");
+            //WriteToConsoleAndPromptToContinue("Work on DB complete");
         }
 
         private void WriteToConsoleAndPromptToContinue(string format, params object[] args)
