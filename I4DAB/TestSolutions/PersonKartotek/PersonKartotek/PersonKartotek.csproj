@@ -244,6 +244,21 @@
     <Compile Include="Controllers\PhoneNumbersController.cs" />
     <Compile Include="Controllers\PrimaryAddressesController.cs" />
     <Compile Include="Controllers\ZipsController.cs" />
+    <Compile Include="DAL\IRepository.cs" />
+    <Compile Include="DAL\Repositories\AddressRepository.cs" />
+    <Compile Include="DAL\Repositories\Interfaces\IAddressRepository.cs" />
+    <Compile Include="DAL\Repositories\Interfaces\IPersonAddressRepository.cs" />
+    <Compile Include="DAL\Repositories\Interfaces\IPersonRepository.cs" />
+    <Compile Include="DAL\Repositories\Interfaces\IPhoneNumberRepository.cs" />
+    <Compile Include="DAL\Repositories\Interfaces\IPrimaryAddressRepository.cs" />
+    <Compile Include="DAL\Repositories\Interfaces\IZipRepository.cs" />
+    <Compile Include="DAL\Repositories\Interfaces\IUnitOfWork.cs" />
+    <Compile Include="DAL\Repositories\PersonAddressRepository.cs" />
+    <Compile Include="DAL\Repositories\PersonRepository.cs" />
+    <Compile Include="DAL\Repositories\PhoneNumberRepository.cs" />
+    <Compile Include="DAL\Repositories\PrimaryAddressRepository.cs" />
+    <Compile Include="DAL\Repositories\ZipRepository.cs" />
+    <Compile Include="DAL\Repository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

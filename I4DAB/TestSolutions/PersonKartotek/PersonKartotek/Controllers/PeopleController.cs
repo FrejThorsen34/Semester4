@@ -9,25 +9,26 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using PersonKartotek.DAL.Repositories;
 using PersonKartotek.Models;
 
 namespace PersonKartotek.Controllers
 {
     public class PeopleController : ApiController
     {
-        private PersonKartotekContext db = new PersonKartotekContext();
+        private readonly IUnitOfWork _uow;
 
-        // GET: api/People
-        public IEnumerable<PersonDTO> GetPeople()
+        public PeopleController(IUnitOfWork unitOfWork)
         {
-            List<PersonDTO> people = new List<PersonDTO>();
-            foreach (Person p in db.People)
-            {
-                people.Add(new PersonDTO(p));
-            }
-            return people;
+            _uow = unitOfWork;
         }
 
+        // GET: api/People
+        public async Task<IEnumerable<Person>> GetPeople()
+        {
+            return await _uow.PersonRepository.GetAllAsync();
+        }
+        /*
         // GET: api/People/5
         [ResponseType(typeof(PersonDTO))]
         public async Task<IHttpActionResult> GetPerson(int id)
@@ -106,19 +107,19 @@ namespace PersonKartotek.Controllers
 
             return Ok(person);
         }
+        */
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool PersonExists(int id)
-        {
-            return db.People.Count(e => e.Id == id) > 0;
-        }
+        //private bool PersonExists(int id)
+        //{
+        //    return db.People.Count(e => e.Id == id) > 0;
+        //}
     }
 }
