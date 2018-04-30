@@ -22,19 +22,19 @@ namespace PersonKartotek.Migrations
             context.Zips.AddOrUpdate(x => x.Id,
                 Aarhus, Odense, Esbjerg, Grenaa
                 );
-            Person Klaus = new Person(){ Id = 1, FirstName = "Klaus", MiddleName = "Stormester", LastName = "Bossen", Email = "Klaus@Bossen.dk"};
-            Person Troels = new Person() { Id = 2, FirstName = "Troels", MiddleName = "Slaven", LastName = "Medarbejdersen", Email = "Troels@Medarbejdersen.dk" };
-            Person Emil = new Person() { Id = 3, FirstName = "Emil", MiddleName = "Huhr", LastName = "Jensen", Email = "Emil@Jensen.dk" };
-            context.People.AddOrUpdate(x => x.Id,
-                Klaus, Troels, Emil
-                );
-            PrimaryAddress HjemmeHosKlaus = new PrimaryAddress(){ Id = 1, Street = "Ny Munkegade", StreetNumber = "1A", PersonId = 1, Person = Klaus, ZipId = 1, Zip = Aarhus};
-            PrimaryAddress HjemmeHosTroels = new PrimaryAddress() { Id = 2, Street = "Vestregade", StreetNumber = "7", PersonId = 2, Person = Troels, ZipId = 2, Zip = Odense};
-            PrimaryAddress HjemmeHosEmil = new PrimaryAddress() { Id = 3, Street = "Kirkegade", StreetNumber = "12B", PersonId = 3, Person = Emil, ZipId = 3, Zip = Esbjerg};
+			PrimaryAddress HjemmeHosKlaus = new PrimaryAddress(){ Id = 1, Street = "Ny Munkegade", StreetNumber = "1A", /*PersonId = 1, Person = Klaus,*/ ZipId = 1, Zip = Aarhus};
+            PrimaryAddress HjemmeHosTroels = new PrimaryAddress() { Id = 2, Street = "Vestregade", StreetNumber = "7", /*PersonId = 2, Person = Troels,*/ ZipId = 2, Zip = Odense};
+            PrimaryAddress HjemmeHosEmil = new PrimaryAddress() { Id = 3, Street = "Kirkegade", StreetNumber = "12B", /*PersonId = 3, Person = Emil,*/ ZipId = 3, Zip = Esbjerg};
             context.PrimaryAddresses.AddOrUpdate(x => x.Id,
                 HjemmeHosKlaus, HjemmeHosTroels, HjemmeHosEmil
                 );
-            PhoneNumber TlfKlaus = new PhoneNumber(){ Id = 1, Number = "88888888", Provider = "TDC", PhoneType = "Private", PersonId = 1, Person = Klaus};
+	        Person Klaus = new Person() { Id = 1, FirstName = "Klaus", MiddleName = "Stormester", LastName = "Bossen", Email = "Klaus@Bossen.dk", PrimaryAddress = HjemmeHosKlaus, PrimaryAddressId = 1};
+	        Person Troels = new Person() { Id = 2, FirstName = "Troels", MiddleName = "Slaven", LastName = "Medarbejdersen", Email = "Troels@Medarbejdersen.dk", PrimaryAddress = HjemmeHosTroels, PrimaryAddressId = 2};
+	        Person Emil = new Person() { Id = 3, FirstName = "Emil", MiddleName = "Huhr", LastName = "Jensen", Email = "Emil@Jensen.dk", PrimaryAddress = HjemmeHosEmil, PrimaryAddressId = 3};
+	        context.People.AddOrUpdate(x => x.Id,
+		        Klaus, Troels, Emil
+	        );
+			PhoneNumber TlfKlaus = new PhoneNumber(){ Id = 1, Number = "88888888", Provider = "TDC", PhoneType = "Private", PersonId = 1, Person = Klaus};
             PhoneNumber TlfTroels = new PhoneNumber() { Id = 2, Number = "22222222", Provider = "Telia", PhoneType = "Private", PersonId = 2, Person = Troels};
             PhoneNumber TlfEmil = new PhoneNumber() { Id = 3, Number = "44444444", Provider = "Sonofon", PhoneType = "Private", PersonId = 3, Person = Emil};
             PhoneNumber TlfKlausWork = new PhoneNumber() { Id = 4, Number = "99999999", Provider = "TDC", PhoneType = "Work", PersonId = 1, Person = Klaus };

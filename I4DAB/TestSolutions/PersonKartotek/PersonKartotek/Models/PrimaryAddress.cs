@@ -11,9 +11,9 @@ namespace PersonKartotek.Models
         public string Street { get; set; }
         public string StreetNumber { get; set; }
         //Foreign Key
-        public int PersonId { get; set; }
+        //public int PersonId { get; set; }
         //Navigation property
-        public virtual Person Person { get; set; }
+        public ICollection<Person> Persons { get; set; }
         //Foreign Key
         public int ZipId { get; set; }
         //Navigation property

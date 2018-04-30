@@ -10,7 +10,6 @@ namespace PersonKartotek.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Address()
         {
-            People = new HashSet<Person>();
             Addresses = new HashSet<PersonAddress>();
         }
         public int Id { get; set; }
@@ -19,8 +18,6 @@ namespace PersonKartotek.Models
         //Foreign Key
         public int ZipId { get; set; }
         public virtual Zip Zip { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Person> People { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonAddress> Addresses { get; set; }
     }
