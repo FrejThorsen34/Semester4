@@ -15,7 +15,7 @@ using PersonKartotek.Models;
 
 namespace PersonKartotek.Controllers
 {
-    public class PeopleController : ApiController
+	public class PeopleController : ApiController
     {	
 		private static readonly PersonKartotekContext _context = new PersonKartotekContext();
         private readonly IUnitOfWork _uow = new UnitOfWork(_context);

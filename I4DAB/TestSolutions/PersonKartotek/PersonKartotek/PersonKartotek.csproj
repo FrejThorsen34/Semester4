@@ -271,6 +271,10 @@
     <Compile Include="Migrations\201804301044481_newUOW.Designer.cs">
       <DependentUpon>201804301044481_newUOW.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804301111280_OnModelCreating.cs" />
+    <Compile Include="Migrations\201804301111280_OnModelCreating.Designer.cs">
+      <DependentUpon>201804301111280_OnModelCreating.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AddressDTO.cs" />
@@ -361,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804301044481_newUOW.resx">
       <DependentUpon>201804301044481_newUOW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804301111280_OnModelCreating.resx">
+      <DependentUpon>201804301111280_OnModelCreating.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
