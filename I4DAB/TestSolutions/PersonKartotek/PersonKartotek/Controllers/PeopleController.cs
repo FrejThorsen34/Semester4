@@ -9,19 +9,16 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using PersonKartotek.DAL;
 using PersonKartotek.DAL.Repositories;
 using PersonKartotek.Models;
 
 namespace PersonKartotek.Controllers
 {
     public class PeopleController : ApiController
-    {
-        private readonly IUnitOfWork _uow;
-
-        public PeopleController(IUnitOfWork unitOfWork)
-        {
-            _uow = unitOfWork;
-        }
+    {	
+		private static readonly PersonKartotekContext _context = new PersonKartotekContext();
+        private readonly IUnitOfWork _uow = new UnitOfWork(_context);
 
         // GET: api/People
         public async Task<IEnumerable<Person>> GetPeople()
