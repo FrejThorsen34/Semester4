@@ -5,20 +5,17 @@ using System.Web;
 using System.Web.Mvc;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure;
 using DD.Models;
+
 
 namespace DD.Controllers
 {
     public class PersonController : Controller
     {
 		// GET: Person
-		[ActionName("Index")]
-		public async Task<ActionResult> IndexAsync()
-		{
-			var people = await DocumentDBRepository<Person>.GetItemsAsync(p => p.Id != null);
-			return View(people);
-		}
-
+		
 	    [ActionName("Create")]
 	    public async Task<ActionResult> CreateAsync()
 	    {
@@ -28,7 +25,7 @@ namespace DD.Controllers
 		[HttpPost]
 		[ActionName("Create")]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> CreateAsync([Bind(Include = "Id,FirstName,MiddleName,LastName, Email")] Person person)
+		public async Task<ActionResult> CreateAsync([Bind(Include = "Id,FirstName,MiddleName,LastName, Email, Addresses")] Person person)
 		{
 			if (ModelState.IsValid)
 			{
