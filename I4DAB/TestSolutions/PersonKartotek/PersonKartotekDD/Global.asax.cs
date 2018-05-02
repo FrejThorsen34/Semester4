@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using PersonKartotekDD.Models;
 
 namespace PersonKartotekDD
 {
@@ -18,6 +19,7 @@ namespace PersonKartotekDD
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-        }
+	        DocumentDBRepository<Person>.Initialize();
+		}
     }
 }

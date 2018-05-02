@@ -14,7 +14,7 @@ namespace PersonKartotek.Models
             Id = primaryAddress.Id;
             Street = primaryAddress.Street;
             StreetNumber = primaryAddress.StreetNumber;
-            Person = new PersonDTO(primaryAddress.Person);
+            //Person = new PersonDTO(primaryAddress.Person);
             Zip = new ZipDTO(primaryAddress.Zip);
         }
 
@@ -25,7 +25,7 @@ namespace PersonKartotek.Models
                 Id = Id,
                 Street = Street,
                 StreetNumber = StreetNumber,
-                Person = Person.ToPerson(),
+                //Person = Person.ToPerson(),
                 Zip = Zip.ToZip()
             };
         }
@@ -33,7 +33,7 @@ namespace PersonKartotek.Models
         public int Id { get; set; }
         public string Street { get; set; }
         public string StreetNumber { get; set; }
-        public PersonDTO Person { get; set; }
+        //public PersonDTO Person { get; set; }
         public ZipDTO Zip { get; set; }
     }
 }
