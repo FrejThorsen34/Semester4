@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:HackMan.Game"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+         <local:HackManViewModel x:Key="HackManViewModel"/>
     </Application.Resources>
 </Application>
