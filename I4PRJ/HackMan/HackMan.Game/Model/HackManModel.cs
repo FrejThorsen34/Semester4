@@ -82,20 +82,30 @@ namespace HackMan.Game
 
         public bool CanStep(Direction dir)
         {
+            string check = "";
+            bool result = false;
             switch (dir)
             {
                 case Direction.up:
                     if (HackManPosition.Row == 0)
                         return false;
-                    if (GameBoard[(NumberOfColumns * (HackManPosition.Row - 1)) + HackManPosition.Column].GridImage != "")
-                        return false;
-                    return true;
+                    result =
+                        check.Equals(GameBoard[(NumberOfColumns * (HackManPosition.Row - 1)) + HackManPosition.Column]
+                            .GridImage);
+                    return result;
+                    //if (GameBoard[(NumberOfColumns * (HackManPosition.Row - 1)) + HackManPosition.Column].GridImage != "")
+                    //    return false;
+                    //return true;
                 case Direction.down:
                     if (HackManPosition.Row == NumberOfRows - 1)
                         return false;
-                    if (GameBoard[(NumberOfColumns * (HackManPosition.Row + 1)) + HackManPosition.Column].GridImage != "")
-                        return false;
-                    return true;
+                    result =
+                        check.Equals(GameBoard[(NumberOfColumns * (HackManPosition.Row + 1)) + HackManPosition.Column]
+                            .GridImage);
+                    return result;
+                    //if (GameBoard[(NumberOfColumns * (HackManPosition.Row + 1)) + HackManPosition.Column].GridImage != "")
+                    //    return false;
+                    //return true;
                 case Direction.left:
                     if (HackManPosition.Column == 0)
                         return false;
