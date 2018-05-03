@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helper\Position.cs" />
     <Compile Include="Model\GameField.cs" />
     <Compile Include="Model\HackManModel.cs" />
     <Compile Include="RelayCommand.cs" />
@@ -98,7 +99,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helper\" />
     <Folder Include="View\" />
   </ItemGroup>
   <ItemGroup>

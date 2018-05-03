@@ -16,8 +16,6 @@ namespace HackMan.Game
         #region Variables
 
         private HackManModel _model;
-        private ObservableCollection<GameField> _gameBoard;
-        private String _testImage = "/HackMan.Game;component/ViewModel/HackManResources/hackman.png";
         ICommand _hackManStepUpCommand;
         ICommand _hackManStepDownCommand;
         ICommand _hackManStepRightCommand;
@@ -25,14 +23,14 @@ namespace HackMan.Game
         ICommand _hackManBuyPowerCommand;
         ICommand _hackManBuyLaptopCommand;
         ICommand _hackManPlaceLaptopCommand;
+        private int NumberOfColumns = 14;
+        private int NumberOfRows = 14;
 
         #endregion
 
         public HackManViewModel()
         {
-            _model = new HackManModel();
-            _gameBoard = new ObservableCollection<GameField>();
-            GenerateGameBoard();
+            _model = new HackManModel();            
         }        
 
         #region Properties
@@ -102,25 +100,12 @@ namespace HackMan.Game
 
         public ObservableCollection<GameField> GameBoard
         {
-            get { return _gameBoard; }
+            get { return _model.GameBoard; }
             set
             {
-                if (value != _gameBoard)
+                if (value != _model.GameBoard)
                 {
-                    _gameBoard = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        public String TestImage
-        {
-            get { return _testImage; }
-            set
-            {
-                if (value != _testImage)
-                {
-                    _testImage = value;
+                    _model.GameBoard = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -137,7 +122,7 @@ namespace HackMan.Game
 
         public bool HackManStepUp_CanExecute()
         {
-            return true;
+            return _model.CanStep(Direction.up);            
         }
 
         public void HackManStepDown()
@@ -147,7 +132,7 @@ namespace HackMan.Game
 
         public bool HackManStepDown_CanExecute()
         {
-            return true;
+            return _model.CanStep(Direction.down);
         }
 
         public void HackManStepRight()
@@ -157,7 +142,7 @@ namespace HackMan.Game
 
         public bool HackManStepRight_CanExecute()
         {
-            return true;
+            return _model.CanStep(Direction.right);
         }
 
         public void HackManStepLeft()
@@ -167,7 +152,7 @@ namespace HackMan.Game
 
         public bool HackManStepLeft_CanExecute()
         {
-            return true;
+            return _model.CanStep(Direction.left);
         }
 
         public void HackManBuyPower()
@@ -198,48 +183,7 @@ namespace HackMan.Game
         public bool HackManPlaceLaptop_CanExecute()
         {
             return true;
-        }
-
-        public void GenerateGameBoard()
-        {
-            String level = Properties.Resources.Level;
-            String[] gameBoard = level.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-
-            int rowCounter = 0;
-            int listCounter = 0;
-            foreach (String row in gameBoard)
-            {
-                String[] columns = row.Split(' ');
-                for (int columnCounter = 0; columnCounter < 14; columnCounter++)
-                {
-                    switch (columns[columnCounter])
-                    {
-                        case "HM":
-                            GameBoard.Add(new GameField { Column = columnCounter, Row = rowCounter });
-                            GameBoard[listCounter].SetGridImage(FieldState.hacker);
-                            break;
-                        case "FW":
-                            GameBoard.Add(new GameField { Column = columnCounter, Row = rowCounter });
-                            GameBoard[listCounter].SetGridImage(FieldState.firewall);
-                            break;
-                        case "EP":
-                            GameBoard.Add(new GameField { Column = columnCounter, Row = rowCounter });
-                            GameBoard[listCounter].SetGridImage(FieldState.empty);
-                            break;
-                        case "UB":
-                            GameBoard.Add(new GameField { Column = columnCounter, Row = rowCounter });
-                            GameBoard[listCounter].SetGridImage(FieldState.unbreakable);
-                            break;
-                        default:
-                            GameBoard.Add(new GameField { Column = columnCounter, Row = rowCounter });
-                            GameBoard[listCounter].SetGridImage(FieldState.empty);
-                            break;
-                    }
-                    rowCounter++;
-                    listCounter++;
-                }
-            }
-        }
+        }              
 
         #endregion
 
