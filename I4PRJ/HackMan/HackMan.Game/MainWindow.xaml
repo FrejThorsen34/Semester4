@@ -18,8 +18,8 @@
     </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="650*"/>
-            <ColumnDefinition Width="50*" />
+            <ColumnDefinition Width="630*"/>
+            <ColumnDefinition Width="70*" />
         </Grid.ColumnDefinitions>
         <Viewbox Grid.Column="0">
             <ItemsControl ItemsSource="{Binding GameBoard}" Width="650" Height="650" Background="Gray">
@@ -35,5 +35,13 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Viewbox>
+        <StackPanel Grid.Column="1" Background="DarkCyan" Height="630">
+            <TextBlock Margin="5,10,0,0" FontSize="12" FontWeight="Bold" Text="Bitcoins:"/>
+            <TextBlock Margin="5,5,0,0" FontSize="12" FontWeight="Bold" Text="{Binding Path=HackPlayer.Bitcoins}"/>
+            <TextBlock Margin="5,10,0,0" FontSize="12" FontWeight="Bold" Text="HackPower:"/>
+            <TextBlock Margin="5,5,0,0" FontSize="12" FontWeight="Bold" Text="{Binding Path=HackPlayer.HackPower}"/>
+            <TextBlock Margin="5,10,0,0" FontSize="12" FontWeight="Bold" Text="Laptops:"/>
+            <TextBlock Margin="5,5,0,0" FontSize="12" FontWeight="Bold" Text="{Binding Path=HackPlayer.Laptops}"/>
+        </StackPanel>
     </Grid>
 </Window>

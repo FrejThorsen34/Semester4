@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using HackMan.Game;
 
 namespace HackMan.Game
 {
@@ -26,13 +28,27 @@ namespace HackMan.Game
 
     public enum FieldType
     {
-        player,
+        playerup,
+        playerdown,
+        playerleft,
+        playerright,
         powerup,
         empty,
         hackable,
         unhackable,
-        temporary
+        laptop,
+        playeruplaptop,
+        playerdownlaptop,
+        playerleftlaptop,
+        playerrightlaptop
     };
+
+    public enum SimpleType
+    {
+        player,
+        empty,
+        thing
+    }
 
     public class HackManModel : INotifyPropertyChanged
     {
@@ -40,6 +56,7 @@ namespace HackMan.Game
 
         private Position HackManPosition;
         private ObservableCollection<GameField> _gameBoard;
+        private HackPlayer _hackPlayer;
         public static int NumberOfColumns = 14;
         public static int NumberOfRows = 14;
 
@@ -51,6 +68,7 @@ namespace HackMan.Game
         {
             HackManPosition = new Position();
             GameBoard = new ObservableCollection<GameField>();
+            HackPlayer = new HackPlayer();
             GenerateGameBoard();
         }
 
@@ -58,14 +76,28 @@ namespace HackMan.Game
         {
             GameField moveFrom = new GameField();
             GameField moveTo = new GameField();
+            HackPlayer temp = new HackPlayer();
+            SimpleType type = SimpleType.empty;
             switch (dir)
             {
                 case Direction.up:
                     moveFrom = GameBoard[HackManPosition.FieldIndex()];
-                    moveFrom.SetType(FieldType.player, Direction.up);
+                    type = moveFrom.SimpleType;
+                    moveFrom.SetType(FieldType.playerup);
                     moveFrom.Position.Row--;
                     moveTo = GameBoard[HackManPosition.FieldAbove()];
-                    moveTo.SetType(FieldType.empty, Direction.none);
+                    if (moveTo.Type == FieldType.powerup)
+                    {
+                        temp = HackPlayer;
+                        temp.Bitcoins++;
+                        HackPlayer = temp;
+                    }
+                    if (type == SimpleType.thing)
+                        moveTo.SetType(FieldType.laptop);
+                    else
+                    {
+                        moveTo.SetType(FieldType.empty);
+                    }                    
                     moveTo.Position.Row++;
                     GameBoard[HackManPosition.FieldIndex()] = moveTo;
                     GameBoard[HackManPosition.FieldAbove()] = moveFrom;
@@ -73,10 +105,22 @@ namespace HackMan.Game
                     break;
                 case Direction.down:
                     moveFrom = GameBoard[HackManPosition.FieldIndex()];
-                    moveFrom.SetType(FieldType.player, Direction.down);
+                    type = moveFrom.SimpleType;
+                    moveFrom.SetType(FieldType.playerdown);
                     moveFrom.Position.Row++;
                     moveTo = GameBoard[HackManPosition.FieldBelow()];
-                    moveTo.SetType(FieldType.empty, Direction.none);
+                    if (moveTo.Type == FieldType.powerup)
+                    {
+                        temp = HackPlayer;
+                        temp.Bitcoins++;
+                        HackPlayer = temp;
+                    }
+                    if (type == SimpleType.thing)
+                        moveTo.SetType(FieldType.laptop);
+                    else
+                    {
+                        moveTo.SetType(FieldType.empty);
+                    }            
                     moveTo.Position.Row--;
                     GameBoard[HackManPosition.FieldIndex()] = moveTo;
                     GameBoard[HackManPosition.FieldBelow()] = moveFrom;
@@ -84,10 +128,22 @@ namespace HackMan.Game
                     break;
                 case Direction.left:
                     moveFrom = GameBoard[HackManPosition.FieldIndex()];
-                    moveFrom.SetType(FieldType.player, Direction.left);
+                    type = moveFrom.SimpleType;
+                    moveFrom.SetType(FieldType.playerleft);
                     moveFrom.Position.Column--;
                     moveTo = GameBoard[HackManPosition.FieldLeft()];
-                    moveTo.SetType(FieldType.empty, Direction.none);
+                    if (moveTo.Type == FieldType.powerup)
+                    {
+                        temp = HackPlayer;
+                        temp.Bitcoins++;
+                        HackPlayer = temp;
+                    }
+                    if (type == SimpleType.thing)
+                        moveTo.SetType(FieldType.laptop);
+                    else
+                    {
+                        moveTo.SetType(FieldType.empty);
+                    }
                     moveTo.Position.Column++;
                     GameBoard[HackManPosition.FieldIndex()] = moveTo;
                     GameBoard[HackManPosition.FieldLeft()] = moveFrom;
@@ -95,10 +151,22 @@ namespace HackMan.Game
                     break;
                 case Direction.right:
                     moveFrom = GameBoard[HackManPosition.FieldIndex()];
-                    moveFrom.SetType(FieldType.player, Direction.right);
+                    type = moveFrom.SimpleType;
+                    moveFrom.SetType(FieldType.playerright);
                     moveFrom.Position.Column++;
                     moveTo = GameBoard[HackManPosition.FieldRight()];
-                    moveTo.SetType(FieldType.empty, Direction.none);
+                    if (moveTo.Type == FieldType.powerup)
+                    {
+                        temp = HackPlayer;
+                        temp.Bitcoins++;
+                        HackPlayer = temp;
+                    }
+                    if (type == SimpleType.thing)
+                        moveTo.SetType(FieldType.laptop);
+                    else
+                    {
+                        moveTo.SetType(FieldType.empty);
+                    }
                     moveTo.Position.Column--;
                     GameBoard[HackManPosition.FieldIndex()] = moveTo;
                     GameBoard[HackManPosition.FieldRight()] = moveFrom;
@@ -151,12 +219,78 @@ namespace HackMan.Game
 
         public void PlaceLaptop()
         {
+            Debug.WriteLine("PlaceLaptop in HackManModel was called");
+            GameField temp = new GameField();
+            temp = GameBoard[HackManPosition.FieldIndex()];
+            switch (temp.Type)
+            {
+                case FieldType.playerup:
+                    temp.SetType(FieldType.playeruplaptop);
+                    GameBoard[HackManPosition.FieldIndex()] = temp;
+                    Debug.WriteLine("PlayerUp PlaceLaptop");
+                    break;
+                case FieldType.playerdown:
+                    temp.SetType(FieldType.playerdownlaptop);
+                    GameBoard[HackManPosition.FieldIndex()] = temp;
+                    Debug.WriteLine("PlayerDown PlaceLaptop");
+                    break;
+                case FieldType.playerleft:
+                    temp.SetType(FieldType.playerleftlaptop);
+                    GameBoard[HackManPosition.FieldIndex()] = temp;
+                    Debug.WriteLine("PlayerLeft PlaceLaptop");
+                    break;
+                case FieldType.playerright:
+                    temp.SetType(FieldType.playerrightlaptop);
+                    GameBoard[HackManPosition.FieldIndex()] = temp;
+                    Debug.WriteLine("PlayerRight PlaceLaptop");
+                    break;
+            }
+            HackPlayer.PlaceLaptop(HackManPosition);
+        }
 
+        public bool CanPlace()
+        {
+            if (HackPlayer.Laptops > HackPlayer.LaptopPlaced.Count())
+            {
+                Debug.WriteLine("CanPlace is returning true");
+                return true;
+            }
+            Debug.Write("CanPlace is returning false");
+            return false;
         }
 
         public void BuyPower(Powerup pow)
         {
+            switch (pow)
+            {
+                case Powerup.power:
+                    HackPlayer.Bitcoins = HackPlayer.Bitcoins - HackPlayer.HackPowerPrice();
+                    HackPlayer.HackPower++;
+                    break;
+                case Powerup.laptop:
+                    HackPlayer.Bitcoins = HackPlayer.Bitcoins - HackPlayer.LaptopPrice();
+                    HackPlayer.Laptops++;
+                    break;
+                default:
+                    break;
+            }
+        }
 
+        public bool CanBuy(Powerup pow)
+        {
+            switch (pow)
+            {
+                case Powerup.power:
+                    if (HackPlayer.Bitcoins >= HackPlayer.HackPowerPrice())
+                        return true;
+                    return false;
+                case Powerup.laptop:
+                    if (HackPlayer.Bitcoins >= HackPlayer.LaptopPrice())
+                        return true;
+                    return false;
+                default:
+                    return false;
+            }
         }
 
         public void GenerateGameBoard()
@@ -175,29 +309,51 @@ namespace HackMan.Game
                     {
                         case "HD":
                             GameBoard.Add(new GameField { Position = new Position{ Column = columnCounter, Row = rowCounter}});
-                            GameBoard[listCounter].SetType(FieldType.player, Direction.down);
+                            GameBoard[listCounter].SetType(FieldType.playerdown);
                             HackManPosition.Column = columnCounter;
                             HackManPosition.Row = rowCounter;
                             break;
+                        case "HU":
+                            GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter } });
+                            GameBoard[listCounter].SetType(FieldType.playerup);
+                            HackManPosition.Column = columnCounter;
+                            HackManPosition.Row = rowCounter;
+                            break;
+                        case "HL":
+                            GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter } });
+                            GameBoard[listCounter].SetType(FieldType.playerleft);
+                            HackManPosition.Column = columnCounter;
+                            HackManPosition.Row = rowCounter;
+                            break;
+                        case "HR":
+                            GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter } });
+                            GameBoard[listCounter].SetType(FieldType.playerright);
+                            HackManPosition.Column = columnCounter;
+                            HackManPosition.Row = rowCounter;
+                            break;
+                        case "UL":
+                            GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter } });
+                            GameBoard[listCounter].SetType(FieldType.playeruplaptop);
+                            break;
                         case "FW":
                             GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter}});
-                            GameBoard[listCounter].SetType(FieldType.hackable, Direction.none);
+                            GameBoard[listCounter].SetType(FieldType.hackable);
                             break;
                         case "EP":
                             GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter}});
-                            GameBoard[listCounter].SetType(FieldType.empty, Direction.none);
+                            GameBoard[listCounter].SetType(FieldType.empty);
                             break;
                         case "UB":
                             GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter}});
-                            GameBoard[listCounter].SetType(FieldType.unhackable, Direction.none);
+                            GameBoard[listCounter].SetType(FieldType.unhackable);
                             break;
                         case "BC":
                             GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter}});
-                            GameBoard[listCounter].SetType(FieldType.powerup, Direction.none);
+                            GameBoard[listCounter].SetType(FieldType.powerup);
                             break;
                         default:
                             GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter}});
-                            GameBoard[listCounter].SetType(FieldType.empty, Direction.none);
+                            GameBoard[listCounter].SetType(FieldType.empty);
                             break;
                     }                    
                     listCounter++;
@@ -218,6 +374,19 @@ namespace HackMan.Game
                 if (value != _gameBoard)
                 {
                     _gameBoard = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public HackPlayer HackPlayer
+        {
+            get { return _hackPlayer; }
+            set
+            {
+                if (value != _hackPlayer)
+                {
+                    _hackPlayer = value;
                     NotifyPropertyChanged();
                 }
             }

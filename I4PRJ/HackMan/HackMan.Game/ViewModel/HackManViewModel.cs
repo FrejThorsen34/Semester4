@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -109,6 +110,58 @@ namespace HackMan.Game
             }
         }
 
+        public HackPlayer HackPlayer
+        {
+            get { return _model.HackPlayer; }
+            set
+            {
+                if (value != _model.HackPlayer)
+                {
+                    _model.HackPlayer = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        //public int Bitcoins
+        //{
+        //    get { return _model.HackPlayer.Bitcoins; }
+        //    set
+        //    {
+        //        if (value != _model.HackPlayer.Bitcoins)
+        //        {
+        //            _model.HackPlayer.Bitcoins = value;
+        //            NotifyPropertyChanged();
+        //        }
+        //    }
+        //}
+
+        //public int Laptops
+        //{
+        //    get { return _model.HackPlayer.Laptops; }
+        //    set
+        //    {
+        //        if (value != _model.HackPlayer.Laptops)
+        //        {
+        //            _model.HackPlayer.Laptops = value;
+        //            NotifyPropertyChanged();
+        //        }
+        //    }
+        //}
+
+        //public int HackPower
+        //{
+        //    get { return _model.HackPlayer.HackPower; }
+        //    set
+        //    {
+        //        if (value != _model.HackPlayer.HackPower)
+        //        {
+        //            _model.HackPlayer.HackPower = value;
+        //            NotifyPropertyChanged();
+        //        }
+        //    }
+        //}
+
         #endregion                
 
         #region Commands
@@ -160,7 +213,7 @@ namespace HackMan.Game
 
         public bool HackManBuyPower_CanExecute()
         {
-            return true;
+            return _model.CanBuy(Powerup.power);
         }
 
         public void HackManBuyLaptop()
@@ -170,17 +223,19 @@ namespace HackMan.Game
 
         public bool HackManBuyLaptop_CanExecute()
         {
-            return true;
+            return _model.CanBuy(Powerup.laptop);
         }
 
         public void HackManPlaceLaptop()
         {
+            Debug.WriteLine("HackManPlaceLaptop was called in HackManViewModel");
             _model.PlaceLaptop();
         }
 
         public bool HackManPlaceLaptop_CanExecute()
         {
-            return true;
+            Debug.WriteLine("HackManPlaceLaptop_CanExecute was called in HackManViewModel");
+            return _model.CanPlace();
         }              
 
         #endregion
