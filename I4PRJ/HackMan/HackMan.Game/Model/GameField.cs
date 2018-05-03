@@ -10,48 +10,59 @@ namespace HackMan.Game
     {
         public GameField()
         {
-
-        }
-        public GameField(Position position, FieldState field)
-        {
-            Position = position;
-            SetGridImage(field);
         }
 
-        public void SetGridImage(FieldState field)
+        public void SetType(FieldType type, Direction dir)
         {
-            switch (field)
+            switch (type)
             {
-                case FieldState.hackerup:
-                    GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackmanup.png";
+                case FieldType.empty:
+                    Type = FieldType.empty;
+                    GridImage = "";
                     break;
-                case FieldState.hackerdown:
-                    GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackmandown.png";
-                    break;
-                case FieldState.hackerleft:
-                    GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackmanleft.png";
-                    break;
-                case FieldState.hackerright:
-                    GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackmanright.png";
-                    break;
-                case FieldState.firewall:
+                case FieldType.hackable:
+                    Type = FieldType.hackable;
                     GridImage = "/HackMan.Game;component/ViewModel/HackManResources/firewall.png";
                     break;
-                case FieldState.laptop:
-                    GridImage = "/HackMan.Game;component/ViewModel/HackManResources/laptop.png";
-                    break;
-                case FieldState.unbreakable:
+                case FieldType.unhackable:
+                    Type = FieldType.unhackable;
                     GridImage = "/HackMan.Game;component/ViewModel/HackManResources/unbreakable.png";
                     break;
-                case FieldState.empty:
-                    GridImage = "";
+                case FieldType.powerup:
+                    Type = FieldType.powerup;
+                    GridImage = "/HackMan.Game;component/ViewModel/HackManResources/bitcoin.png";
                     break;
-                default:
-                    GridImage = "";
+                case FieldType.temporary:
+                    Type = FieldType.temporary;
+                    GridImage = "/HackMan.Game;component/ViewModel/HackManResources/laptop.png";
                     break;
+                case FieldType.player:
+                    switch (dir)
+                    {
+                        case Direction.up:
+                            Type = FieldType.player;
+                            GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackmanup.png";
+                            break;
+                        case Direction.down:
+                            Type = FieldType.player;
+                            GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackmandown.png";
+                            break;
+                        case Direction.left:
+                            Type = FieldType.player;
+                            GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackmanleft.png";
+                            break;
+                        case Direction.right:
+                            Type = FieldType.player;
+                            GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackmanright.png";
+                            break;
+                        default: break;
+                    }
+                    break;
+                default: break;
             }
-        }        
+        }
 
+        public FieldType Type { get; set; }
         public String GridImage { get; set; }
         public Position Position { get; set; }
     }

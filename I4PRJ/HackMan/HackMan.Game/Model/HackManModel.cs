@@ -14,7 +14,8 @@ namespace HackMan.Game
         up,
         down,
         left,
-        right
+        right,
+        none
     };
 
     public enum Powerup
@@ -23,17 +24,15 @@ namespace HackMan.Game
         power
     };
 
-    public enum FieldState
+    public enum FieldType
     {
-        hackerup,
-        hackerdown,
-        hackerleft,
-        hackerright,
-        laptop,
-        firewall,
-        unbreakable,
-        empty
-    }
+        player,
+        powerup,
+        empty,
+        hackable,
+        unhackable,
+        temporary
+    };
 
     public class HackManModel : INotifyPropertyChanged
     {
@@ -57,36 +56,53 @@ namespace HackMan.Game
 
         public void MoveHacker(Direction dir)
         {
-            GameField temp = new GameField();
+            GameField moveFrom = new GameField();
+            GameField moveTo = new GameField();
             switch (dir)
             {
                 case Direction.up:
-                    temp = GameBoard[HackManPosition.FieldIndex()];
-                    temp.SetGridImage(FieldState.hackerup);
-                    GameBoard[HackManPosition.FieldIndex()] = GameBoard[HackManPosition.FieldAbove()];
-                    GameBoard[HackManPosition.FieldAbove()] = temp;
+                    moveFrom = GameBoard[HackManPosition.FieldIndex()];
+                    moveFrom.SetType(FieldType.player, Direction.up);
+                    moveFrom.Position.Row--;
+                    moveTo = GameBoard[HackManPosition.FieldAbove()];
+                    moveTo.SetType(FieldType.empty, Direction.none);
+                    moveTo.Position.Row++;
+                    GameBoard[HackManPosition.FieldIndex()] = moveTo;
+                    GameBoard[HackManPosition.FieldAbove()] = moveFrom;
                     HackManPosition.Row--;
                     break;
-                case Direction.down:                    
-                    temp = GameBoard[HackManPosition.FieldIndex()];
-                    temp.SetGridImage(FieldState.hackerdown);
-	                GameBoard[HackManPosition.FieldIndex()] = GameBoard[HackManPosition.FieldBelow()];
-                    GameBoard[HackManPosition.FieldBelow()] = temp;
-					HackManPosition.Row++;
-					break;
+                case Direction.down:
+                    moveFrom = GameBoard[HackManPosition.FieldIndex()];
+                    moveFrom.SetType(FieldType.player, Direction.down);
+                    moveFrom.Position.Row++;
+                    moveTo = GameBoard[HackManPosition.FieldBelow()];
+                    moveTo.SetType(FieldType.empty, Direction.none);
+                    moveTo.Position.Row--;
+                    GameBoard[HackManPosition.FieldIndex()] = moveTo;
+                    GameBoard[HackManPosition.FieldBelow()] = moveFrom;
+                    HackManPosition.Row++;
+                    break;
                 case Direction.left:
-                    temp = GameBoard[HackManPosition.FieldIndex()];
-                    temp.SetGridImage(FieldState.hackerleft);
-                    GameBoard[HackManPosition.FieldIndex()] = GameBoard[HackManPosition.FieldLeft()];
-                    GameBoard[HackManPosition.FieldLeft()] = temp;
+                    moveFrom = GameBoard[HackManPosition.FieldIndex()];
+                    moveFrom.SetType(FieldType.player, Direction.left);
+                    moveFrom.Position.Column--;
+                    moveTo = GameBoard[HackManPosition.FieldLeft()];
+                    moveTo.SetType(FieldType.empty, Direction.none);
+                    moveTo.Position.Column++;
+                    GameBoard[HackManPosition.FieldIndex()] = moveTo;
+                    GameBoard[HackManPosition.FieldLeft()] = moveFrom;
                     HackManPosition.Column--;
                     break;
                 case Direction.right:
-                    temp = GameBoard[HackManPosition.FieldIndex()];
-                    temp.SetGridImage(FieldState.hackerright);
-                    GameBoard[HackManPosition.FieldIndex()] = GameBoard[HackManPosition.FieldRight()];
-                    GameBoard[HackManPosition.FieldRight()] = temp;
-                    HackManPosition.Column--;
+                    moveFrom = GameBoard[HackManPosition.FieldIndex()];
+                    moveFrom.SetType(FieldType.player, Direction.right);
+                    moveFrom.Position.Column++;
+                    moveTo = GameBoard[HackManPosition.FieldRight()];
+                    moveTo.SetType(FieldType.empty, Direction.none);
+                    moveTo.Position.Column--;
+                    GameBoard[HackManPosition.FieldIndex()] = moveTo;
+                    GameBoard[HackManPosition.FieldRight()] = moveFrom;
+                    HackManPosition.Column++;
                     break;
                 default: break;
             }
@@ -94,33 +110,40 @@ namespace HackMan.Game
 
         public bool CanStep(Direction dir)
         {
-            String check = "";
             switch (dir)
             {
                 case Direction.up:
                     if (HackManPosition.Row == 0)
                         return false;
-                    if (GameBoard[HackManPosition.FieldAbove()].GridImage != check)
-                        return false;
-                    return true;
+                    if (GameBoard[HackManPosition.FieldAbove()].Type == FieldType.empty)
+                        return true;
+                    if (GameBoard[HackManPosition.FieldAbove()].Type == FieldType.powerup)
+                        return true;
+                    return false;
                 case Direction.down:
                     if (HackManPosition.Row == NumberOfRows - 1)
                         return false;
-                    if (GameBoard[HackManPosition.FieldBelow()].GridImage != check)
-                        return false;
-                    return true;
+                    if (GameBoard[HackManPosition.FieldBelow()].Type == FieldType.empty)
+                        return true;
+                    if (GameBoard[HackManPosition.FieldBelow()].Type == FieldType.powerup)
+                        return true;
+                    return false;
                 case Direction.left:
                     if (HackManPosition.Column == 0)
                         return false;
-                    if (GameBoard[HackManPosition.FieldLeft()].GridImage != check)
-                        return false;
-                    return true;
+                    if (GameBoard[HackManPosition.FieldLeft()].Type == FieldType.empty)
+                        return true;
+                    if (GameBoard[HackManPosition.FieldLeft()].Type == FieldType.powerup)
+                        return true;
+                    return false;
                 case Direction.right:
                     if (HackManPosition.Column == NumberOfColumns - 1)
                         return false;
-                    if (GameBoard[HackManPosition.FieldRight()].GridImage != check)
-                        return false;
-                    return true;
+                    if (GameBoard[HackManPosition.FieldRight()].Type == FieldType.empty)
+                        return true;
+                    if (GameBoard[HackManPosition.FieldRight()].Type == FieldType.powerup)
+                        return true;
+                    return false;
                 default:
                     return false;
             }
@@ -152,25 +175,29 @@ namespace HackMan.Game
                     {
                         case "HD":
                             GameBoard.Add(new GameField { Position = new Position{ Column = columnCounter, Row = rowCounter}});
-                            GameBoard[listCounter].SetGridImage(FieldState.hackerdown);
+                            GameBoard[listCounter].SetType(FieldType.player, Direction.down);
                             HackManPosition.Column = columnCounter;
                             HackManPosition.Row = rowCounter;
                             break;
                         case "FW":
                             GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter}});
-                            GameBoard[listCounter].SetGridImage(FieldState.firewall);
+                            GameBoard[listCounter].SetType(FieldType.hackable, Direction.none);
                             break;
                         case "EP":
                             GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter}});
-                            GameBoard[listCounter].SetGridImage(FieldState.empty);
+                            GameBoard[listCounter].SetType(FieldType.empty, Direction.none);
                             break;
                         case "UB":
                             GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter}});
-                            GameBoard[listCounter].SetGridImage(FieldState.unbreakable);
+                            GameBoard[listCounter].SetType(FieldType.unhackable, Direction.none);
+                            break;
+                        case "BC":
+                            GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter}});
+                            GameBoard[listCounter].SetType(FieldType.powerup, Direction.none);
                             break;
                         default:
                             GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter}});
-                            GameBoard[listCounter].SetGridImage(FieldState.empty);
+                            GameBoard[listCounter].SetType(FieldType.empty, Direction.none);
                             break;
                     }                    
                     listCounter++;

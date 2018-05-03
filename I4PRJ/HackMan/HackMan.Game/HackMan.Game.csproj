@@ -115,5 +115,8 @@
     <Resource Include="ViewModel\HackManResources\hackmanright.png" />
     <Resource Include="ViewModel\HackManResources\hackmanup.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ViewModel\HackManResources\bitcoin.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
