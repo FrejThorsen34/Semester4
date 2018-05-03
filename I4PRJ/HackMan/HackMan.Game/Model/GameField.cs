@@ -22,8 +22,17 @@ namespace HackMan.Game
         {
             switch (field)
             {
-                case FieldState.hacker:
-                    GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackman.png";
+                case FieldState.hackerup:
+                    GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackmanup.png";
+                    break;
+                case FieldState.hackerdown:
+                    GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackmandown.png";
+                    break;
+                case FieldState.hackerleft:
+                    GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackmanleft.png";
+                    break;
+                case FieldState.hackerright:
+                    GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackmanright.png";
                     break;
                 case FieldState.firewall:
                     GridImage = "/HackMan.Game;component/ViewModel/HackManResources/firewall.png";

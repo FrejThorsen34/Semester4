@@ -103,12 +103,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ViewModel\HackManResources\firewall.png" />
-    <Resource Include="ViewModel\HackManResources\hackman.png" />
     <Resource Include="ViewModel\HackManResources\laptop.png" />
     <Resource Include="ViewModel\HackManResources\unbreakable.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Level.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ViewModel\HackManResources\hackmandown.png" />
+    <Resource Include="ViewModel\HackManResources\hackmanleft.png" />
+    <Resource Include="ViewModel\HackManResources\hackmanright.png" />
+    <Resource Include="ViewModel\HackManResources\hackmanup.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

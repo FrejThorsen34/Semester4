@@ -25,7 +25,10 @@ namespace HackMan.Game
 
     public enum FieldState
     {
-        hacker,
+        hackerup,
+        hackerdown,
+        hackerleft,
+        hackerright,
         laptop,
         firewall,
         unbreakable,
@@ -54,32 +57,36 @@ namespace HackMan.Game
 
         public void MoveHacker(Direction dir)
         {
+            GameField temp = new GameField();
             switch (dir)
             {
                 case Direction.up:
-                    GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.empty);
-                    HackManPosition.Row--;
-                    GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.hacker);
-                    NotifyPropertyChanged("GameBoard.GridImage");
-                    break;
-                case Direction.down:
-                    GameField temp = new GameField();
                     temp = GameBoard[HackManPosition.FieldIndex()];
+                    temp.SetGridImage(FieldState.hackerup);
+                    GameBoard[HackManPosition.FieldIndex()] = GameBoard[HackManPosition.FieldAbove()];
+                    GameBoard[HackManPosition.FieldAbove()] = temp;
+                    HackManPosition.Row--;
+                    break;
+                case Direction.down:                    
+                    temp = GameBoard[HackManPosition.FieldIndex()];
+                    temp.SetGridImage(FieldState.hackerdown);
 	                GameBoard[HackManPosition.FieldIndex()] = GameBoard[HackManPosition.FieldBelow()];
                     GameBoard[HackManPosition.FieldBelow()] = temp;
 					HackManPosition.Row++;
 					break;
                 case Direction.left:
-                    GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.empty);
+                    temp = GameBoard[HackManPosition.FieldIndex()];
+                    temp.SetGridImage(FieldState.hackerleft);
+                    GameBoard[HackManPosition.FieldIndex()] = GameBoard[HackManPosition.FieldLeft()];
+                    GameBoard[HackManPosition.FieldLeft()] = temp;
                     HackManPosition.Column--;
-                    GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.hacker);
-                    NotifyPropertyChanged("GameBoard.GridImage");
                     break;
                 case Direction.right:
-                    GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.empty);
-                    HackManPosition.Column++;
-                    GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.hacker);
-                    NotifyPropertyChanged("GameBoard.GridImage");
+                    temp = GameBoard[HackManPosition.FieldIndex()];
+                    temp.SetGridImage(FieldState.hackerright);
+                    GameBoard[HackManPosition.FieldIndex()] = GameBoard[HackManPosition.FieldRight()];
+                    GameBoard[HackManPosition.FieldRight()] = temp;
+                    HackManPosition.Column--;
                     break;
                 default: break;
             }
@@ -143,9 +150,9 @@ namespace HackMan.Game
                 {
                     switch (columns[columnCounter])
                     {
-                        case "HM":
+                        case "HD":
                             GameBoard.Add(new GameField { Position = new Position{ Column = columnCounter, Row = rowCounter}});
-                            GameBoard[listCounter].SetGridImage(FieldState.hacker);
+                            GameBoard[listCounter].SetGridImage(FieldState.hackerdown);
                             HackManPosition.Column = columnCounter;
                             HackManPosition.Row = rowCounter;
                             break;
