@@ -63,12 +63,11 @@ namespace HackMan.Game
                     NotifyPropertyChanged("GameBoard.GridImage");
                     break;
                 case Direction.down:
+                    GameField temp = new GameField();
+                    temp = GameBoard[HackManPosition.FieldIndex()];
 	                GameBoard[HackManPosition.FieldIndex()] = GameBoard[HackManPosition.FieldBelow()];
-					//GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.empty);
+                    GameBoard[HackManPosition.FieldBelow()] = temp;
 					HackManPosition.Row++;
-					//GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.hacker);
-					//NotifyPropertyChanged("GameBoard.GridImage");
-					//
 					break;
                 case Direction.left:
                     GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.empty);
