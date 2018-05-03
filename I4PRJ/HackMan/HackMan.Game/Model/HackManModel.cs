@@ -38,8 +38,8 @@ namespace HackMan.Game
 
         private Position HackManPosition;
         private ObservableCollection<GameField> _gameBoard;
-        private int NumberOfColumns = 14;
-        private int NumberOfRows = 14;
+        public static int NumberOfColumns = 14;
+        public static int NumberOfRows = 14;
 
         #endregion
 
@@ -57,24 +57,28 @@ namespace HackMan.Game
             switch (dir)
             {
                 case Direction.up:
-                    GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.empty);
+                    GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.empty);
                     HackManPosition.Row--;
-                    GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.hacker);
+                    GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.hacker);
+                    NotifyPropertyChanged("GameBoard.GridImage");
                     break;
                 case Direction.down:
-                    GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.empty);
+                    GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.empty);
                     HackManPosition.Row++;
-                    GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.hacker);
+                    GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.hacker);
+                    NotifyPropertyChanged("GameBoard.GridImage");
                     break;
                 case Direction.left:
-                    GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.empty);
+                    GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.empty);
                     HackManPosition.Column--;
-                    GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.hacker);
+                    GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.hacker);
+                    NotifyPropertyChanged("GameBoard.GridImage");
                     break;
                 case Direction.right:
-                    GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.empty);
+                    GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.empty);
                     HackManPosition.Column++;
-                    GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.hacker);
+                    GameBoard[HackManPosition.FieldIndex()].SetGridImage(FieldState.hacker);
+                    NotifyPropertyChanged("GameBoard.GridImage");
                     break;
                 default: break;
             }
@@ -82,40 +86,31 @@ namespace HackMan.Game
 
         public bool CanStep(Direction dir)
         {
-            string check = "";
-            bool result = false;
+            String check = "";
             switch (dir)
             {
                 case Direction.up:
                     if (HackManPosition.Row == 0)
                         return false;
-                    result =
-                        check.Equals(GameBoard[(NumberOfColumns * (HackManPosition.Row - 1)) + HackManPosition.Column]
-                            .GridImage);
-                    return result;
-                    //if (GameBoard[(NumberOfColumns * (HackManPosition.Row - 1)) + HackManPosition.Column].GridImage != "")
-                    //    return false;
-                    //return true;
+                    if (GameBoard[HackManPosition.FieldAbove()].GridImage != check)
+                        return false;
+                    return true;
                 case Direction.down:
                     if (HackManPosition.Row == NumberOfRows - 1)
                         return false;
-                    result =
-                        check.Equals(GameBoard[(NumberOfColumns * (HackManPosition.Row + 1)) + HackManPosition.Column]
-                            .GridImage);
-                    return result;
-                    //if (GameBoard[(NumberOfColumns * (HackManPosition.Row + 1)) + HackManPosition.Column].GridImage != "")
-                    //    return false;
-                    //return true;
+                    if (GameBoard[HackManPosition.FieldBelow()].GridImage != check)
+                        return false;
+                    return true;
                 case Direction.left:
                     if (HackManPosition.Column == 0)
                         return false;
-                    if (GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column - 1].GridImage != "")
+                    if (GameBoard[HackManPosition.FieldLeft()].GridImage != check)
                         return false;
                     return true;
                 case Direction.right:
                     if (HackManPosition.Column == NumberOfColumns - 1)
                         return false;
-                    if (GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column + 1].GridImage != "")
+                    if (GameBoard[HackManPosition.FieldRight()].GridImage != check)
                         return false;
                     return true;
                 default:
@@ -148,25 +143,25 @@ namespace HackMan.Game
                     switch (columns[columnCounter])
                     {
                         case "HM":
-                            GameBoard.Add(new GameField { Column = columnCounter, Row = rowCounter });
+                            GameBoard.Add(new GameField { Position = new Position{ Column = columnCounter, Row = rowCounter}});
                             GameBoard[listCounter].SetGridImage(FieldState.hacker);
                             HackManPosition.Column = columnCounter;
                             HackManPosition.Row = rowCounter;
                             break;
                         case "FW":
-                            GameBoard.Add(new GameField { Column = columnCounter, Row = rowCounter });
+                            GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter}});
                             GameBoard[listCounter].SetGridImage(FieldState.firewall);
                             break;
                         case "EP":
-                            GameBoard.Add(new GameField { Column = columnCounter, Row = rowCounter });
+                            GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter}});
                             GameBoard[listCounter].SetGridImage(FieldState.empty);
                             break;
                         case "UB":
-                            GameBoard.Add(new GameField { Column = columnCounter, Row = rowCounter });
+                            GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter}});
                             GameBoard[listCounter].SetGridImage(FieldState.unbreakable);
                             break;
                         default:
-                            GameBoard.Add(new GameField { Column = columnCounter, Row = rowCounter });
+                            GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter}});
                             GameBoard[listCounter].SetGridImage(FieldState.empty);
                             break;
                     }                    

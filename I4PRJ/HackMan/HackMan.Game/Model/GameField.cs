@@ -12,10 +12,9 @@ namespace HackMan.Game
         {
 
         }
-        public GameField(int column, int row, FieldState field)
+        public GameField(Position position, FieldState field)
         {
-            Column = column;
-            Row = row;
+            Position = position;
             SetGridImage(field);
         }
 
@@ -39,12 +38,12 @@ namespace HackMan.Game
                     GridImage = "";
                     break;
                 default:
-                    GridImage = null;
+                    GridImage = "";
                     break;
             }
-        }
+        }        
+
         public String GridImage { get; set; }
-        public int Column { get; set; }
-        public int Row { get; set; }
+        public Position Position { get; set; }
     }
 }
