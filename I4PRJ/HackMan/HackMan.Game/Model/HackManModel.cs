@@ -58,23 +58,23 @@ namespace HackMan.Game
             {
                 case Direction.up:
                     GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.empty);
-                    GameBoard[(NumberOfColumns * HackManPosition.Row - 1) + HackManPosition.Column].SetGridImage(FieldState.hacker);
                     HackManPosition.Row--;
+                    GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.hacker);
                     break;
                 case Direction.down:
                     GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.empty);
-                    GameBoard[(NumberOfColumns * HackManPosition.Row + 1) + HackManPosition.Column].SetGridImage(FieldState.hacker);
                     HackManPosition.Row++;
+                    GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.hacker);
                     break;
                 case Direction.left:
                     GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.empty);
-                    GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column - 1].SetGridImage(FieldState.hacker);
                     HackManPosition.Column--;
+                    GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.hacker);
                     break;
                 case Direction.right:
                     GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.empty);
-                    GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column + 1].SetGridImage(FieldState.hacker);
                     HackManPosition.Column++;
+                    GameBoard[(NumberOfColumns * HackManPosition.Row) + HackManPosition.Column].SetGridImage(FieldState.hacker);
                     break;
                 default: break;
             }

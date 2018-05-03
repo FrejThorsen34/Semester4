@@ -23,8 +23,6 @@ namespace HackMan.Game
         ICommand _hackManBuyPowerCommand;
         ICommand _hackManBuyLaptopCommand;
         ICommand _hackManPlaceLaptopCommand;
-        private int NumberOfColumns = 14;
-        private int NumberOfRows = 14;
 
         #endregion
 
