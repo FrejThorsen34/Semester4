@@ -34,7 +34,7 @@ namespace SWT_ATM_Handin3.System
                 if (!Airspace.CalculateWithinAirspace(track.Position))
                     TrackOperations.DeleteTrack(track);
                 //Check Seperation
-                //If Seperation handle it
+                //If Separation handle it
             }
             //Display functions?
         }

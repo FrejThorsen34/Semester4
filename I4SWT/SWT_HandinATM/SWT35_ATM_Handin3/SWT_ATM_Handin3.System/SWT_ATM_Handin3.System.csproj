@@ -47,7 +47,7 @@
     <Compile Include="Boundary\Logger.cs" />
     <Compile Include="Domain\Airspace.cs" />
     <Compile Include="Domain\SeparationEvent.cs" />
-    <Compile Include="Domain\SeparationRepository.cs" />
+    <Compile Include="Domain\SeparationOperations.cs" />
     <Compile Include="Domain\Track.cs" />
     <Compile Include="Domain\TrackingSystem.cs" />
     <Compile Include="Domain\TrackOperations.cs" />
@@ -56,7 +56,7 @@
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ITrack.cs" />
     <Compile Include="Interfaces\ITrackingSystem.cs" />
-    <Compile Include="Interfaces\ISeparationRepository.cs" />
+    <Compile Include="Interfaces\ISeparationOperations.cs" />
     <Compile Include="Interfaces\ITrackOperations.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

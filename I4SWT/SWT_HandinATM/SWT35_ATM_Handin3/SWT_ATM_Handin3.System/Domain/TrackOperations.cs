@@ -119,5 +119,11 @@ namespace SWT_ATM_Handin3.System.Domain
 
             return velocity;
         }
+
+        public bool CalculateSeparation(Point track1, Point track2)
+        {
+
+            return false;
+        }
     }
 }
