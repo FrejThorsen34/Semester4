@@ -7,7 +7,7 @@ namespace SWT_ATM_Handin3.System.Interfaces
     {
         ObservableCollection<ITrack> FlightTracks { get; }
 
-        void AddTrack(string payload);
+        void AddOrUpdate(string payload);
         void DeleteTrack(ITrack track);
         void Update();
         double CalculateVelocity(Point oldPoint, Point newPoint, DateTime newTimestamp, DateTime oldTimestamp);

@@ -25,16 +25,18 @@ namespace SWT_ATM_Handin3.System
         {
             foreach (var track in args.TransponderData)
             {
-                TrackOperations.AddTrack(track);
+                TrackOperations.AddOrUpdate(track);
             }
 
             foreach (ITrack track in TrackOperations.GetAll())
             {
+                //Check Airspace
                 if (!Airspace.CalculateWithinAirspace(track.Position))
                     TrackOperations.DeleteTrack(track);
+                //Check Seperation
+                //If Seperation handle it
             }
-
-            TrackOperations.Update();
+            //Display functions?
         }
     }
 }

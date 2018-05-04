@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SWT_ATM_Handin3.System.Interfaces
 {
-    class ILogger
+    public interface ILogger
     {
+        void WriteToFile(string output);
     }
 }

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace SWT_ATM_Handin3.System.Interfaces
 {
-    class IDisplay
+    public interface IDisplay
     {
+        void Write(string output);
+        void WriteRed(string output);
+        void Clear();
     }
 }

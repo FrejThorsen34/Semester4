@@ -11,15 +11,27 @@ namespace SWT_ATM_Handin3.System.Domain
     public class TrackOperations : ITrackOperations
     {
         public ObservableCollection<ITrack> FlightTracks { get; }
-
+        private static int _verticalMin = 300;
+        private static int _horizontalMin = 5000;
         public TrackOperations()
         {
             FlightTracks = new ObservableCollection<ITrack>();
         }
 
-        public void AddTrack(string payload)
+        public void AddOrUpdate(string payload)
         {
-            FlightTracks.Add(new Track(payload));
+            var track = new Track(payload);
+            if (FlightTracks.FirstOrDefault(t => t.Tag == track.Tag) == null)
+                FlightTracks.Add(track);
+            else
+            {
+                var trackToRemove = FlightTracks.First(t => t.Tag == track.Tag);
+                track.Course = CalculateCourse(trackToRemove.Position, track.Position);
+                track.Velocity = CalculateVelocity(trackToRemove.Position, track.Position, trackToRemove.Timestamp,
+                    track.Timestamp);
+                FlightTracks.Remove(trackToRemove);
+                FlightTracks.Add(track);
+            }
         }
 
         public void DeleteTrack(ITrack track)
@@ -30,6 +42,16 @@ namespace SWT_ATM_Handin3.System.Domain
         public ObservableCollection<ITrack> GetAll()
         {
             return FlightTracks;
+        }
+
+        public ITrack Get(ITrack track)
+        {
+            return FlightTracks.FirstOrDefault(t => t.Tag == track.Tag);
+        }
+
+        public ITrack Get(string tag)
+        {
+            return FlightTracks.FirstOrDefault(t => t.Tag == tag);
         }
 
         public void Update()
@@ -85,7 +107,6 @@ namespace SWT_ATM_Handin3.System.Domain
                 if (newPoint.Y < oldPoint.Y)
                     compassCourse += 90;
             }
-
             return compassCourse;
         }
 
