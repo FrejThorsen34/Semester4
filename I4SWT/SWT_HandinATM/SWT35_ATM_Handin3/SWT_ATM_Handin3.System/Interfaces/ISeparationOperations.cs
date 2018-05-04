@@ -8,5 +8,9 @@ namespace SWT_ATM_Handin3.System.Interfaces
 {
     public interface ISeparationOperations
     {
+        event EventHandler<SeparationEvent> SeparationEvent;
+        void CheckForSeparations(List<ITrack> flightTracks);
+        List<ITrack> CheckForNoSeparationEvents(List<ITrack> flightTracks);
+        bool CalculateSeparation(Point trackOne, Point trackTwo);
     }
 }

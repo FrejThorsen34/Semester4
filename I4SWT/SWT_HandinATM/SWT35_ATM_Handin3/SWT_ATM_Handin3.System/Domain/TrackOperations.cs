@@ -54,11 +54,6 @@ namespace SWT_ATM_Handin3.System.Domain
             return FlightTracks.FirstOrDefault(t => t.Tag == tag);
         }
 
-        public void Update()
-        {
-
-        }
-
         public double CalculateCourse(Point oldPoint, Point newPoint)
         {
             double Y = Math.Abs(newPoint.Y - oldPoint.Y);
@@ -118,12 +113,6 @@ namespace SWT_ATM_Handin3.System.Domain
             var velocity = distance / timeDifference;
 
             return velocity;
-        }
-
-        public bool CalculateSeparation(Point track1, Point track2)
-        {
-
-            return false;
         }
     }
 }
