@@ -32,9 +32,9 @@ namespace SWT_ATM_Handin3.System.Domain
 
         // Used in TrackingSystem - UpdateOldSeparations
         // Need to return all tracks that dont hold Separations
-        public List<ITrack> CheckForNoSeparationEvents(List<ITrack> flightTracks)
+        public List<string> CheckForNoSeparationEvents(List<ITrack> flightTracks)
         {
-            List<ITrack> list = flightTracks;
+            List<string> list = new List<string>();
             foreach (var trackOne in flightTracks)
             {
                 foreach (var trackTwo in flightTracks)
@@ -43,8 +43,8 @@ namespace SWT_ATM_Handin3.System.Domain
                     {
                         if (CalculateSeparation(trackOne.Position, trackTwo.Position))
                         {
-                            if (list.Contains(trackOne))
-                                list.Remove(trackOne);
+                            if (list.Contains(trackOne.Tag))
+                                list.Remove(trackOne.Tag);
                         }
                     }
                 }
