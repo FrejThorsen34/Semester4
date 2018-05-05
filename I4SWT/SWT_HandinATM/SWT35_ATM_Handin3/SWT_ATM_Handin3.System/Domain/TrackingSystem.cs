@@ -42,9 +42,6 @@ namespace SWT_ATM_Handin3.System
             if (TrackOperations.GetAll().Count > 1)
                     SeparationOperations.CheckForSeparations(TrackOperations.GetAll().ToList());
 
-            //Update outdated separations
-            UpdateOldSeparations();
-
             foreach (var track in args.TransponderData)
             {
                 TrackOperations.AddOrUpdate(track);
