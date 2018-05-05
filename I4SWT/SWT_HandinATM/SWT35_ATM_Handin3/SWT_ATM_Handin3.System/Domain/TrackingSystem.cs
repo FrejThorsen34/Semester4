@@ -31,21 +31,25 @@ namespace SWT_ATM_Handin3.System
         {
             UpdateOldSeparations();
 
-            foreach (var track in args.TransponderData)
-            {
-                TrackOperations.AddOrUpdate(track);
-            }
-
             foreach (var track in TrackOperations.GetAll())
             {
                 //Check Airspace
                 if (!Airspace.CalculateWithinAirspace(track.Position))
                     TrackOperations.DeleteTrack(track);
-
-                //Check for Separations
-                if(TrackOperations.FlightTracks.Count > 1)
-                    SeparationOperations.CheckForSeparations(TrackOperations.FlightTracks.ToList());
             }
+
+            //Check for Separations
+            if (TrackOperations.GetAll().Count > 1)
+                    SeparationOperations.CheckForSeparations(TrackOperations.GetAll().ToList());
+
+            //Update outdated separations
+            UpdateOldSeparations();
+
+            foreach (var track in args.TransponderData)
+            {
+                TrackOperations.AddOrUpdate(track);
+            }
+
             //Display functions?
             OutputTerminal();
         }
