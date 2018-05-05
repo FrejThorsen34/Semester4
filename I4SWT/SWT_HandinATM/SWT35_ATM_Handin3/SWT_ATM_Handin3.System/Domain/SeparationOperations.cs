@@ -43,8 +43,11 @@ namespace SWT_ATM_Handin3.System.Domain
                     {
                         if (CalculateSeparation(trackOne.Position, trackTwo.Position))
                         {
-                            if (list.Contains(trackOne.Tag))
-                                list.Remove(trackOne.Tag);
+                        }
+                        else
+                        {
+                            if (!list.Contains(trackOne.Tag))
+                                list.Add(trackOne.Tag + ";" + trackTwo.Tag);
                         }
                     }
                 }

@@ -15,8 +15,11 @@ namespace SWT_ATM_Handin3.System.Interfaces
         ITrackOperations TrackOperations { get; set; }
         ISeparationOperations SeparationOperations { get; set; }
         ISeparationRepository SeparationRepository { get; set; }
+        ILogger Logger { get; set; }
+        IDisplay Display { get; set; }
         void DataReceived(object o, RawTransponderDataEventArgs args);
         void SeparationDetected(object sender, SeparationEvent se);
         void UpdateOldSeparations();
+        void OutputTerminal();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SWT_ATM_Handin3.System.Boundary;
 using SWT_ATM_Handin3.System.Domain;
 using SWT_ATM_Handin3.System.Interfaces;
 using TransponderReceiver;
@@ -16,6 +17,8 @@ namespace SWT_ATM_Handin3.System
         public ITrackOperations TrackOperations { get; set; } = new TrackOperations();
         public ISeparationOperations SeparationOperations { get; set; } = new SeparationOperations();
         public ISeparationRepository SeparationRepository { get; set; } = new SeparationRepository();
+        public ILogger Logger { get; set; } = new Logger();
+        public IDisplay Display { get; set; } = new Display();
 
         public TrackingSystem(ITransponderReceiver receiver)
         {
@@ -33,7 +36,7 @@ namespace SWT_ATM_Handin3.System
                 TrackOperations.AddOrUpdate(track);
             }
 
-            foreach (ITrack track in TrackOperations.GetAll())
+            foreach (var track in TrackOperations.GetAll())
             {
                 //Check Airspace
                 if (!Airspace.CalculateWithinAirspace(track.Position))
@@ -44,12 +47,14 @@ namespace SWT_ATM_Handin3.System
                     SeparationOperations.CheckForSeparations(TrackOperations.FlightTracks.ToList());
             }
             //Display functions?
+            OutputTerminal();
         }
 
         public void SeparationDetected(object sender, SeparationEvent se)
         {
             var separation = new SeparationEvent(se.Tag1, se.Tag2, se.Time);
             SeparationRepository.AddSeperationEvent(separation);
+            Logger.WriteToFile(separation.Tag1 + ";" + separation.Tag2 + ";" + separation.Time);
         }
         // Do logic on SeparationRepository to get rid of outdated separations
         public void UpdateOldSeparations()
@@ -64,8 +69,33 @@ namespace SWT_ATM_Handin3.System
             // Find all tracks that shouldnt be on separationlist
             var outdatedSeparations = SeparationOperations.CheckForNoSeparationEvents(possiblyOutdatedSeparations);
             // Now delete all of these
-            //foreach (ITrack track in outdatedSeparations)
-            //    SeparationRepository.DeleteSeperationEvent(track);
+            foreach (string sep in outdatedSeparations)
+            {
+                var split = sep.Split(':');
+                var separationToRemove = SeparationRepository.Get(split[0], split[1]);
+                SeparationRepository.DeleteSeperationEvent(separationToRemove);
+            }
+        }
+
+        public void OutputTerminal()
+        {
+            Display.Clear();
+            if (SeparationRepository.GetAll().Count != 0)
+            {
+                Display.WriteRed("Separation Event(s):");
+                foreach (var sep in SeparationRepository.GetAll())
+                    Display.WriteRed(sep.Tag1 + "/" + sep.Tag2 + " Time: " + sep.Time);
+            }
+
+            if (TrackOperations.GetAll().Count != 0)
+            {
+                Display.Write("Tracks:");
+                foreach (var track in TrackOperations.GetAll())
+                    Display.Write("Tag: " + track.Tag + " CurrentPosition: " + track.Position.X + "mE," + track.Position.Y +
+                     "mN Altitude: " + track.Position.Altitude + "m HorizontalVelocity: " +
+                     Math.Round(track.Velocity, 2) + "m/s CompassCourse: " +
+                     Math.Round(track.Course, 2) + "°");
+            }
         }
     }
 }
