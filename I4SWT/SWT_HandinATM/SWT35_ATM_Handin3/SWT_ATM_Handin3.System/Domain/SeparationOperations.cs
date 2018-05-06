@@ -42,7 +42,9 @@ namespace SWT_ATM_Handin3.System.Domain
                         if (!CalculateSeparation(trackOne.Position, trackTwo.Position))                       
                             if (!list.Contains(trackOne.Tag))
                                 list.Add(trackOne.Tag + ";" + trackTwo.Tag);                        
-
+                    if (!trackOne.WithinAirspace)
+                        if (!list.Contains(trackOne.Tag))
+                            list.Add(trackOne.Tag + ";" + trackTwo.Tag);
                 }
             }
             return list;
