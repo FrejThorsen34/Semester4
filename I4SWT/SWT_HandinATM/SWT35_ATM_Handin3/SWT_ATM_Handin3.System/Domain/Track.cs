@@ -14,6 +14,7 @@ namespace SWT_ATM_Handin3.System
         public DateTime Timestamp { get; set; }        
         public double Velocity { get; set; }
         public double Course { get; set; }
+        public bool WithinAirspace { get; set; }
 
         public Track(string payload)
         {

@@ -14,5 +14,6 @@ namespace SWT_ATM_Handin3.System.Interfaces
         double Velocity { get; set; }
         double Course { get; set; }
         void CreateTrack(string payload);
+        bool WithinAirspace { get; set; }
     }
 }

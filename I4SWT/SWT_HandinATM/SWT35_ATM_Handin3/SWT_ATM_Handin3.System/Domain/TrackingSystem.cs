@@ -29,25 +29,26 @@ namespace SWT_ATM_Handin3.System
 
         public void DataReceived(object o, RawTransponderDataEventArgs args)
         {
-            UpdateOldSeparations();
+            //Add or update tracks
+            foreach (var track in args.TransponderData)
+            {
+                TrackOperations.AddOrUpdate(track);
+            }
 
+            //Check if tracks are in airspace
             foreach (var track in TrackOperations.GetAll())
             {
-                //Check Airspace
-                if (!Airspace.CalculateWithinAirspace(track.Position))
-                    TrackOperations.DeleteTrack(track);
+                track.WithinAirspace = Airspace.CalculateWithinAirspace(track.Position);
             }
 
             //Check for Separations
             if (TrackOperations.GetAll().Count > 1)
                     SeparationOperations.CheckForSeparations(TrackOperations.GetAll().ToList());
 
-            foreach (var track in args.TransponderData)
-            {
-                TrackOperations.AddOrUpdate(track);
-            }
+            //Check for outdated separations
+            UpdateOldSeparations();
 
-            //Display functions?
+            //Display everything
             OutputTerminal();
         }
 
@@ -57,7 +58,7 @@ namespace SWT_ATM_Handin3.System
             SeparationRepository.AddSeperationEvent(separation);
             Logger.WriteToFile(separation.Tag1 + ";" + separation.Tag2 + ";" + separation.Time);
         }
-        // Do logic on SeparationRepository to get rid of outdated separations
+        
         public void UpdateOldSeparations()
         {            
             // Find all separations
@@ -68,13 +69,14 @@ namespace SWT_ATM_Handin3.System
             var possiblyOutdatedSeparations = separationEvents
                 .Select(separations => tracks.FirstOrDefault(t => t.Tag == separations.Tag1)).ToList();
             // Find all tracks that shouldnt be on separationlist
-            var outdatedSeparations = SeparationOperations.CheckForNoSeparationEvents(possiblyOutdatedSeparations);
+            var outdatedSeparations = SeparationOperations.CheckForOutdatedSeparationEvents(possiblyOutdatedSeparations);
             // Now delete all of these
             foreach (string sep in outdatedSeparations)
             {
-                var split = sep.Split(':');
+                var split = sep.Split(';');
                 var separationToRemove = SeparationRepository.Get(split[0], split[1]);
-                SeparationRepository.DeleteSeperationEvent(separationToRemove);
+                if (separationToRemove != null)
+                    SeparationRepository.DeleteSeperationEvent(separationToRemove);
             }
         }
 
@@ -92,10 +94,14 @@ namespace SWT_ATM_Handin3.System
             {
                 Display.Write("Tracks:");
                 foreach (var track in TrackOperations.GetAll())
-                    Display.Write("Tag: " + track.Tag + " CurrentPosition: " + track.Position.X + "mE," + track.Position.Y +
-                     "mN Altitude: " + track.Position.Altitude + "m HorizontalVelocity: " +
-                     Math.Round(track.Velocity, 2) + "m/s CompassCourse: " +
-                     Math.Round(track.Course, 2) + "°");
+                {
+                    if (track.WithinAirspace)
+                        Display.Write("Tag: " + track.Tag + " CurrentPosition: " + track.Position.X + "mE," +
+                                  track.Position.Y +
+                                  "mN Altitude: " + track.Position.Altitude + "m Velocity: " +
+                                  Math.Round(track.Velocity, 2) + "m/s Course: " +
+                                  Math.Round(track.Course, 2) + "°");
+                }
             }
         }
     }
