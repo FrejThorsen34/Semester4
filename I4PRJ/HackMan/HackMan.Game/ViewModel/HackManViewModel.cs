@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,12 +17,14 @@ namespace HackMan.Game
     {
         #region Variables
 
+        private IPAddress _ipAddress = IPAddress.Parse("10.192.94.251");
+        private Client _client;
         private HackManModel _model;
         ICommand _hackManStepUpCommand;
         ICommand _hackManStepDownCommand;
         ICommand _hackManStepRightCommand;
         ICommand _hackManStepLeftCommand;
-        ICommand _hackManBuyPowerCommand;
+        ICommand _hackManBuyLaptopLengthCommand;
         ICommand _hackManBuyLaptopCommand;
         ICommand _hackManPlaceLaptopCommand;
 
@@ -29,8 +32,9 @@ namespace HackMan.Game
 
         public HackManViewModel()
         {
-            _model = new HackManModel();            
-        }        
+            _client = new Client(_ipAddress);
+            _model = new HackManModel();
+        }
 
         #region Properties
 
@@ -70,12 +74,12 @@ namespace HackMan.Game
             }
         }
 
-        public ICommand HackManBuyPowerCommand
+        public ICommand HackManBuyLaptopLengthCommand
         {
             get
             {
-                return _hackManBuyPowerCommand ?? (_hackManBuyPowerCommand =
-                           new RelayCommand(HackManBuyPower, HackManBuyPower_CanExecute));
+                return _hackManBuyLaptopLengthCommand ?? (_hackManBuyLaptopLengthCommand =
+                           new RelayCommand(HackManBuyLaptopLength, HackManBuyLaptopLength_CanExecute));
             }
         }
 
@@ -110,57 +114,18 @@ namespace HackMan.Game
             }
         }
 
-        public HackPlayer HackPlayer
+        public ObservableCollection<SidePanelItem> PowerUps
         {
-            get { return _model.HackPlayer; }
+            get { return _model.PowerUps; }
             set
             {
-                if (value != _model.HackPlayer)
+                if (value != _model.PowerUps)
                 {
-                    _model.HackPlayer = value;
+                    _model.PowerUps = value;
                     NotifyPropertyChanged();
                 }
             }
         }
-
-        //public int Bitcoins
-        //{
-        //    get { return _model.HackPlayer.Bitcoins; }
-        //    set
-        //    {
-        //        if (value != _model.HackPlayer.Bitcoins)
-        //        {
-        //            _model.HackPlayer.Bitcoins = value;
-        //            NotifyPropertyChanged();
-        //        }
-        //    }
-        //}
-
-        //public int Laptops
-        //{
-        //    get { return _model.HackPlayer.Laptops; }
-        //    set
-        //    {
-        //        if (value != _model.HackPlayer.Laptops)
-        //        {
-        //            _model.HackPlayer.Laptops = value;
-        //            NotifyPropertyChanged();
-        //        }
-        //    }
-        //}
-
-        //public int HackPower
-        //{
-        //    get { return _model.HackPlayer.HackPower; }
-        //    set
-        //    {
-        //        if (value != _model.HackPlayer.HackPower)
-        //        {
-        //            _model.HackPlayer.HackPower = value;
-        //            NotifyPropertyChanged();
-        //        }
-        //    }
-        //}
 
         #endregion                
 
@@ -173,7 +138,7 @@ namespace HackMan.Game
 
         public bool HackManStepUp_CanExecute()
         {
-            return _model.CanStep(Direction.up);            
+            return _model.CanStep(Direction.up);
         }
 
         public void HackManStepDown()
@@ -206,19 +171,19 @@ namespace HackMan.Game
             return _model.CanStep(Direction.left);
         }
 
-        public void HackManBuyPower()
+        public void HackManBuyLaptopLength()
         {
-            _model.BuyPower(Powerup.power);
+            _model.BuyLaptopLength();
         }
 
-        public bool HackManBuyPower_CanExecute()
+        public bool HackManBuyLaptopLength_CanExecute()
         {
-            return _model.CanBuy(Powerup.power);
+            return _model.CanBuy(Powerup.laptoplength);
         }
 
         public void HackManBuyLaptop()
         {
-            _model.BuyPower(Powerup.laptop);
+            _model.BuyLaptop();
         }
 
         public bool HackManBuyLaptop_CanExecute()
@@ -228,15 +193,13 @@ namespace HackMan.Game
 
         public void HackManPlaceLaptop()
         {
-            Debug.WriteLine("HackManPlaceLaptop was called in HackManViewModel");
             _model.PlaceLaptop();
         }
 
         public bool HackManPlaceLaptop_CanExecute()
         {
-            Debug.WriteLine("HackManPlaceLaptop_CanExecute was called in HackManViewModel");
-            return _model.CanPlace();
-        }              
+            return _model.CanPlaceLaptop();
+        }
 
         #endregion
 

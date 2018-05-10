@@ -12,7 +12,7 @@
         <KeyBinding Key="Left" Command="{Binding HackManStepLeftCommand}" />
         <KeyBinding Key="Right" Command="{Binding HackManStepRightCommand}" />
         <KeyBinding Key="Down" Command="{Binding HackManStepDownCommand}" />
-        <KeyBinding Key="A" Command="{Binding HackManBuyPowerCommand}" />
+        <KeyBinding Key="A" Command="{Binding HackManBuyLaptopLengthCommand}" />
         <KeyBinding Key="S" Command="{Binding HackManBuyLaptopCommand}" />
         <KeyBinding Key="D" Command="{Binding HackManPlaceLaptopCommand}" />
     </Window.InputBindings>
@@ -35,13 +35,19 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Viewbox>
-        <StackPanel Grid.Column="1" Background="DarkCyan" Height="630">
-            <TextBlock Margin="5,10,0,0" FontSize="12" FontWeight="Bold" Text="Bitcoins:"/>
-            <TextBlock Margin="5,5,0,0" FontSize="12" FontWeight="Bold" Text="{Binding Path=HackPlayer.Bitcoins}"/>
-            <TextBlock Margin="5,10,0,0" FontSize="12" FontWeight="Bold" Text="HackPower:"/>
-            <TextBlock Margin="5,5,0,0" FontSize="12" FontWeight="Bold" Text="{Binding Path=HackPlayer.HackPower}"/>
-            <TextBlock Margin="5,10,0,0" FontSize="12" FontWeight="Bold" Text="Laptops:"/>
-            <TextBlock Margin="5,5,0,0" FontSize="12" FontWeight="Bold" Text="{Binding Path=HackPlayer.Laptops}"/>
+        <StackPanel Grid.Column="1">
+            <ItemsControl ItemsSource="{Binding PowerUps}" Width="50" Height="650" Background="DarkCyan">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel FlowDirection="LeftToRight" ItemHeight="48" ItemWidth="48" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Value}"></TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
     </Grid>
 </Window>

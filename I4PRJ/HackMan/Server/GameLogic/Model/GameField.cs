@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Server.GameLogic.Helper;
+using Server.GameLogic.Resources;
 
-namespace HackMan.Game
+namespace Server.GameLogic.Model
 {
     public class GameField
     {
         public GameField()
         {
-
-        }
-        public GameField(Position position, FieldType field)
-        {
-            Position = position;
-            SetType(field);
         }
 
         public void SetType(FieldType type)
@@ -27,18 +23,18 @@ namespace HackMan.Game
                     SimpleType = SimpleType.empty;
                     GridImage = "";
                     break;
-                case FieldType.firewall:
-                    Type = FieldType.firewall;
+                case FieldType.hackable:
+                    Type = FieldType.hackable;
                     SimpleType = SimpleType.thing;
                     GridImage = "/HackMan.Game;component/ViewModel/HackManResources/firewall.png";
                     break;
-                case FieldType.unbreakable:
-                    Type = FieldType.unbreakable;
+                case FieldType.unhackable:
+                    Type = FieldType.unhackable;
                     SimpleType = SimpleType.thing;
                     GridImage = "/HackMan.Game;component/ViewModel/HackManResources/unbreakable.png";
                     break;
-                case FieldType.bitcoin:
-                    Type = FieldType.bitcoin;
+                case FieldType.powerup:
+                    Type = FieldType.powerup;
                     SimpleType = SimpleType.thing;
                     GridImage = "/HackMan.Game;component/ViewModel/HackManResources/bitcoin.png";
                     break;
@@ -86,11 +82,6 @@ namespace HackMan.Game
                     Type = FieldType.playerleftlaptop;
                     SimpleType = SimpleType.thing;
                     GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackmanleftbomb.png";
-                    break;
-                case FieldType.explosion:
-                    Type = FieldType.explosion;
-                    SimpleType = SimpleType.thing;
-                    GridImage = "/HackMan.Game;component/ViewModel/HackManResources/explosion.png";
                     break;
                 default: break;
             }
