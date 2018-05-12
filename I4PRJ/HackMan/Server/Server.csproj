@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameLogic\Helper\ConvertGameboardToString.cs" />
     <Compile Include="GameLogic\Helper\Position.cs" />
     <Compile Include="GameLogic\Helper\RandomGenerator.cs" />
     <Compile Include="GameLogic\Model\GameField.cs" />

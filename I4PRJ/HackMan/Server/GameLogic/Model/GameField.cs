@@ -99,6 +99,42 @@ namespace Server.GameLogic.Model
             }
         }
 
+        public string TypeToString()
+        {
+            switch (Type)
+            {
+                case FieldType.bitcoin:
+                    return "bitcoin";
+                case FieldType.empty:
+                    return "empty";
+                case FieldType.explosion:
+                    return "explosion";
+                case FieldType.firewall:
+                    return "firewall";
+                case FieldType.laptop:
+                    return "laptop";
+                case FieldType.playerdown:
+                    return "playerdown";
+                case FieldType.playerdownlaptop:
+                    return "playerdownlaptop";
+                case FieldType.playerup:
+                    return "playerup";
+                case FieldType.playeruplaptop:
+                    return "playeruplaptop";
+                case FieldType.playerright:
+                    return "playerright";
+                case FieldType.playerrightlaptop:
+                    return "playerrightlaptop";
+                case FieldType.playerleft:
+                    return "playerleft";
+                case FieldType.playerleftlaptop:
+                    return "playerleftlaptop";
+                case FieldType.unbreakable:
+                    return "unbreakable";
+                default:
+                    return "empty";
+            }
+        }
         public FieldType Type { get; set; }
         public SimpleType SimpleType { get; set; }
         public String GridImage { get; set; }

@@ -31,6 +31,7 @@ namespace Server
         UdpClient UdpServerClient;
         IPEndPoint localIpEndPoint;
         IPEndPoint clientEndPoint;
+        private List<string> _converted;
 
         public List<string> Players;
         //Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
@@ -67,7 +68,6 @@ namespace Server
             {
                 while (true)
                 {
-                    //blocks until message received & get IP
                     Byte[] receiveBytes = UdpServerClient.Receive(ref localIpEndPoint); //listen on port 9000
                     string returnData = Encoding.ASCII.GetString(receiveBytes);
                     clientEndPoint = new IPEndPoint(localIpEndPoint.Address, PORT);
@@ -95,10 +95,12 @@ namespace Server
                             break;
                         case "start":
                             GenerateGameBoard();
-                            string message = "gamestarted";
-                            Console.WriteLine($"Sending back {message}");
-                            byte[] sendStart = Encoding.ASCII.GetBytes(message);
-                            UdpServerClient.Send(sendStart, sendStart.Length, clientEndPoint);
+                            Console.WriteLine($"Sending back gameboard");
+                            foreach (string s in _converted)
+                            {
+                                byte[] sendStart = Encoding.ASCII.GetBytes(s);
+                                UdpServerClient.Send(sendStart, sendStart.Length, clientEndPoint);
+                            }                                                       
                             break;
                         case "moveup":
                             if (CanStep(Direction.up, collection[1]))
@@ -202,7 +204,7 @@ namespace Server
 
         public bool JoinGame(string id)
         {
-            if (PlayerPositions.Count > 2)
+            if (PlayerPositions.Count >= 2)
                 return false;
             else
             {
@@ -217,7 +219,7 @@ namespace Server
         }
 
 
-        public void GenerateGameBoard()
+        public List<string> GenerateGameBoard()
         {
             String level = Properties.Resources.Level;
             String[] gameBoard = level.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -242,9 +244,17 @@ namespace Server
                             }
                             else
                             {
-                                PlayerPositions[1].Column = columnCounter;
-                                PlayerPositions[1].Row = rowCounter;
-                                PlayerPositions[1].Set = true;
+                                if (PlayerPositions.Count > 1)
+                                {
+                                    PlayerPositions[1].Column = columnCounter;
+                                    PlayerPositions[1].Row = rowCounter;
+                                    PlayerPositions[1].Set = true;
+                                }
+                                else
+                                {
+                                    GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter } });
+                                    GameBoard[listCounter].SetType(FieldType.empty);
+                                }
                             }
                             break;
                         case "FW":
@@ -272,6 +282,8 @@ namespace Server
                 }
                 rowCounter++;
             }
+            ConvertGameboard(GameBoard);
+            return _converted;
         }
 
         public void MoveHacker(Direction dir, string id)
@@ -451,6 +463,19 @@ namespace Server
             if (GameBoard[PlayerPositions[playerToCheck].FieldIndex()].SimpleType == SimpleType.thing)
                 return false;
             return true;
+        }
+
+        public void ConvertGameboard(List<GameField> gameBoard)
+        {
+            _converted = new List<string>();
+
+            foreach (GameField field in gameBoard)
+            {
+                string temp = field.TypeToString();
+                _converted.Add(temp);
+            }
+
+            _converted.Add("end");
         }
 
         #endregion
