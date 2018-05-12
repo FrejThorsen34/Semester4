@@ -17,7 +17,7 @@ namespace HackMan.Game
     {
         #region Variables
 
-        private IPAddress _ipAddress = IPAddress.Parse("192.168.1.61");
+        private IPAddress _ipAddress = IPAddress.Parse("192.168.1.69");
         private Client _client;
         private HackManModel _model;
         ICommand _hackManStepUpCommand;
