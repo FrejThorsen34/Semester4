@@ -86,11 +86,17 @@ namespace HackMan.Game
             _timer.AutoReset = true;
             _timer.Enabled = true;
             //
-            _client.Send("join" + ";" + _tempId);
+            JoinGame();
             GenerateGameBoard();
             GenerateSidePanelItems();
         }
 
+        private void JoinGame()
+        {
+            _client.Send("join" + ";" + _tempId);
+            string response = _client.Receive();
+            Debug.WriteLine(response);
+        }
         private void TimerTick(object sender, EventArgs e)
         {
             var toBeRemoved = new List<Laptop>();

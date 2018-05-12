@@ -25,7 +25,7 @@ namespace HackMan.Game
             RemoteIpEndPoint = new IPEndPoint(address, PORT);
             LocalIpEndPoint = new IPEndPoint(IPAddress.Any, PORT);
             listener = new UdpClient(LocalIpEndPoint);
-            listener.Client.ReceiveTimeout = 2000;
+            listener.Client.ReceiveTimeout = 250;
             //Connect to server
             udpClient.Connect(RemoteIpEndPoint);
         }
