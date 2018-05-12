@@ -81,12 +81,14 @@ namespace Server
                             if (JoinGame(collection[1]))
                             {
                                 string join = "gamejoined";
+                                Console.WriteLine($"Sending back {join}");
                                 byte[] sendJoin = Encoding.ASCII.GetBytes(join);
                                 UdpServerClient.Send(sendJoin, sendJoin.Length, clientEndPoint);
                             }
                             else
                             {
                                 string join = "no";
+                                Console.WriteLine($"Sending back {join}");
                                 byte[] sendJoin = Encoding.ASCII.GetBytes(join);
                                 UdpServerClient.Send(sendJoin, sendJoin.Length, clientEndPoint);
                             }
@@ -94,6 +96,7 @@ namespace Server
                         case "start":
                             StartGame();
                             string message = "gamestarted";
+                            Console.WriteLine($"Sending back {message}");
                             byte[] sendStart = Encoding.ASCII.GetBytes(message);
                             UdpServerClient.Send(sendStart, sendStart.Length, clientEndPoint);
                             break;
@@ -102,12 +105,14 @@ namespace Server
                             {
                                 MoveHacker(Direction.up, collection[1]);
                                 string command = "moveup";
+                                Console.WriteLine($"Sending back {command}");
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
                             }
                             else
                             {
                                 string command = "no";
+                                Console.WriteLine($"Sending back {command}");
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
                             }
@@ -117,6 +122,7 @@ namespace Server
                             {
                                 MoveHacker(Direction.down, collection[1]);
                                 string command = "movedown";
+                                Console.WriteLine($"Sending back {command}");
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
                             }
@@ -132,12 +138,14 @@ namespace Server
                             {
                                 MoveHacker(Direction.left, collection[1]);
                                 string command = "moveleft";
+                                Console.WriteLine($"Sending back {command}");
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
                             }
                             else
                             {
                                 string command = "no";
+                                Console.WriteLine($"Sending back {command}");
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
                             }
@@ -147,12 +155,14 @@ namespace Server
                             {
                                 MoveHacker(Direction.right, collection[1]);
                                 string command = "moveright";
+                                Console.WriteLine($"Sending back {command}");
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
                             }
                             else
                             {
                                 string command = "no";
+                                Console.WriteLine($"Sending back {command}");
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
                             }
@@ -162,12 +172,14 @@ namespace Server
                             {
                                 PlaceLaptop(collection[1]);
                                 string command = "laptopplaced";
+                                Console.WriteLine($"Sending back {command}");
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
                             }
                             else
                             {
                                 string command = "no";
+                                Console.WriteLine($"Sending back {command}");
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
                             }
