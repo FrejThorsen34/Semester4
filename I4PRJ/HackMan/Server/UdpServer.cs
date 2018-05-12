@@ -218,9 +218,7 @@ namespace Server
 
         public void GenerateGameBoard()
         {
-            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                @"GameLogic\Resources\Level.txt");
-            String level = File.ReadAllText(path);
+            String level = Properties.Resources.Level;
             String[] gameBoard = level.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
             int rowCounter = 0;

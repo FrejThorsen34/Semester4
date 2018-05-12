@@ -16,8 +16,6 @@ namespace HackMan.Game
         IPEndPoint RemoteIpEndPoint;
         IPEndPoint LocalIpEndPoint;
         UdpClient listener;
-        private static ManualResetEvent sendDone = new ManualResetEvent(false);
-        private static ManualResetEvent receiveDone = new ManualResetEvent(false);
 
         public Client(IPAddress address)
         {
@@ -43,7 +41,6 @@ namespace HackMan.Game
 
             //Send Bytes to the server
             int bytesSent = udpClient.Send(sendBytes, sendBytes.Length);
-            sendDone.WaitOne();
         }
 
         public string Receive()
@@ -53,7 +50,6 @@ namespace HackMan.Game
             try
             {
                 received = Encoding.ASCII.GetString(listener.Receive(ref LocalIpEndPoint));
-                receiveDone.WaitOne();
             }
             catch (Exception e)
             {
