@@ -63,6 +63,7 @@ namespace HackMan.Game
         public static int NumberOfColumns = 14;
         public static int NumberOfRows = 14;
         private Client _client;
+        private int _tempId;
 
         #endregion
 
@@ -70,6 +71,8 @@ namespace HackMan.Game
 
         public HackManModel(Client client)
         {
+            Random ran = new Random();
+            _tempId = ran.Next(5000);
             _client = client;
             HackManPosition = new Position();
             GameBoard = new ObservableCollection<GameField>();
@@ -83,6 +86,7 @@ namespace HackMan.Game
             _timer.AutoReset = true;
             _timer.Enabled = true;
             //
+            _client.Send("join" + ";" + _tempId);
             GenerateGameBoard();
             GenerateSidePanelItems();
         }
@@ -221,7 +225,7 @@ namespace HackMan.Game
 
         public bool CanStep(string command)
         {
-            _client.Send(command);
+            _client.Send(command + ";" + _tempId);
             string returnMessage = _client.Receive();
             switch (returnMessage)
             {
@@ -291,7 +295,7 @@ namespace HackMan.Game
 
         public bool CanPlaceLaptop()
         {
-            _client.Send("placelaptop");
+            _client.Send("placelaptop" + ";" + _tempId);
             string returnMessage = _client.Receive();
             if (returnMessage == "no")
                 return false;

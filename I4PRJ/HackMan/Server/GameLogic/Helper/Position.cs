@@ -10,6 +10,7 @@ namespace Server.GameLogic.Helper
     {
         public int Row { get; set; }
         public int Column { get; set; }
+        public bool Set { get; set; }
 
         #region Commands
         public int FieldIndex()

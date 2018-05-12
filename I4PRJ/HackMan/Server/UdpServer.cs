@@ -20,9 +20,9 @@ namespace Server
         #region Variables
         private List<Position> PlayerPositions;
         private List<GameField> _gameBoard;
+        private List<Player> _players;
         //Laptop additions
         private List<Laptop> _laptops;
-        private Player _player;
         public static int NumberOfColumns = 14;
         public static int NumberOfRows = 14;
         #endregion
@@ -40,7 +40,7 @@ namespace Server
         {
             PlayerPositions = new List<Position>();
             GameBoard = new List<GameField>();
-            _player = new Player();
+            _players = new List<Player>();
             //Laptop additions
             _laptops = new List<Laptop>();
             Players = new List<string>();
@@ -76,7 +76,21 @@ namespace Server
 
                     string[] collection = returnData.Split(';');
                     switch (collection[0])
-                    {                       
+                    {
+                        case "join":
+                            if (JoinGame(collection[1]))
+                            {
+                                string join = "gamejoined";
+                                byte[] sendJoin = Encoding.ASCII.GetBytes(join);
+                                UdpServerClient.Send(sendJoin, sendJoin.Length, clientEndPoint);
+                            }
+                            else
+                            {
+                                string join = "no";
+                                byte[] sendJoin = Encoding.ASCII.GetBytes(join);
+                                UdpServerClient.Send(sendJoin, sendJoin.Length, clientEndPoint);
+                            }
+                            break;
                         case "start":
                             StartGame();
                             string message = "gamestarted";
@@ -84,9 +98,9 @@ namespace Server
                             UdpServerClient.Send(sendStart, sendStart.Length, clientEndPoint);
                             break;
                         case "moveup":
-                            if (CanStep(Direction.up))
+                            if (CanStep(Direction.up, collection[1]))
                             {
-                                MoveHacker(Direction.up);
+                                MoveHacker(Direction.up, collection[1]);
                                 string command = "moveup";
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
@@ -99,9 +113,9 @@ namespace Server
                             }
                             break;
                         case "movedown":
-                            if (CanStep(Direction.down))
+                            if (CanStep(Direction.down, collection[1]))
                             {
-                                MoveHacker(Direction.down);
+                                MoveHacker(Direction.down, collection[1]);
                                 string command = "movedown";
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
@@ -114,9 +128,9 @@ namespace Server
                             }
                             break;
                         case "moveleft":
-                            if (CanStep(Direction.left))
+                            if (CanStep(Direction.left, collection[1]))
                             {
-                                MoveHacker(Direction.left);
+                                MoveHacker(Direction.left, collection[1]);
                                 string command = "moveleft";
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
@@ -129,9 +143,9 @@ namespace Server
                             }
                             break;
                         case "moveright":
-                            if (CanStep(Direction.right))
+                            if (CanStep(Direction.right, collection[1]))
                             {
-                                MoveHacker(Direction.right);
+                                MoveHacker(Direction.right, collection[1]);
                                 string command = "moveright";
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
@@ -144,9 +158,9 @@ namespace Server
                             }
                             break;
                         case "placelaptop":
-                            if (CanPlaceLaptop())
+                            if (CanPlaceLaptop(collection[1]))
                             {
-                                PlaceLaptop();
+                                PlaceLaptop(collection[1]);
                                 string command = "laptopplaced";
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
@@ -172,6 +186,21 @@ namespace Server
         }
 
         #region GameLogic
+
+        public bool JoinGame(string id)
+        {
+            if (PlayerPositions.Count > 2)
+                return false;
+            else
+            {
+                PlayerPositions.Add(new Position());
+            }
+
+            int index = PlayerPositions.Count - 1;
+            Player player = new Player(id, index);
+            _players.Add(player);
+            return true;
+        }
         public void StartGame()
         {
             PlayerPositions.Add(new Position());
@@ -198,8 +227,18 @@ namespace Server
                         case "HD":
                             GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter } });
                             GameBoard[listCounter].SetType(FieldType.playerdown);
-                            PlayerPositions[0].Column = columnCounter;
-                            PlayerPositions[0].Row = rowCounter;
+                            if (!PlayerPositions[0].Set)
+                            {
+                                PlayerPositions[0].Column = columnCounter;
+                                PlayerPositions[0].Row = rowCounter;
+                                PlayerPositions[0].Set = true;
+                            }
+                            else
+                            {
+                                PlayerPositions[1].Column = columnCounter;
+                                PlayerPositions[1].Row = rowCounter;
+                                PlayerPositions[1].Set = true;
+                            }
                             break;
                         case "FW":
                             GameBoard.Add(new GameField { Position = new Position { Column = columnCounter, Row = rowCounter } });
@@ -228,22 +267,24 @@ namespace Server
             }
         }
 
-        public void MoveHacker(Direction dir)
+        public void MoveHacker(Direction dir, string id)
         {
             GameField moveFrom = new GameField();
             GameField moveTo = new GameField();
             SimpleType type;
+            Player player = _players.FirstOrDefault(p => p.Id == id);
+            int playerToMove = player.PositionIndex;
             switch (dir)
             {
                 case Direction.up:
-                    moveFrom = GameBoard[PlayerPositions[0].FieldIndex()];
+                    moveFrom = GameBoard[PlayerPositions[playerToMove].FieldIndex()];
                     type = moveFrom.SimpleType;
                     moveFrom.SetType(FieldType.playerup);
                     moveFrom.Position.Row--;
-                    moveTo = GameBoard[PlayerPositions[0].FieldAbove()];
+                    moveTo = GameBoard[PlayerPositions[playerToMove].FieldAbove()];
                     if (moveTo.Type == FieldType.bitcoin)
                     {
-                        Player.Bitcoins++;
+                        player.Bitcoins++;
                     }
                     if (type == SimpleType.thing)
                         moveTo.SetType(FieldType.laptop);
@@ -252,19 +293,19 @@ namespace Server
                         moveTo.SetType(FieldType.empty);
                     }
                     moveTo.Position.Row++;
-                    GameBoard[PlayerPositions[0].FieldIndex()] = moveTo;
-                    GameBoard[PlayerPositions[0].FieldAbove()] = moveFrom;
-                    PlayerPositions[0].Row--;
+                    GameBoard[PlayerPositions[playerToMove].FieldIndex()] = moveTo;
+                    GameBoard[PlayerPositions[playerToMove].FieldAbove()] = moveFrom;
+                    PlayerPositions[playerToMove].Row--;
                     break;
                 case Direction.down:
-                    moveFrom = GameBoard[PlayerPositions[0].FieldIndex()];
+                    moveFrom = GameBoard[PlayerPositions[playerToMove].FieldIndex()];
                     type = moveFrom.SimpleType;
                     moveFrom.SetType(FieldType.playerdown);
                     moveFrom.Position.Row++;
-                    moveTo = GameBoard[PlayerPositions[0].FieldBelow()];
+                    moveTo = GameBoard[PlayerPositions[playerToMove].FieldBelow()];
                     if (moveTo.Type == FieldType.bitcoin)
                     {
-                        Player.Bitcoins++;
+                        player.Bitcoins++;
                     }
                     if (type == SimpleType.thing)
                         moveTo.SetType(FieldType.laptop);
@@ -273,19 +314,19 @@ namespace Server
                         moveTo.SetType(FieldType.empty);
                     }
                     moveTo.Position.Row--;
-                    GameBoard[PlayerPositions[0].FieldIndex()] = moveTo;
-                    GameBoard[PlayerPositions[0].FieldBelow()] = moveFrom;
-                    PlayerPositions[0].Row++;
+                    GameBoard[PlayerPositions[playerToMove].FieldIndex()] = moveTo;
+                    GameBoard[PlayerPositions[playerToMove].FieldBelow()] = moveFrom;
+                    PlayerPositions[playerToMove].Row++;
                     break;
                 case Direction.left:
-                    moveFrom = GameBoard[PlayerPositions[0].FieldIndex()];
+                    moveFrom = GameBoard[PlayerPositions[playerToMove].FieldIndex()];
                     type = moveFrom.SimpleType;
                     moveFrom.SetType(FieldType.playerleft);
                     moveFrom.Position.Column--;
-                    moveTo = GameBoard[PlayerPositions[0].FieldLeft()];
+                    moveTo = GameBoard[PlayerPositions[playerToMove].FieldLeft()];
                     if (moveTo.Type == FieldType.bitcoin)
                     {
-                        Player.Bitcoins++;
+                        player.Bitcoins++;
                     }
                     if (type == SimpleType.thing)
                         moveTo.SetType(FieldType.laptop);
@@ -294,19 +335,19 @@ namespace Server
                         moveTo.SetType(FieldType.empty);
                     }
                     moveTo.Position.Column++;
-                    GameBoard[PlayerPositions[0].FieldIndex()] = moveTo;
-                    GameBoard[PlayerPositions[0].FieldLeft()] = moveFrom;
-                    PlayerPositions[0].Column--;
+                    GameBoard[PlayerPositions[playerToMove].FieldIndex()] = moveTo;
+                    GameBoard[PlayerPositions[playerToMove].FieldLeft()] = moveFrom;
+                    PlayerPositions[playerToMove].Column--;
                     break;
                 case Direction.right:
-                    moveFrom = GameBoard[PlayerPositions[0].FieldIndex()];
+                    moveFrom = GameBoard[PlayerPositions[playerToMove].FieldIndex()];
                     type = moveFrom.SimpleType;
                     moveFrom.SetType(FieldType.playerright);
                     moveFrom.Position.Column++;
-                    moveTo = GameBoard[PlayerPositions[0].FieldRight()];
+                    moveTo = GameBoard[PlayerPositions[playerToMove].FieldRight()];
                     if (moveTo.Type == FieldType.bitcoin)
                     {
-                        Player.Bitcoins++;
+                        player.Bitcoins++;
                     }
                     if (type == SimpleType.thing)
                         moveTo.SetType(FieldType.laptop);
@@ -315,40 +356,41 @@ namespace Server
                         moveTo.SetType(FieldType.empty);
                     }
                     moveTo.Position.Column--;
-                    GameBoard[PlayerPositions[0].FieldIndex()] = moveTo;
-                    GameBoard[PlayerPositions[0].FieldRight()] = moveFrom;
-                    PlayerPositions[0].Column++;
+                    GameBoard[PlayerPositions[playerToMove].FieldIndex()] = moveTo;
+                    GameBoard[PlayerPositions[playerToMove].FieldRight()] = moveFrom;
+                    PlayerPositions[playerToMove].Column++;
                     break;
                 default: break;
             }
         }
 
-        public bool CanStep(Direction dir)
+        public bool CanStep(Direction dir, string id)
         {
+            int playerToCheck = _players.FirstOrDefault(p => p.Id == id).PositionIndex;
             switch (dir)
             {
                 case Direction.up:
-                    if (PlayerPositions[0].Row == 0)
+                    if (PlayerPositions[playerToCheck].Row == 0)
                         return false;
-                    if (GameBoard[PlayerPositions[0].FieldAbove()].Type != FieldType.empty && GameBoard[PlayerPositions[0].FieldAbove()].Type != FieldType.bitcoin)
+                    if (GameBoard[PlayerPositions[playerToCheck].FieldAbove()].Type != FieldType.empty && GameBoard[PlayerPositions[playerToCheck].FieldAbove()].Type != FieldType.bitcoin)
                         return false;
                     return true;
                 case Direction.down:
-                    if (PlayerPositions[0].Row == NumberOfRows - 1)
+                    if (PlayerPositions[playerToCheck].Row == NumberOfRows - 1)
                         return false;
-                    if (GameBoard[PlayerPositions[0].FieldBelow()].Type != FieldType.empty && GameBoard[PlayerPositions[0].FieldBelow()].Type != FieldType.bitcoin)
+                    if (GameBoard[PlayerPositions[playerToCheck].FieldBelow()].Type != FieldType.empty && GameBoard[PlayerPositions[playerToCheck].FieldBelow()].Type != FieldType.bitcoin)
                         return false;
                     return true;
                 case Direction.left:
-                    if (PlayerPositions[0].Column == 0)
+                    if (PlayerPositions[playerToCheck].Column == 0)
                         return false;
-                    if (GameBoard[PlayerPositions[0].FieldLeft()].Type != FieldType.empty && GameBoard[PlayerPositions[0].FieldLeft()].Type != FieldType.bitcoin)
+                    if (GameBoard[PlayerPositions[playerToCheck].FieldLeft()].Type != FieldType.empty && GameBoard[PlayerPositions[playerToCheck].FieldLeft()].Type != FieldType.bitcoin)
                         return false;
                     return true;
                 case Direction.right:
-                    if (PlayerPositions[0].Column == NumberOfColumns - 1)
+                    if (PlayerPositions[playerToCheck].Column == NumberOfColumns - 1)
                         return false;
-                    if (GameBoard[PlayerPositions[0].FieldRight()].Type != FieldType.empty && GameBoard[PlayerPositions[0].FieldRight()].Type != FieldType.bitcoin)
+                    if (GameBoard[PlayerPositions[playerToCheck].FieldRight()].Type != FieldType.empty && GameBoard[PlayerPositions[playerToCheck].FieldRight()].Type != FieldType.bitcoin)
                         return false;
                     return true;
                 default:
@@ -356,46 +398,50 @@ namespace Server
             }
         }
 
-        public void PlaceLaptop()
+        public void PlaceLaptop(string id)
         {
             Debug.WriteLine("PlaceLaptop in HackManModel was called");
+            Player player = _players.FirstOrDefault(p => p.Id == id);
+            int playerToPlaceLaptop = player.PositionIndex;
             GameField temp = new GameField();
-            temp = GameBoard[PlayerPositions[0].FieldIndex()];
+            temp = GameBoard[PlayerPositions[playerToPlaceLaptop].FieldIndex()];
             switch (temp.Type)
             {
                 case FieldType.playerup:
                     temp.SetType(FieldType.playeruplaptop);
-                    GameBoard[PlayerPositions[0].FieldIndex()] = temp;
+                    GameBoard[PlayerPositions[playerToPlaceLaptop].FieldIndex()] = temp;
                     Debug.WriteLine("PlayerUp PlaceLaptop");
                     break;
                 case FieldType.playerdown:
                     temp.SetType(FieldType.playerdownlaptop);
-                    GameBoard[PlayerPositions[0].FieldIndex()] = temp;
+                    GameBoard[PlayerPositions[playerToPlaceLaptop].FieldIndex()] = temp;
                     Debug.WriteLine("PlayerDown PlaceLaptop");
                     break;
                 case FieldType.playerleft:
                     temp.SetType(FieldType.playerleftlaptop);
-                    GameBoard[PlayerPositions[0].FieldIndex()] = temp;
+                    GameBoard[PlayerPositions[playerToPlaceLaptop].FieldIndex()] = temp;
                     Debug.WriteLine("PlayerLeft PlaceLaptop");
                     break;
                 case FieldType.playerright:
                     temp.SetType(FieldType.playerrightlaptop);
-                    GameBoard[PlayerPositions[0].FieldIndex()] = temp;
+                    GameBoard[PlayerPositions[playerToPlaceLaptop].FieldIndex()] = temp;
                     Debug.WriteLine("PlayerRight PlaceLaptop");
                     break;
             }
 
-            _laptops.Add(new Laptop(this, _player, PlayerPositions[0], _player.LaptopLength));
-            _player.Laptops--;
+            _laptops.Add(new Laptop(this, player, PlayerPositions[playerToPlaceLaptop], player.LaptopLength));
+            player.Laptops--;
         }
 
 
-        public bool CanPlaceLaptop()
+        public bool CanPlaceLaptop(string id)
         {
-            if (_player.Laptops == 0)
+            Player player = _players.FirstOrDefault(p => p.Id == id);
+            int playerToCheck = player.PositionIndex;
+            if (player.Laptops == 0)
                 return false;
             //Her burde der også være et check på, om spilleren allerede har placeret en bombe på dette felt.
-            if (GameBoard[PlayerPositions[0].FieldIndex()].SimpleType == SimpleType.thing)
+            if (GameBoard[PlayerPositions[playerToCheck].FieldIndex()].SimpleType == SimpleType.thing)
                 return false;
             return true;
         }
@@ -411,16 +457,6 @@ namespace Server
                 {
                     _gameBoard = value;
                 }
-            }
-        }
-
-        public Player Player
-        {
-            get { return _player; }
-            set
-            {
-                if (_player != value)
-                    _player = value;
             }
         }
         #endregion
