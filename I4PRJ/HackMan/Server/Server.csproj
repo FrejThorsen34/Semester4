@@ -43,7 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameLogic\Helper\Position.cs" />
+    <Compile Include="GameLogic\Helper\RandomGenerator.cs" />
     <Compile Include="GameLogic\Model\GameField.cs" />
+    <Compile Include="GameLogic\Model\Laptop.cs" />
+    <Compile Include="GameLogic\Model\Player.cs" />
     <Compile Include="GameLogic\Resources\Enums.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

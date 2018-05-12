@@ -12,6 +12,13 @@ namespace Server.GameLogic.Model
     {
         public GameField()
         {
+
+        }
+
+        public GameField(Position position, FieldType field)
+        {
+            Position = position;
+            SetType(field);
         }
 
         public void SetType(FieldType type)
@@ -23,18 +30,18 @@ namespace Server.GameLogic.Model
                     SimpleType = SimpleType.empty;
                     GridImage = "";
                     break;
-                case FieldType.hackable:
-                    Type = FieldType.hackable;
+                case FieldType.firewall:
+                    Type = FieldType.firewall;
                     SimpleType = SimpleType.thing;
                     GridImage = "/HackMan.Game;component/ViewModel/HackManResources/firewall.png";
                     break;
-                case FieldType.unhackable:
-                    Type = FieldType.unhackable;
+                case FieldType.unbreakable:
+                    Type = FieldType.unbreakable;
                     SimpleType = SimpleType.thing;
                     GridImage = "/HackMan.Game;component/ViewModel/HackManResources/unbreakable.png";
                     break;
-                case FieldType.powerup:
-                    Type = FieldType.powerup;
+                case FieldType.bitcoin:
+                    Type = FieldType.bitcoin;
                     SimpleType = SimpleType.thing;
                     GridImage = "/HackMan.Game;component/ViewModel/HackManResources/bitcoin.png";
                     break;
@@ -82,6 +89,11 @@ namespace Server.GameLogic.Model
                     Type = FieldType.playerleftlaptop;
                     SimpleType = SimpleType.thing;
                     GridImage = "/HackMan.Game;component/ViewModel/HackManResources/hackmanleftbomb.png";
+                    break;
+                case FieldType.explosion:
+                    Type = FieldType.explosion;
+                    SimpleType = SimpleType.thing;
+                    GridImage = "/HackMan.Game;component/ViewModel/HackManResources/explosion.png";
                     break;
                 default: break;
             }

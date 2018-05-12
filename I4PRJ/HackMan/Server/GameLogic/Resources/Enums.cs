@@ -11,33 +11,30 @@ namespace Server.GameLogic.Resources
         up,
         down,
         left,
-        right,
-        none
+        right
     };
-
     public enum Powerup
     {
         laptop,
-        power
+        laptoplength
     };
-
     public enum FieldType
     {
-        playerup,
         playerdown,
+        playerup,
         playerleft,
         playerright,
-        powerup,
-        empty,
-        hackable,
-        unhackable,
+        bitcoin,
         laptop,
+        firewall,
+        unbreakable,
+        explosion,
+        empty,
         playeruplaptop,
         playerdownlaptop,
         playerleftlaptop,
         playerrightlaptop
-    };
-
+    }
     public enum SimpleType
     {
         player,

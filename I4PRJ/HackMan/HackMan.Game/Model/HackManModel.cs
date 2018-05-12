@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,13 +62,15 @@ namespace HackMan.Game
         private Player _player;
         public static int NumberOfColumns = 14;
         public static int NumberOfRows = 14;
+        private Client _client;
 
         #endregion
 
         #region Commands
 
-        public HackManModel()
+        public HackManModel(Client client)
         {
+            _client = client;
             HackManPosition = new Position();
             GameBoard = new ObservableCollection<GameField>();
             PowerUps = new ObservableCollection<SidePanelItem>();
@@ -216,34 +219,38 @@ namespace HackMan.Game
             }
         }
 
-        public bool CanStep(Direction dir)
+        public bool CanStep(string command)
         {
-            switch (dir)
+            _client.Send(command);
+            string returnMessage = _client.Receive();
+            switch (returnMessage)
             {
-                case Direction.up:
+                case "moveup":
                     if (HackManPosition.Row == 0)
                         return false;
                     if (GameBoard[HackManPosition.FieldAbove()].Type != FieldType.empty && GameBoard[HackManPosition.FieldAbove()].Type != FieldType.bitcoin)
                         return false;
                     return true;
-                case Direction.down:
+                case "movedown":
                     if (HackManPosition.Row == NumberOfRows - 1)
                         return false;
                     if (GameBoard[HackManPosition.FieldBelow()].Type != FieldType.empty && GameBoard[HackManPosition.FieldBelow()].Type != FieldType.bitcoin)
                         return false;
                     return true;
-                case Direction.left:
+                case "moveleft":
                     if (HackManPosition.Column == 0)
                         return false;
                     if (GameBoard[HackManPosition.FieldLeft()].Type != FieldType.empty && GameBoard[HackManPosition.FieldLeft()].Type != FieldType.bitcoin)
                         return false;
                     return true;
-                case Direction.right:
+                case "moveright":
                     if (HackManPosition.Column == NumberOfColumns - 1)
                         return false;
                     if (GameBoard[HackManPosition.FieldRight()].Type != FieldType.empty && GameBoard[HackManPosition.FieldRight()].Type != FieldType.bitcoin)
                         return false;
                     return true;
+                case "no":
+                    return false;
                 default:
                     return false;
             }
@@ -284,10 +291,9 @@ namespace HackMan.Game
 
         public bool CanPlaceLaptop()
         {
-            if (_player.Laptops == 0)
-                return false;
-            //Her burde der også være et check på, om spilleren allerede har placeret en bombe på dette felt.
-            if (GameBoard[HackManPosition.FieldIndex()].SimpleType == SimpleType.thing)
+            _client.Send("placelaptop");
+            string returnMessage = _client.Receive();
+            if (returnMessage == "no")
                 return false;
             return true;
         }
@@ -334,6 +340,10 @@ namespace HackMan.Game
 
         public void GenerateGameBoard()
         {
+            _client.Send("start");
+            string returnMessage = _client.Receive();
+            if (returnMessage != "gamestarted")
+                return;
             String level = Properties.Resources.Level;
             String[] gameBoard = level.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 

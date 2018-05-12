@@ -14,27 +14,27 @@ namespace Server.GameLogic.Helper
         #region Commands
         public int FieldIndex()
         {
-            return ((HackManModel.NumberOfColumns * Row) + Column);
+            return ((UdpServer.NumberOfColumns * Row) + Column);
         }
 
         public int FieldAbove()
         {
-            return ((HackManModel.NumberOfColumns * (Row - 1)) + Column);
+            return ((UdpServer.NumberOfColumns * (Row - 1)) + Column);
         }
 
         public int FieldBelow()
         {
-            return ((HackManModel.NumberOfColumns * (Row + 1)) + Column);
+            return ((UdpServer.NumberOfColumns * (Row + 1)) + Column);
         }
 
         public int FieldLeft()
         {
-            return ((HackManModel.NumberOfColumns * Row) + Column - 1);
+            return ((UdpServer.NumberOfColumns * Row) + Column - 1);
         }
 
         public int FieldRight()
         {
-            return ((HackManModel.NumberOfColumns * Row) + Column + 1);
+            return ((UdpServer.NumberOfColumns * Row) + Column + 1);
         }
         #endregion
     }

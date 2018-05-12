@@ -17,7 +17,7 @@ namespace HackMan.Game
     {
         #region Variables
 
-        private IPAddress _ipAddress = IPAddress.Parse("10.192.94.251");
+        private IPAddress _ipAddress = IPAddress.Parse("192.168.1.61");
         private Client _client;
         private HackManModel _model;
         ICommand _hackManStepUpCommand;
@@ -33,7 +33,7 @@ namespace HackMan.Game
         public HackManViewModel()
         {
             _client = new Client(_ipAddress);
-            _model = new HackManModel();
+            _model = new HackManModel(_client);
         }
 
         #region Properties
@@ -138,7 +138,7 @@ namespace HackMan.Game
 
         public bool HackManStepUp_CanExecute()
         {
-            return _model.CanStep(Direction.up);
+            return _model.CanStep("moveup");
         }
 
         public void HackManStepDown()
@@ -148,7 +148,7 @@ namespace HackMan.Game
 
         public bool HackManStepDown_CanExecute()
         {
-            return _model.CanStep(Direction.down);
+            return _model.CanStep("movedown");
         }
 
         public void HackManStepRight()
@@ -158,7 +158,7 @@ namespace HackMan.Game
 
         public bool HackManStepRight_CanExecute()
         {
-            return _model.CanStep(Direction.right);
+            return _model.CanStep("moveright");
         }
 
         public void HackManStepLeft()
@@ -168,7 +168,7 @@ namespace HackMan.Game
 
         public bool HackManStepLeft_CanExecute()
         {
-            return _model.CanStep(Direction.left);
+            return _model.CanStep("moveleft");
         }
 
         public void HackManBuyLaptopLength()
