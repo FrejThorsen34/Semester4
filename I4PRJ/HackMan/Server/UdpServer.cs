@@ -129,6 +129,7 @@ namespace Server
                             else
                             {
                                 string command = "no";
+                                Console.WriteLine($"Sending back {command}");
                                 byte[] sendCommand = Encoding.ASCII.GetBytes(command);
                                 UdpServerClient.Send(sendCommand, sendCommand.Length, clientEndPoint);
                             }
