@@ -93,9 +93,11 @@ namespace HackMan.Game
 
         private void JoinGame()
         {
+            Debug.WriteLine($"Sending join and {_tempId}");
             _client.Send("join" + ";" + _tempId);
+            Debug.WriteLine($"Waiting for join-reply");
             string response = _client.Receive();
-            Debug.WriteLine(response);
+            Debug.WriteLine($"Join reply received" + response);
         }
         private void TimerTick(object sender, EventArgs e)
         {
@@ -350,10 +352,14 @@ namespace HackMan.Game
 
         public void GenerateGameBoard()
         {
+            Debug.WriteLine("Generate GameBoard called");
+            Debug.WriteLine("Sending start to server");
             _client.Send("start");
+            Debug.WriteLine("Start sent, waiting for response from server");
             string returnMessage = _client.Receive();
             if (returnMessage != "gamestarted")
                 return;
+            Debug.WriteLine($"Received response from server" + returnMessage);
             String level = Properties.Resources.Level;
             String[] gameBoard = level.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 

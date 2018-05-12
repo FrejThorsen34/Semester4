@@ -94,7 +94,7 @@ namespace Server
                             }
                             break;
                         case "start":
-                            StartGame();
+                            GenerateGameBoard();
                             string message = "gamestarted";
                             Console.WriteLine($"Sending back {message}");
                             byte[] sendStart = Encoding.ASCII.GetBytes(message);
@@ -211,12 +211,8 @@ namespace Server
             int index = PlayerPositions.Count - 1;
             Player player = new Player(id, index);
             _players.Add(player);
-            return true;
-        }
-        public void StartGame()
-        {
             PlayerPositions.Add(new Position());
-            GenerateGameBoard();
+            return true;
         }
 
 
