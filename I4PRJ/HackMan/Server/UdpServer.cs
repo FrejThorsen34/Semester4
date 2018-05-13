@@ -95,9 +95,9 @@ namespace Server
                             break;
                         case "start":
                             GenerateGameBoard();
-                            Console.WriteLine($"Sending back gameboard");
                             foreach (string s in _converted)
                             {
+                                Console.WriteLine($"Sending back" + s);
                                 byte[] sendStart = Encoding.ASCII.GetBytes(s);
                                 UdpServerClient.Send(sendStart, sendStart.Length, clientEndPoint);
                             }                                                       

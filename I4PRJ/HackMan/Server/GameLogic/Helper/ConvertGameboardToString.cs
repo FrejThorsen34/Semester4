@@ -9,16 +9,14 @@ namespace Server.GameLogic.Helper
 {
     public class ConvertGameboardToString
     {
-        private List<string> _converted;
+        private string _converted;
 
-        public List<string> ConvertGameboard(List<GameField> GameBoard)
+        public string ConvertGameboard(List<GameField> GameBoard)
         {
-            _converted = new List<string>();
-
             foreach (GameField field in GameBoard)
             {
                 string temp = field.TypeToString();
-                _converted.Add(temp);
+                _converted = temp + ";";
             }
 
             return _converted;
