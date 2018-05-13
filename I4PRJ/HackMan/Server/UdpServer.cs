@@ -467,8 +467,9 @@ namespace Server
             foreach (GameField field in GameBoard)
             {
                 string temp = field.TypeToString();
-                _converted = temp + ";";
+                _converted = _converted + temp + ";";
             }
+            _converted = _converted + "end";
 
             return _converted;
         }
