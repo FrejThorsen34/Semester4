@@ -238,28 +238,28 @@ namespace HackMan.Game
             switch (returnMessage)
             {
                 case "moveup":
-                    if (HackManPosition.Row == 0)
-                        return false;
-                    if (GameBoard[HackManPosition.FieldAbove()].Type != FieldType.empty && GameBoard[HackManPosition.FieldAbove()].Type != FieldType.bitcoin)
-                        return false;
+                    //if (HackManPosition.Row == 0)
+                    //    return false;
+                    //if (GameBoard[HackManPosition.FieldAbove()].Type != FieldType.empty && GameBoard[HackManPosition.FieldAbove()].Type != FieldType.bitcoin)
+                    //    return false;
                     return true;
                 case "movedown":
-                    if (HackManPosition.Row == NumberOfRows - 1)
-                        return false;
-                    if (GameBoard[HackManPosition.FieldBelow()].Type != FieldType.empty && GameBoard[HackManPosition.FieldBelow()].Type != FieldType.bitcoin)
-                        return false;
+                    //if (HackManPosition.Row == NumberOfRows - 1)
+                    //    return false;
+                    //if (GameBoard[HackManPosition.FieldBelow()].Type != FieldType.empty && GameBoard[HackManPosition.FieldBelow()].Type != FieldType.bitcoin)
+                    //    return false;
                     return true;
                 case "moveleft":
-                    if (HackManPosition.Column == 0)
-                        return false;
-                    if (GameBoard[HackManPosition.FieldLeft()].Type != FieldType.empty && GameBoard[HackManPosition.FieldLeft()].Type != FieldType.bitcoin)
-                        return false;
+                    //if (HackManPosition.Column == 0)
+                    //    return false;
+                    //if (GameBoard[HackManPosition.FieldLeft()].Type != FieldType.empty && GameBoard[HackManPosition.FieldLeft()].Type != FieldType.bitcoin)
+                    //    return false;
                     return true;
                 case "moveright":
-                    if (HackManPosition.Column == NumberOfColumns - 1)
-                        return false;
-                    if (GameBoard[HackManPosition.FieldRight()].Type != FieldType.empty && GameBoard[HackManPosition.FieldRight()].Type != FieldType.bitcoin)
-                        return false;
+                    //if (HackManPosition.Column == NumberOfColumns - 1)
+                    //    return false;
+                    //if (GameBoard[HackManPosition.FieldRight()].Type != FieldType.empty && GameBoard[HackManPosition.FieldRight()].Type != FieldType.bitcoin)
+                    //    return false;
                     return true;
                 case "no":
                     return false;
