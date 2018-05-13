@@ -356,6 +356,8 @@ namespace HackMan.Game
             Debug.WriteLine("Sending start to server");
             int listCounter = 0;
             string response = _client.Receive();
+            Debug.WriteLine("Response received");
+            Debug.WriteLine(response);
             string[] level = response.Split(';');
             foreach (string s in level)
             {

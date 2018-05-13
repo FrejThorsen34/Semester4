@@ -94,11 +94,11 @@ namespace Server
                             }
                             break;
                         case "start":
+                            Console.WriteLine("Start received");
                             GenerateGameBoard();
                             Console.WriteLine($"Sending back" + _converted);
                             byte[] sendStart = Encoding.ASCII.GetBytes(_converted);
-                            UdpServerClient.Send(sendStart, sendStart.Length, clientEndPoint);
-                                                      
+                            UdpServerClient.Send(sendStart, sendStart.Length, clientEndPoint);                                                     
                             break;
                         case "moveup":
                             if (CanStep(Direction.up, collection[1]))
