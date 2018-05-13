@@ -104,35 +104,35 @@ namespace Server.GameLogic.Model
             switch (Type)
             {
                 case FieldType.bitcoin:
-                    return "bc";
+                    return "b";
                 case FieldType.empty:
-                    return "ep";
+                    return "e";
                 case FieldType.explosion:
-                    return "ex";
+                    return "x";
                 case FieldType.firewall:
-                    return "fw";
+                    return "f";
                 case FieldType.laptop:
-                    return "lp";
+                    return "l";
                 case FieldType.playerdown:
-                    return "pd";
+                    return "1";
                 case FieldType.playerdownlaptop:
-                    return "pdl";
+                    return "2";
                 case FieldType.playerup:
-                    return "pu";
+                    return "3";
                 case FieldType.playeruplaptop:
-                    return "pul";
+                    return "4";
                 case FieldType.playerright:
-                    return "pr";
+                    return "5";
                 case FieldType.playerrightlaptop:
-                    return "prl";
+                    return "6";
                 case FieldType.playerleft:
-                    return "pl";
+                    return "7";
                 case FieldType.playerleftlaptop:
-                    return "pll";
+                    return "8";
                 case FieldType.unbreakable:
-                    return "ub";
+                    return "u";
                 default:
-                    return "ep";
+                    return "e";
             }
         }
         public FieldType Type { get; set; }
