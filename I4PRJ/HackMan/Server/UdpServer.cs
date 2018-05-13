@@ -31,7 +31,7 @@ namespace Server
         UdpClient UdpServerClient;
         IPEndPoint localIpEndPoint;
         IPEndPoint clientEndPoint;
-        private List<string> _converted;
+        private string _converted;
 
         public List<string> Players;
         //Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
@@ -95,12 +95,10 @@ namespace Server
                             break;
                         case "start":
                             GenerateGameBoard();
-                            foreach (string s in _converted)
-                            {
-                                Console.WriteLine($"Sending back" + s);
-                                byte[] sendStart = Encoding.ASCII.GetBytes(s);
-                                UdpServerClient.Send(sendStart, sendStart.Length, clientEndPoint);
-                            }                                                       
+                            Console.WriteLine($"Sending back" + _converted);
+                            byte[] sendStart = Encoding.ASCII.GetBytes(_converted);
+                            UdpServerClient.Send(sendStart, sendStart.Length, clientEndPoint);
+                                                      
                             break;
                         case "moveup":
                             if (CanStep(Direction.up, collection[1]))
@@ -219,7 +217,7 @@ namespace Server
         }
 
 
-        public List<string> GenerateGameBoard()
+        public void GenerateGameBoard()
         {
             String level = Properties.Resources.Level;
             String[] gameBoard = level.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -282,8 +280,7 @@ namespace Server
                 }
                 rowCounter++;
             }
-            ConvertGameboard(GameBoard);
-            return _converted;
+            _converted = ConvertGameboard(GameBoard);
         }
 
         public void MoveHacker(Direction dir, string id)
@@ -465,17 +462,15 @@ namespace Server
             return true;
         }
 
-        public void ConvertGameboard(List<GameField> gameBoard)
+        public string ConvertGameboard(List<GameField> GameBoard)
         {
-            _converted = new List<string>();
-
-            foreach (GameField field in gameBoard)
+            foreach (GameField field in GameBoard)
             {
                 string temp = field.TypeToString();
-                _converted.Add(temp);
+                _converted = temp + ";";
             }
 
-            _converted.Add("end");
+            return _converted;
         }
 
         #endregion
