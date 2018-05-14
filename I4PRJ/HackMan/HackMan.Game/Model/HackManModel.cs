@@ -359,66 +359,66 @@ namespace HackMan.Game
             string response = _client.Receive();
             Debug.WriteLine("Response received");
             Debug.WriteLine(response);
-            string[] level = response.Split(';');
-            foreach (string s in level)
+            char[] level = response.ToCharArray();
+            foreach (char s in level)
             {
-                if (s == "end")
+                if (s == 0)
                     break;
                 switch (s)
                 {
-                    case "e":
+                    case 'e':
                         GameBoard.Add(new GameField { Position = new Position { Column = listCounter % NumberOfColumns, Row = listCounter / NumberOfColumns } });
                         GameBoard[listCounter].SetType(FieldType.empty);
                         break;
-                    case "f":
+                    case 'f':
                         GameBoard.Add(new GameField { Position = new Position { Column = listCounter % NumberOfColumns, Row = listCounter / NumberOfColumns } });
                         GameBoard[listCounter].SetType(FieldType.firewall);
                         break;
-                    case "x":
+                    case 'x':
                         GameBoard.Add(new GameField { Position = new Position { Column = listCounter % NumberOfColumns, Row = listCounter / NumberOfColumns } });
                         GameBoard[listCounter].SetType(FieldType.explosion);
                         break;
-                    case "u":
+                    case 'u':
                         GameBoard.Add(new GameField { Position = new Position { Column = listCounter % NumberOfColumns, Row = listCounter / NumberOfColumns } });
                         GameBoard[listCounter].SetType(FieldType.unbreakable);
                         break;
-                    case "l":
+                    case 'l':
                         GameBoard.Add(new GameField { Position = new Position { Column = listCounter % NumberOfColumns, Row = listCounter / NumberOfColumns } });
                         GameBoard[listCounter].SetType(FieldType.laptop);
                         break;
-                    case "b":
+                    case 'b':
                         GameBoard.Add(new GameField { Position = new Position { Column = listCounter % NumberOfColumns, Row = listCounter / NumberOfColumns } });
                         GameBoard[listCounter].SetType(FieldType.bitcoin);
                         break;
-                    case "3":
+                    case '3':
                         GameBoard.Add(new GameField { Position = new Position { Column = listCounter % NumberOfColumns, Row = listCounter / NumberOfColumns } });
                         GameBoard[listCounter].SetType(FieldType.playerup);
                         break;
-                    case "4":
+                    case '4':
                         GameBoard.Add(new GameField { Position = new Position { Column = listCounter % NumberOfColumns, Row = listCounter / NumberOfColumns } });
                         GameBoard[listCounter].SetType(FieldType.playeruplaptop);
                         break;
-                    case "1":
+                    case '1':
                         GameBoard.Add(new GameField { Position = new Position { Column = listCounter % NumberOfColumns, Row = listCounter / NumberOfColumns } });
                         GameBoard[listCounter].SetType(FieldType.playerdown);
                         break;
-                    case "2":
+                    case '2':
                         GameBoard.Add(new GameField { Position = new Position { Column = listCounter % NumberOfColumns, Row = listCounter / NumberOfColumns } });
                         GameBoard[listCounter].SetType(FieldType.playerdownlaptop);
                         break;
-                    case "7":
+                    case '7':
                         GameBoard.Add(new GameField { Position = new Position { Column = listCounter % NumberOfColumns, Row = listCounter / NumberOfColumns } });
                         GameBoard[listCounter].SetType(FieldType.playerleft);
                         break;
-                    case "8":
+                    case '8':
                         GameBoard.Add(new GameField { Position = new Position { Column = listCounter % NumberOfColumns, Row = listCounter / NumberOfColumns } });
                         GameBoard[listCounter].SetType(FieldType.playerleftlaptop);
                         break;
-                    case "5":
+                    case '5':
                         GameBoard.Add(new GameField { Position = new Position { Column = listCounter % NumberOfColumns, Row = listCounter / NumberOfColumns } });
                         GameBoard[listCounter].SetType(FieldType.playerright);
                         break;
-                    case "6":
+                    case '6':
                         GameBoard.Add(new GameField { Position = new Position { Column = listCounter % NumberOfColumns, Row = listCounter / NumberOfColumns } });
                         GameBoard[listCounter].SetType(FieldType.playerrightlaptop);
                         break;
