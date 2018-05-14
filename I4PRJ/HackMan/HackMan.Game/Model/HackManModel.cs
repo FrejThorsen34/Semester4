@@ -355,6 +355,7 @@ namespace HackMan.Game
             Debug.WriteLine("Generate GameBoard called");
             Debug.WriteLine("Sending start to server");
             int listCounter = 0;
+            _client.Send("start");
             string response = _client.Receive();
             Debug.WriteLine("Response received");
             Debug.WriteLine(response);
