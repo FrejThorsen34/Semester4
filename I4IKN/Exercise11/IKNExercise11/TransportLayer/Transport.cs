@@ -161,9 +161,6 @@ namespace TransportLayer
             // Receive size
             recvSize = link.receive(ref buffer);
 
-
-
-
             return 0;
         }
     }

@@ -42,11 +42,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="file_server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LinkLayer\LinkLayer.csproj">
+      <Project>{201eca09-dce7-4196-8ca8-1287eda61b60}</Project>
+      <Name>LinkLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TransportLayer\TransportLayer.csproj">
+      <Project>{e8ca3aed-4792-40a4-aa24-93e8bb1269b4}</Project>
+      <Name>TransportLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
