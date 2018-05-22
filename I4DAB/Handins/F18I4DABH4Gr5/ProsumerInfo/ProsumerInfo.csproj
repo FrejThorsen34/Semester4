@@ -206,6 +206,10 @@
     <Compile Include="Migrations\201805221049062_Initial.Designer.cs">
       <DependentUpon>201805221049062_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805221250375_AllProsumers.cs" />
+    <Compile Include="Migrations\201805221250375_AllProsumers.Designer.cs">
+      <DependentUpon>201805221250375_AllProsumers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Identity.cs" />
     <Compile Include="Models\Prosumer.cs" />
@@ -283,6 +287,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805221049062_Initial.resx">
       <DependentUpon>201805221049062_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805221250375_AllProsumers.resx">
+      <DependentUpon>201805221250375_AllProsumers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
