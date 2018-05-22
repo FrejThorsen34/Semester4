@@ -191,6 +191,7 @@
     </Compile>
     <Compile Include="Models\Identity.cs" />
     <Compile Include="Models\Prosumer.cs" />
+    <Compile Include="Models\ProsumerInfoContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
