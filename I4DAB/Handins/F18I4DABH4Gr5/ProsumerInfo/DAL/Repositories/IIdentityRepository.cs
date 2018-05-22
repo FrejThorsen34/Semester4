@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProsumerInfo.Models;
 
 namespace ProsumerInfo.DAL.Repositories
 {
-	interface IIdentityRepository
+	public interface IIdentityRepository : IRepository<Identity>
 	{
 	}
 }
