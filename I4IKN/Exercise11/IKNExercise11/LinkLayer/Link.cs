@@ -16,11 +16,11 @@ namespace LinkLayer
         /// <summary>
         /// The buffer for link.
         /// </summary>
-        private byte[] buffer;
+        private byte[] _buffer;
         /// <summary>
         /// The serial port.
         /// </summary>
-        SerialPort serialPort;
+        private SerialPort _serialPort;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="link"/> class.
@@ -31,123 +31,101 @@ namespace LinkLayer
             #if DEBUG
             if (APP.Equals("FILE_SERVER"))
             {
-                serialPort = new SerialPort("/dev/ttyS1", 115200, Parity.None, 8, StopBits.One);
+                _serialPort = new SerialPort("/dev/ttyS1", 115200, Parity.None, 8, StopBits.One);
             }
             else
             {
-                serialPort = new SerialPort("/dev/ttyS1", 115200, Parity.None, 8, StopBits.One);
+                _serialPort = new SerialPort("/dev/ttyS1", 115200, Parity.None, 8, StopBits.One);
             }
             #else
 				serialPort = new SerialPort("/dev/ttyS1",115200,Parity.None,8,StopBits.One);
             #endif
-            if (!serialPort.IsOpen)
-                serialPort.Open();
+            if (!_serialPort.IsOpen)
+                _serialPort.Open();
 
-            buffer = new byte[(BUFSIZE * 2)];
+            _buffer = new byte[(BUFSIZE * 2)];
 
             // Uncomment the next line to use timeout
             //serialPort.ReadTimeout = 500;
 
-            serialPort.DiscardInBuffer();
-            serialPort.DiscardOutBuffer();
+            _serialPort.DiscardInBuffer();
+            _serialPort.DiscardOutBuffer();
         }
 
-        public void send(byte[] buf, int size)
+        /// <summary>
+        /// Send the specified buf and size.
+        /// </summary>
+        /// <param name='buf'>
+        /// Buffer.
+        /// </param>
+        /// <param name='size'>
+        /// Size.
+        /// </param>
+        public void Send(byte[] buf, int size)
         {
             // TO DO Your own code
-            //padding for extra chars, min 2 for Frame start/end
-            int padding = 2;
+            // Data to write list initializer
+            var sendList = new List<byte> {DELIMITER};
 
-            //Adds padding foreach A and B char in the buffer
+            // For each byte, add BC if A and BD if B.
             for (int i = 0; i < size; i++)
             {
-                if (buf[i] == Convert.ToByte('A') || buf[i] == Convert.ToByte('B'))
+                switch (buf[i])
                 {
-                    padding++;
+                    case (byte)'A':
+                        sendList.Add((byte)'B');
+                        sendList.Add((byte)'C');
+                        break;
+                    case (byte)'B':
+                        sendList.Add((byte)'B');
+                        sendList.Add((byte)'D');
+                        break;
+                    default:
+                        sendList.Add(buf[i]);
+                        break;
                 }
             }
-
-            buffer[0] = Convert.ToByte('A');
-            buffer[size + padding - 1] = Convert.ToByte('A');
-
-            //offset
-            int offset = 1;
-
-            for (int i = 0; i < size; i++)
-            {
-                if (buf[i] != Convert.ToByte('A') && buf[i] != Convert.ToByte('B'))
-                {
-                    buffer[i + offset] = buf[i];
-                }
-                else if (buf[i] == Convert.ToByte('A'))
-                {
-                    buffer[i + offset] = Convert.ToByte('B');
-                    buffer[i + offset + 1] = Convert.ToByte('C');
-                    offset++;
-                }
-                else if (buf[i] == Convert.ToByte('B'))
-                {
-                    buffer[i + offset] = Convert.ToByte('B');
-                    buffer[i + offset + 1] = Convert.ToByte('D');
-                    offset++;
-                }
-                else
-                {
-                    throw new Exception("Error in converting send message in Link-layer");
-                }
-
-                serialPort.Write(buffer, 0, size + padding);
-
-            }
-
+            // Add the delimiter to the end, and write to serialport
+            sendList.Add(DELIMITER);
+            _serialPort.Write(sendList.ToArray(), 0, sendList.Count);
         }
 
-        public int receive(ref byte[] buf)
+        public int Receive(ref byte[] buf)
         {
             // TO DO Your own code
-            int bytesRead = 0;
-            byte readByte = 0;
+            int read = _serialPort.Read(_buffer, 0, _buffer.Length);
+            int index = 0;
 
-            while (readByte != Convert.ToByte('A'))
+            //Check for delimiter
+            if (_buffer[0] != DELIMITER)
+                return -1;
+
+            for (int i = 1; i < read; i++)
             {
-                readByte = Convert.ToByte(serialPort.ReadByte());
-            }
-
-            do
-            {
-                readByte = Convert.ToByte(serialPort.ReadByte());
-                buffer[bytesRead] = readByte;
-                bytesRead++;
-
-
-            } while (readByte != Convert.ToByte('A'));
-
-            int offset = 0;
-
-            for (int i = 0; i < bytesRead - 1; i++)
-            {
-                if (buffer[i + offset] != Convert.ToByte('B') && buffer[i + offset + 1] != Convert.ToByte('C') ||
-                    buffer[i + offset + 1] == Convert.ToByte('D'))
+                switch (_buffer[i])
                 {
-                    buf[i] = buffer[i + offset];
-                }
-                else if (buffer[i + offset] == Convert.ToByte('B') && buffer[i + offset + 1] == Convert.ToByte('C'))
-                {
-                    buf[i] = Convert.ToByte('A');
-                    offset++;
-                }
-                else if (buffer[i + offset] == Convert.ToByte('B') && buffer[i + offset + 1] == Convert.ToByte('D'))
-                {
-                    buf[i] = Convert.ToByte('B');
-                    offset++;
-                }
-                else
-                {
-                    throw new Exception("Error in converting received message in Link-layer");
+                    case (byte)'B':
+                        if (_buffer[i + 1] == 'C')
+                        {
+                            buf[index++] = (byte) 'A';
+                            i++;
+                            break;
+                        }
+                        else
+                        {
+                            buf[index++] = (byte) 'B';
+                            i++;
+                            break;
+                        }
+                    case DELIMITER:
+                        break;
+                    default:
+                        buf[index++] = _buffer[i];
+                        break;
                 }
             }
 
-            return bytesRead - offset - 1;
+            return index;
         }
     }
 }
