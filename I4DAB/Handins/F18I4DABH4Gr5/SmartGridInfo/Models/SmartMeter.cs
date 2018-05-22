@@ -12,6 +12,6 @@ namespace SmartGridInfo.Models
 		public string SerialNumber { get; set; }
 		public string ProsumerId { get; set; }
 		//Virtual??
-		public Connection[] Connections { get; set; }
+		public virtual ICollection<Connection> Connections { get; set; }
 	}
 }

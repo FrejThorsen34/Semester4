@@ -179,6 +179,13 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DAL\IRepository.cs" />
+    <Compile Include="DAL\Repositories\IdentityRepository.cs" />
+    <Compile Include="DAL\Repositories\IIdentityRepository.cs" />
+    <Compile Include="DAL\Repositories\IProsumerRepository.cs" />
+    <Compile Include="DAL\Repositories\ProsumerRepository.cs" />
+    <Compile Include="DAL\Repository.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
