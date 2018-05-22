@@ -100,20 +100,24 @@ namespace LinkLayer
             if (_buffer[0] != DELIMITER)
                 return -1;
 
+            //Check for Delimiter, B (and in that case check for BC or BD), and handle default.
             for (int i = 1; i < read; i++)
             {
                 switch (_buffer[i])
                 {
+                    // If B, check for BC or BD
                     case (byte)'B':
                         if (_buffer[i + 1] == 'C')
                         {
                             buf[index++] = (byte) 'A';
+                            //Iterate one forward as the next one is a C
                             i++;
                             break;
                         }
                         else
                         {
                             buf[index++] = (byte) 'B';
+                            //Iterate one forward as the next one is a D
                             i++;
                             break;
                         }
