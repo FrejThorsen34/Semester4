@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using ProsumerInfo.DAL.Repositories;
+using ProsumerInfo.Models;
 
 namespace ProsumerInfo.DAL
 {
@@ -11,7 +12,7 @@ namespace ProsumerInfo.DAL
 	{
 		public ProsumerInfoContext Context { get; set; }
 		public IProsumerRepository ProsumerRepository { get; set; }
-		public IdentityRepository IdentityRepository { get; set; }
+		public IIdentityRepository IdentityRepository { get; set; }
 
 		public UnitOfWork(ProsumerInfoContext context)
 		{
