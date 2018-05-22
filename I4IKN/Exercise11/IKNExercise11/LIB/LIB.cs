@@ -9,10 +9,6 @@ namespace LIB
 {
     public class LIB
     {
-        private LIB()
-        {
-        }
-
         /// <summary>
         /// Extracts the name of the file.
         /// </summary>
@@ -26,7 +22,6 @@ namespace LIB
         {
             return (fileName.LastIndexOf('/') == 0 ? fileName : fileName.Substring(fileName.LastIndexOf('/') + 1));
         }
-
 
         /// <summary>
         /// Check_s the file_ exists.

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,48 +12,21 @@ namespace file_server
     class file_server
     {
         /// <summary>
-        /// The PORT
+        /// The BUFSIZE.
         /// </summary>
-        const int PORT = 9000;
+        private const int BUFSIZE = 1000;
+        private const string APP = "FILE_CLIENT";
         /// <summary>
-        /// The BUFSIZE
+        /// The transportlayer.
         /// </summary>
-        const int BUFSIZE = 1000;
-        /// <summary>
-        /// The Filename
-        /// </summary>
-        string fileName { get; set; }
+        private Transport _transport = new Transport(BUFSIZE, APP);
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="file_server"/> class.
+        /// </summary>
         private file_server()
         {
-            var size = 0;
-            Console.WriteLine(" >> Server Started");
-            Link link = new Link(1000, "FILE_SERVER");
-
-            while (true)
-            {
-
-                Console.WriteLine(" >> Accept connection from NEW client");
-
-                size = 0;
-
-                do
-                {
-
-                    //reads filename from client
-                    //size = LIB.check_File_Exists (fileName); //checks if file exist
-                    //Send size to client
-                    String test = "0101AFBGA"; // ABCFBDGBCA
-                    byte[] toSend = Encoding.ASCII.GetBytes(test);
-                    link.send(toSend, toSend.Length);
-                    size = 1;
-
-                } while (size == 0); //Check if file exist 
-
-
-                Console.WriteLine(" >> Connection closed with THIS client");
-                break;
-            }
+            // TO DO Your own code
         }
 
         /// <summary>
@@ -64,17 +38,40 @@ namespace file_server
         /// <param name='fileSize'>
         /// File size.
         /// </param>
-        /// <param name='tl'>
-        /// Tl.
+        /// <param name='transport'>
+        /// Transportlaget.
         /// </param>
         private void sendFile(String fileName, long fileSize, Transport transport)
         {
             // TO DO Your own code
+
+            // Reading the file on server side, so need to Open and Read
+            FileStream file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+
+            // Sending in chunks of 1000 bytes untill theres nothing more to send.
+            byte[] bufSize = new byte[BUFSIZE];
+            int total = file.Read(bufSize, 0, bufSize.Length);
+
+            Console.WriteLine("Sending file...");
+
+            while (total > 0)
+            {
+                _transport.Send(bufSize, total);
+                total = file.Read(bufSize, 0, bufSize.Length);
+            }
+
+            Console.WriteLine("File sent!");
         }
-        static void Main(string[] args)
+
+        /// <summary>
+        /// The entry point of the program, where the program control starts and ends.
+        /// </summary>
+        /// <param name='args'>
+        /// The command-line arguments.
+        /// </param>
+        public static void Main(string[] args)
         {
-            Console.WriteLine("Server starts...");
-            var myserver = new file_server();
+            new file_server();
         }
     }
 }
