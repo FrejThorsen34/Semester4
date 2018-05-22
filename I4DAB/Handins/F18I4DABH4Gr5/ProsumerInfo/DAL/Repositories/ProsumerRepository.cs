@@ -8,7 +8,7 @@ namespace ProsumerInfo.DAL.Repositories
 {
 	public class ProsumerRepository : Repository<Prosumer>, IProsumerRepository
 	{
-	    public ProsumerRepository(ProsumerInfoContet context) : base(context)
+	    public ProsumerRepository(ProsumerInfoContext context) : base(context)
 	    {
 
 	    }
