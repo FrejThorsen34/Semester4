@@ -28,7 +28,7 @@ namespace ProsumerInfo.Migrations
 	        var identity1 = new Identity() { Id = $"1", Name = $"husstand1", Type = "bolig", Address = $"Vej1, SmartVillage" };
 			*/
 			
-
+			/*
 	        Identity[] identities = new Identity[47];
 
 	        for (int i = 1; i < 34; i++)
@@ -79,7 +79,7 @@ namespace ProsumerInfo.Migrations
 			}
 
 	        context.Prosumers.AddOrUpdate(x => x.Id, prosumers);
-
+			*/
         }
 	}
 }
