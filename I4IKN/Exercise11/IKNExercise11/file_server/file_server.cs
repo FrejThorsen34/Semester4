@@ -94,7 +94,8 @@ namespace file_server
         /// </param>
         public static void Main(string[] args)
         {
-            new file_server();
+            while(true)
+                new file_server();
         }
     }
 }
