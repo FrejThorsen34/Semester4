@@ -27,6 +27,29 @@ namespace file_server
         private file_server()
         {
             // TO DO Your own code
+
+            // Initial
+            Console.WriteLine("Ready for client command...");
+            byte[] filename = new byte[BUFSIZE];
+
+            // Receive
+            int size = _transport.Receive(ref filename);
+
+            long fileSize = LIB.LIB.check_File_Exists(Encoding.ASCII.GetString(filename).Substring(0, size));
+
+            if (fileSize == 0)
+            {
+                Console.WriteLine("Requested file does not exist");
+                
+                _transport.Send(Encoding.ASCII.GetBytes(fileSize.ToString()), Encoding.ASCII.GetBytes(fileSize.ToString()).Length);
+            }
+            else
+            {
+                Console.WriteLine($"Requested file is found, size: {fileSize}");
+                
+                _transport.Send(Encoding.ASCII.GetBytes(fileSize.ToString()), Encoding.ASCII.GetBytes(fileSize.ToString()).Length);
+                sendFile(Encoding.ASCII.GetString(filename).Substring(0, size), fileSize, _transport);
+            }
         }
 
         /// <summary>
