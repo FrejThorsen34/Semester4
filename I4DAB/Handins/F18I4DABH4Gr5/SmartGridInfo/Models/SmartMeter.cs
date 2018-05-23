@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
@@ -8,10 +9,9 @@ namespace SmartGridInfo.Models
 {
 	public class SmartMeter
 	{
-		//SerialNumber is id
+		[Key]
 		public string SerialNumber { get; set; }
 		public string ProsumerId { get; set; }
-		//Virtual??
 		public virtual ICollection<Connection> Connections { get; set; }
 	}
 }
