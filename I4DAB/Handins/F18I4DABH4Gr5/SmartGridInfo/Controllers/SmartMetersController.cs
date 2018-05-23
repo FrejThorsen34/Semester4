@@ -36,8 +36,8 @@ namespace SmartGridInfo.Controllers
         [ResponseType(typeof(SmartMeter))]
         public async Task<IHttpActionResult> GetSmartMeter(string id)
         {
-            SmartMeter smartMeter = await db.SmartMeters.FindAsync(id);
-            if (smartMeter == null)
+            SmartMeterDTO smartMeter = new SmartMeterDTO(await db.SmartMeters.FindAsync(id));
+            if (smartMeter.SerialNumber == null)
             {
                 return NotFound();
             }
@@ -46,6 +46,7 @@ namespace SmartGridInfo.Controllers
         }
 
         // PUT: api/SmartMeters/5
+		/*
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutSmartMeter(string id, [FromBody]SmartMeter smartMeter)
         {
@@ -110,6 +111,7 @@ namespace SmartGridInfo.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = smartMeter.SerialNumber }, smartMeter);
         }
+		*/
 
         // DELETE: api/SmartMeters/5
         [ResponseType(typeof(SmartMeter))]

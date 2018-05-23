@@ -20,17 +20,24 @@ namespace SmartGridInfo.Controllers
 	    private readonly IUnitOfWork _uow = new UnitOfWork(db);
 
 		// GET: api/Connections
-		public async Task<IEnumerable<Connection>> GetConnections()
-		{
-			return await _uow.ConnectionRepository.GetAllAsync();
-		}
+	    public IEnumerable<ConnectionDTO> GetConnections()
+	    {
+		    var connectionList = new List<ConnectionDTO>();
 
-        // GET: api/Connections/5
-        [ResponseType(typeof(Connection))]
+		    foreach (var c in db.Connections)
+		    {
+			    connectionList.Add(new ConnectionDTO(c));
+		    }
+
+		    return connectionList;
+	    }
+
+	    // GET: api/Connections/5
+		[ResponseType(typeof(Connection))]
         public async Task<IHttpActionResult> GetConnection(string id)
         {
-            Connection connection = await db.Connections.FindAsync(id);
-            if (connection == null)
+            ConnectionDTO connection = new ConnectionDTO(await db.Connections.FindAsync(id));
+            if (connection.Id == null)
             {
                 return NotFound();
             }
@@ -38,6 +45,7 @@ namespace SmartGridInfo.Controllers
             return Ok(connection);
         }
 
+		/*
         // PUT: api/Connections/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutConnection(string id, [FromBody]Connection connection)
@@ -104,6 +112,7 @@ namespace SmartGridInfo.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = connection.Id }, connection);
         }
+		*/
 
         // DELETE: api/Connections/5
         [ResponseType(typeof(Connection))]
