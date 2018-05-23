@@ -14,11 +14,11 @@ namespace SmartGridInfo.Models
 			SerialNumber = smartMeter.SerialNumber;
 			ProsumerId = smartMeter.ProsumerId;
 			Connections = new List<string>();
+
 			foreach (var c in smartMeter.Connections)
 			{
 				Connections.Add(c.Id);
 			}
-
 		}
 
 		public string SerialNumber { get; set; }

@@ -22,13 +22,14 @@ namespace SmartGridInfo.Controllers
         // GET: api/SmartMeters
         public IEnumerable<SmartMeterDTO> GetSmartMeters()
         {
-	        var listSmartMeters = new List<SmartMeterDTO>();
-	        foreach (var sm in db.SmartMeters)
-	        {
-		        listSmartMeters.Add(new SmartMeterDTO(sm));
+			var smartMeterList = new List<SmartMeterDTO>();
+
+			foreach (var sm in db.SmartMeters)
+			{
+				smartMeterList.Add(new SmartMeterDTO(sm));
 	        }
 
-	        return listSmartMeters;
+	        return smartMeterList;
         }
 
         // GET: api/SmartMeters/5
