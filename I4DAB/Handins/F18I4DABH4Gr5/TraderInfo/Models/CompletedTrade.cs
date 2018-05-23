@@ -18,8 +18,9 @@ namespace TraderInfo.Models
         public double Tokens { get; set; }
 	    [JsonProperty(PropertyName = "Exchangerate", Required = Required.AllowNull)]
         public double ExchangeRate { get; set; }
-
-	    public override string ToString()
+		[JsonProperty(PropertyName = "TimeOfTrade", Required = Required.AllowNull)]
+		public DateTime TimeOfTrade { get; set; }
+		public override string ToString()
 	    {
 	        return JsonConvert.SerializeObject(this);
 	    }

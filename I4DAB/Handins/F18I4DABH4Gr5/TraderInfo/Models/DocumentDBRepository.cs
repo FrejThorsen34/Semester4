@@ -18,15 +18,17 @@ namespace TraderInfo.Models
     public static class DocumentDBRepository<T> where T : class
     {
         private static readonly string DatabaseId = ConfigurationManager.AppSettings["database"];
-        private static readonly string CollectionId = ConfigurationManager.AppSettings["collection"];
-        private static DocumentClient client;
+        private static readonly string Collection1Id = ConfigurationManager.AppSettings["collection1"];
+	    private static readonly string Collection2Id = ConfigurationManager.AppSettings["collection2"];
+		private static DocumentClient client;
 
         public static void Initialize()
         {
             client = new DocumentClient(new Uri(ConfigurationManager.AppSettings["endpoint"]), ConfigurationManager.AppSettings["authKey"]);
             CreateDatabaseIfNotExistsAsync().Wait();
-            CreateCollectionIfNotExistsAsync().Wait();
-        }
+            CreateCollection1IfNotExistsAsync().Wait();
+	        CreateCollection2IfNotExistsAsync().Wait();
+		}
 
         private static async Task CreateDatabaseIfNotExistsAsync()
         {
@@ -47,20 +49,20 @@ namespace TraderInfo.Models
             }
         }
 
-        private static async Task CreateCollectionIfNotExistsAsync()
+        private static async Task CreateCollection1IfNotExistsAsync()
         {
             try
             {
-                await client.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId));
-            }
+                await client.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, Collection1Id));
+			}
             catch (DocumentClientException e)
             {
                 if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
                     await client.CreateDocumentCollectionAsync(
                         UriFactory.CreateDatabaseUri(DatabaseId),
-                        new DocumentCollection { Id = CollectionId },
-                        new RequestOptions { OfferThroughput = 1000 });
+                        new DocumentCollection { Id = Collection1Id },
+						new RequestOptions { OfferThroughput = 1000 });
                 }
                 else
                 {
@@ -69,10 +71,32 @@ namespace TraderInfo.Models
             }
         }
 
-        public static async Task<IEnumerable<T>> Read(Expression<Func<T, bool>> predicate)
+	    private static async Task CreateCollection2IfNotExistsAsync()
+	    {
+		    try
+		    {
+			    await client.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, Collection2Id));
+		    }
+		    catch (DocumentClientException e)
+		    {
+			    if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
+			    {
+				    await client.CreateDocumentCollectionAsync(
+					    UriFactory.CreateDatabaseUri(DatabaseId),
+					    new DocumentCollection { Id = Collection2Id },
+					    new RequestOptions { OfferThroughput = 1000 });
+			    }
+			    else
+			    {
+				    throw;
+			    }
+		    }
+	    }
+
+		public static async Task<IEnumerable<T>> ReadFutureTrade(Expression<Func<T, bool>> predicate)
         {
             IDocumentQuery<T> query = client.CreateDocumentQuery<T>(
-                    UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId))
+                    UriFactory.CreateDocumentCollectionUri(DatabaseId, Collection1Id))
                 .Where(predicate)
                 .AsDocumentQuery();
 
@@ -84,12 +108,27 @@ namespace TraderInfo.Models
 
             return results;
         }
+	    public static async Task<IEnumerable<T>> ReadCompletedTrade(Expression<Func<T, bool>> predicate)
+	    {
+		    IDocumentQuery<T> query = client.CreateDocumentQuery<T>(
+				    UriFactory.CreateDocumentCollectionUri(DatabaseId, Collection2Id))
+			    .Where(predicate)
+			    .AsDocumentQuery();
 
-        public static async Task<IHttpActionResult> Update(CompletedTrade completedTrade)
+		    List<T> results = new List<T>();
+		    while (query.HasMoreResults)
+		    {
+			    results.AddRange(await query.ExecuteNextAsync<T>());
+		    }
+
+		    return results;
+	    }
+
+		public static async Task<IHttpActionResult> Update(CompletedTrade completedTrade)
         {
             try
             {
-                await client.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, completedTrade.Id), completedTrade);
+                await client.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, Collection2Id, completedTrade.Id), completedTrade);
                 return new OkResult(new HttpRequestMessage());
             }
             catch (Exception)
@@ -102,7 +141,7 @@ namespace TraderInfo.Models
         {
             try
             {
-                await client.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, futureTrade.Id), futureTrade);
+                await client.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, Collection1Id, futureTrade.Id), futureTrade);
                 return new OkResult(new HttpRequestMessage());
             }
             catch (Exception)
@@ -115,14 +154,14 @@ namespace TraderInfo.Models
         {
             try
             {
-                await client.ReadDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, completedTrade.Id));
+                await client.ReadDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, Collection2Id, completedTrade.Id));
                 return new BadRequestResult(new HttpRequestMessage());
             }
             catch (DocumentClientException e)
             {
                 if (e.StatusCode == HttpStatusCode.NotFound)
                 {
-                    await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId), completedTrade);
+                    await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, Collection2Id), completedTrade);
                     return new OkResult(new HttpRequestMessage());
                 }
 
@@ -134,14 +173,14 @@ namespace TraderInfo.Models
         {
             try
             {
-                await client.ReadDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, futureTrade.Id));
+                await client.ReadDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, Collection1Id, futureTrade.Id));
                 return new BadRequestResult(new HttpRequestMessage());
             }
             catch (DocumentClientException e)
             {
                 if (e.StatusCode == HttpStatusCode.NotFound)
                 {
-                    await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId), futureTrade);
+                    await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, Collection1Id), futureTrade);
                     return new OkResult(new HttpRequestMessage());
                 }
 
@@ -149,11 +188,11 @@ namespace TraderInfo.Models
             }
         }
 
-        public static async Task<IHttpActionResult> Delete(string id)
+        public static async Task<IHttpActionResult> DeleteFutureTrade(string id)
         {
             try
             {
-                await client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, id));
+                await client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, Collection1Id, id));
                 return new OkResult(new HttpRequestMessage());
             }
             catch (Exception)
@@ -161,5 +200,18 @@ namespace TraderInfo.Models
                 return new NotFoundResult(new HttpRequestMessage());
             }
         }
-    }
+
+	    public static async Task<IHttpActionResult> DeleteCompletedTrade(string id)
+	    {
+		    try
+		    {
+			    await client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, Collection2Id, id));
+			    return new OkResult(new HttpRequestMessage());
+		    }
+		    catch (Exception)
+		    {
+			    return new NotFoundResult(new HttpRequestMessage());
+		    }
+	    }
+	}
 }
