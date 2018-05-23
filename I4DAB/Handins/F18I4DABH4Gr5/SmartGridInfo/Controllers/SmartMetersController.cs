@@ -9,18 +9,20 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using SmartGridInfo.DAL;
 using SmartGridInfo.Models;
 
 namespace SmartGridInfo.Controllers
 {
     public class SmartMetersController : ApiController
     {
-        private SmartGridInfoContext db = new SmartGridInfoContext();
+	    private static readonly SmartGridInfoContext db = new SmartGridInfoContext();
+		private readonly IUnitOfWork _uow = new UnitOfWork(db);
 
         // GET: api/SmartMeters
-        public IQueryable<SmartMeter> GetSmartMeters()
+        public async Task<IEnumerable<SmartMeter>> GetSmartMeters()
         {
-            return db.SmartMeters;
+	        return await _uow.SmartMeterRepository.GetAllAsync();
         }
 
         // GET: api/SmartMeters/5
@@ -38,7 +40,7 @@ namespace SmartGridInfo.Controllers
 
         // PUT: api/SmartMeters/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutSmartMeter(string id, SmartMeter smartMeter)
+        public async Task<IHttpActionResult> PutSmartMeter(string id, [FromBody]SmartMeter smartMeter)
         {
             if (!ModelState.IsValid)
             {
@@ -54,7 +56,8 @@ namespace SmartGridInfo.Controllers
 
             try
             {
-                await db.SaveChangesAsync();
+	            await _uow.SmartMeterRepository.UpdateAsync(smartMeter, id);
+	            await _uow.SaveAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -73,7 +76,7 @@ namespace SmartGridInfo.Controllers
 
         // POST: api/SmartMeters
         [ResponseType(typeof(SmartMeter))]
-        public async Task<IHttpActionResult> PostSmartMeter(SmartMeter smartMeter)
+        public async Task<IHttpActionResult> PostSmartMeter([FromBody]SmartMeter smartMeter)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +87,7 @@ namespace SmartGridInfo.Controllers
 
             try
             {
-                await db.SaveChangesAsync();
+	            await _uow.SaveAsync();
             }
             catch (DbUpdateException)
             {
@@ -111,12 +114,15 @@ namespace SmartGridInfo.Controllers
                 return NotFound();
             }
 
+	        db.Connections.RemoveRange(smartMeter.Connections);
             db.SmartMeters.Remove(smartMeter);
-            await db.SaveChangesAsync();
+	        await _uow.SaveAsync();
+            //await db.SaveChangesAsync();
 
             return Ok(smartMeter);
         }
 
+		/*
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -125,6 +131,7 @@ namespace SmartGridInfo.Controllers
             }
             base.Dispose(disposing);
         }
+		*/
 
         private bool SmartMeterExists(string id)
         {

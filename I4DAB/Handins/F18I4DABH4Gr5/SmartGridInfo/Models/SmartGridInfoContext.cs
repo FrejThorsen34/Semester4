@@ -16,11 +16,11 @@ namespace SmartGridInfo.Models
         public DbSet<SmartGridInfo.Models.SmartMeter> SmartMeters { get; set; }
         public DbSet<SmartGridInfo.Models.Connection> Connections { get; set; }
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<SmartMeter>()
-        //        .HasRequired(c => c.Connections)
-        //        .WithMany(sm => sm.SmartMeter);
-        //}
-    }
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<SmartMeter>()
+				.HasMany(c => c.Connections)
+				.WithMany(sm => sm.SmartMeters);
+		}
+	}
 }
