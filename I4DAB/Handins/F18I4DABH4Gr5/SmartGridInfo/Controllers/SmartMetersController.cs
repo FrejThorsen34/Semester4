@@ -20,9 +20,15 @@ namespace SmartGridInfo.Controllers
 		private readonly IUnitOfWork _uow = new UnitOfWork(db);
 
         // GET: api/SmartMeters
-        public async Task<IEnumerable<SmartMeter>> GetSmartMeters()
+        public IEnumerable<SmartMeterDTO> GetSmartMeters()
         {
-	        return await _uow.SmartMeterRepository.GetAllAsync();
+	        var listSmartMeters = new List<SmartMeterDTO>();
+	        foreach (var sm in db.SmartMeters)
+	        {
+		        listSmartMeters.Add(new SmartMeterDTO(sm));
+	        }
+
+	        return listSmartMeters;
         }
 
         // GET: api/SmartMeters/5

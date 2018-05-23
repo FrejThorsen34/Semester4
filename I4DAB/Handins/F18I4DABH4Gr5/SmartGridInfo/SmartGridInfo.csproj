@@ -207,6 +207,10 @@
     <Compile Include="Migrations\201805230947249_initial.Designer.cs">
       <DependentUpon>201805230947249_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805231112440_test.cs" />
+    <Compile Include="Migrations\201805231112440_test.Designer.cs">
+      <DependentUpon>201805231112440_test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Connection.cs" />
     <Compile Include="Models\ConnectionDTO.cs" />
@@ -286,6 +290,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805230947249_initial.resx">
       <DependentUpon>201805230947249_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805231112440_test.resx">
+      <DependentUpon>201805231112440_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

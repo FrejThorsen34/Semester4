@@ -6,14 +6,16 @@ using Newtonsoft.Json;
 
 namespace SmartGridInfo.Models
 {
-	public class Connection
+	public partial class Connection
 	{
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+		public Connection()
+		{
+			SmartMeters = new HashSet<SmartMeter>();
+		}
 		public string Id { get; set; }
-		//Foreign Key
-		//public string SerialNumber1 { get; set; }
-		//Foreign Key
-		//public string SerialNumber2 { get; set; }
-		public virtual ICollection<SmartMeter> SmartMeters { get; set; }
 		public double Distance { get; set; }
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+		public virtual ICollection<SmartMeter> SmartMeters { get; set; }
 	}
 }
