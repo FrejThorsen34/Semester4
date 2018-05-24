@@ -40,19 +40,23 @@ namespace ProsumerInfo.Controllers
 
         // PUT: api/Prosumers/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutProsumer(string id, [FromBody]Prosumer prosumer)
+        public async Task<IHttpActionResult> PutProsumer(string id, double production, double consumption)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != prosumer.Id)
-            {
-                return BadRequest();
-            }
+	        Prosumer prosumer = await db.Prosumers.FindAsync(id);
+	        if (prosumer == null)
+	        {
+		        return BadRequest();
+			}
 
             db.Entry(prosumer).State = EntityState.Modified;
+	        prosumer.Production = production;
+	        prosumer.Consumption = consumption;
+	        prosumer.Balance = production - consumption;
 
             try
             {
